@@ -80,13 +80,19 @@
 		<div class="row">
 		    <!-- filtro -->
 		  <div class="col-md-12">
-		  <h3><p class="glyphicon glyphicon-usd"></p>Lista de Compras</h3>
+		 
+		  	<h3>
+		  		<p class="glyphicon glyphicon-usd">
+		  		Lista de Compras
+		  		<p>
+		  		
+		  	</h3>
 			
 			<form action="<%=request.getContextPath()%>/pdv" method="POST">
 			  
 			  <div class="col-md-12">
                         <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable">
+                            <table class="table table-striped table-bordered table-hover" id="dataTable">
                                 <thead>
                                     <tr>
                                         <th>Código</th>
@@ -110,8 +116,9 @@
 		  <div class="col-md-8">
 		  	<div id="detalheFilme"></div>
 		  </div>
+		  </form>
 		</div>
-        
+        </div>
     </div>
 
       <footer class="footer">

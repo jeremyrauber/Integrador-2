@@ -46,6 +46,7 @@ public class DaoEntity<ID, T> {
 			em.getTransaction().commit();
 		}
 		
+		@SuppressWarnings("unchecked")
 		public List<T> findAll(){	
 			Query q = em.createQuery("from " +clazz.getSimpleName()+" tb ");  //nome da Classe!! ( com C MAIUSCULO! )
 			return q.getResultList();
@@ -57,6 +58,7 @@ public class DaoEntity<ID, T> {
 			return em.find(clazz,id);
 		}
 		
+		@SuppressWarnings("unchecked")
 		public ID findLastId() {
 			
 			Query q = em.createNativeQuery("select max(codigo) from "+clazz.getSimpleName());
@@ -64,6 +66,7 @@ public class DaoEntity<ID, T> {
 			return (ID) q.getSingleResult();
 		}
 		
+		@SuppressWarnings("unchecked")
 		public ID findOrcLastId() {
 			
 			Query q = em.createNativeQuery("select max(sequencial) from "+clazz.getSimpleName());
@@ -76,11 +79,12 @@ public class DaoEntity<ID, T> {
 			return em.find(clazz,nome);
 		}
 		
+		@SuppressWarnings("unchecked")
 		public ID geraSenquencial(){
 			
 			Query q = em.createNativeQuery("select sequencial from gerasequencialgen");
 			
-			return (ID) q.getSingleResult();
+			return ((ID) q.getSingleResult());
 		}
 		
 }

@@ -7,8 +7,6 @@
   <head>
 	<%@include file="/jsp/inc/topo.jsp" %>
   </head>
-
-  <body>
   	<style>
   		#pesquisa_cat {
   			display: none;
@@ -21,7 +19,7 @@
   			margin-left: 30px;
   		}
   	</style>
-
+ <body>
     <div class="container">
     
       <%@include file="/jsp/inc/menu.jsp" %>
