@@ -9,7 +9,7 @@
 	<%@include file="/jsp/inc/topo.jsp" %>
 	
 	<!-- JQUERY -->
-    <script type="text/javascript" src="bootstrap/datatable/js/jquery.js"></script>
+    <script type="text/javascript" language="javascript" src="bootstrap/datatable/js/jquery.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     
     
@@ -134,7 +134,6 @@
 			        </div>
 			    </div>
 	        <!-- /.row -->
-	       </div>
 	       </div>
 	       <!-- /.container-fluid -->
 	   </div>
