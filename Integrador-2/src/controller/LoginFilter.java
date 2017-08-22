@@ -44,6 +44,7 @@ public class LoginFilter implements Filter {
 	     
 	     
 	    String loginServlet = request.getContextPath() + "/login";
+	    System.out.println(session.getAttribute("user"));
 	    
         boolean loggedIn = session != null && session.getAttribute("user") != null;
         boolean loginRequest = request.getRequestURI().equals(loginServlet);
@@ -59,7 +60,7 @@ public class LoginFilter implements Filter {
         	// existe usuário logado, ele permite a requisição:
         	
         	Mestre usuario = (Mestre) session.getAttribute("user");
-        	request.setAttribute("objUsuario", usuario);
+        	request.setAttribute("user", usuario);
             chain.doFilter(request, response);
             
         }else {
@@ -68,13 +69,9 @@ public class LoginFilter implements Filter {
 	    	String uri = ((HttpServletRequest)request).getRequestURI();
 			if ( uri.indexOf("/css") > 0 || uri.indexOf(rootPath+"/css") > 0){
 				chain.doFilter(request, response);
-			}
-			else if ( uri.indexOf("/js") > 0 || uri.indexOf(rootPath+"/js") > 0){
+			}else if ( uri.indexOf("/js") > 0 || uri.indexOf(rootPath+"/js") > 0){
 				chain.doFilter(request, response);
-			}
-			else if ( uri.indexOf("/bootstrap") > 0 || uri.indexOf(rootPath+"/bootstrap") > 0){
-				chain.doFilter(request, response);
-			} else {
+			}else {
 				response.sendRedirect(loginServlet);
 			}
 	    }

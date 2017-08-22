@@ -10,6 +10,22 @@
 	<script src="<%=request.getContextPath()%>/js/login/login.js"></script>
   </head>
   <body>
+	  
+	  <c:if test="${ not empty mensagem}">
+	  	<c:choose>
+	  		<c:when test="${mensagem == 'Você foi deslogado.' }" >
+			  	<div class="alert alert-info col-md-4 col-md-offset-4">
+			  		<strong>Informativo!</strong> ${mensagem}
+				</div>
+			</c:when>
+			<c:otherwise>
+	    	<div class="alert alert-danger col-md-4 col-md-offset-4">
+			  <strong>Atenção!</strong> ${mensagem}
+			</div>
+	 		</c:otherwise>
+		</c:choose>
+	  </c:if>
+  
   <div class="container">
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -29,6 +45,7 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<form id="login-form" action="" action="<%=request.getContextPath()%>/login"  role="form" style="display: block;">
+									<input type="hidden" name="acao" value="login"/>
 									<div class="form-group">
 										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Login" value="">
 									</div>

@@ -37,6 +37,7 @@ public class DaoEntity<T,ID> {
 		em.remove(obj);
 		em.getTransaction().commit();
 	}
+	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
 		em.clear();
 		Query q = em.createQuery("from "+ clazz.getSimpleName() +" tb");
