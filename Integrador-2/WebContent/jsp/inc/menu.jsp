@@ -5,9 +5,6 @@
 
 <div class="header clearfix">
   <nav>
-
-
-
     <ul class="nav nav-pills pull-right">
 		<li role="presentation" class="disabled"><a href="#">Bem Vindo: ${user.login}</a></li>   
 	    <li class="dropdown">
@@ -24,7 +21,7 @@
 	  	</li>
 	  	<c:if test="${user.tipo eq 'admin'}">
 		    <li class="dropdown">
-			<a href="#" id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown">Manter/CRUD<b class="caret"></b></a>
+				<a href="#" id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown">Manter/CRUD<b class="caret"></b></a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
 					<li role="presentation"><a href="<%=request.getContextPath()%>/filme?acao=manter">Manter Filme</a></li>
 					<li role="presentation"><a href="<%=request.getContextPath()%>/artista?acao=manter">Manter Artista</a></li>
@@ -36,7 +33,7 @@
 	  	</c:if>
 	  
 	  	<li class="dropdown">
-		<a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">User Tools<b class="caret"></b></a>
+			<a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">User Tools<b class="caret"></b></a>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
 	   	    	<li role="presentation"><a href="<%=request.getContextPath()%>/pdv?acao=comprar">Comprar Filmes</a></li>
 	   	    	<li role="presentation"><a href="<%=request.getContextPath()%>/pdv?acao=listar">Listar Filmes</a></li>
@@ -49,6 +46,7 @@
 				<li role="presentation"><a href="<%=request.getContextPath()%>/login?acao=logout">Deslogar</a></li>
 			</ul>
 	  	</li>
+	  	
     </ul>
   </nav>
   <h3 class="text-muted" ><a href="<%=request.getContextPath()%>/">Cinema7</a></h3>

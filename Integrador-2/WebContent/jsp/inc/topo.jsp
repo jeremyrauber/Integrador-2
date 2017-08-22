@@ -7,10 +7,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Cinema7</title>
+<title>Sistema Aedes</title>
 
 <link href="<%=request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/css/jumbotron-narrow.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/js/dataTable/jquery.dataTables.min.css" rel="stylesheet">
 <script src="<%=request.getContextPath()%>/js/jquery-1.12.4.js"></script>
 <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
