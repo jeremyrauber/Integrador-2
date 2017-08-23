@@ -3,8 +3,6 @@ package dao;
 import java.util.List;
 
 import javax.persistence.Query;
-
-import model.Filme;
 import model.Venda;
 
 import java.math.*;
@@ -24,7 +22,7 @@ public class DaoVenda extends DaoEntity<Venda, Integer> {
 	}
 	
 			
-			
+	@SuppressWarnings("unchecked")
 	public List<Integer> findFilmesDoUser(Integer user_id){
 		Query q = em.createNativeQuery("SELECT filme_id FROM venda WHERE usuario_id="+user_id);
 		return q.getResultList();	

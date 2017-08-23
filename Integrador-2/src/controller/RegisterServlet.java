@@ -1,9 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.DaoUsuario;
-import model.Usuario;
+import Helper.HashMD5;
+import dao.DaoMestre;
+import model.Mestre;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
@@ -31,72 +31,70 @@ public class RegisterServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		String acao = request.getParameter("acao");
-		DaoUsuario dusu;
+
+		DaoMestre daoMestre = new DaoMestre();
+    	HashMD5 hash = new HashMD5();
+    	    	
+    	String acao = request.getParameter("acao");
+    	
+    	String nome = request.getParameter("nome");
+        String data_nasc = request.getParameter("data_nasc");
+        String login = request.getParameter("login");
+        String senha = request.getParameter("senha");
+        String endereco = request.getParameter("endereco");
+        String email = request.getParameter("email");
+        String cep = request.getParameter("cep");
+        String bairro = request.getParameter("bairro");
+        String cidade = request.getParameter("cidade");
+        String estado = request.getParameter("estado");
+        
+        String mensagem = "";
+        
+        
+    	if(acao == null){
+    		System.out.println("Entrou primeira vez.");
+    		login = "";
+            senha ="";
+    	}
 		
 		if(acao != null) {
-			if(acao.equals("registrar")){
-				request.getRequestDispatcher("/jsp/usuario/registrarNovoUsuario.jsp").forward(request,response);
-			
-			} else if(acao.equals("inserir")) {
-				String login = request.getParameter("login");
-				String senha = request.getParameter("senha");
-				String tipo = request.getParameter("tipo");
+			if(acao.equals("cadastrar")){
 				
-				MessageDigest algorithm;
-				try {
-					algorithm = MessageDigest.getInstance("MD5");
-					byte messageDigest[] = algorithm.digest("senha".getBytes("UTF-8"));
-					StringBuilder hexString = new StringBuilder();
-					for (byte b : messageDigest) {
-					  hexString.append(String.format("%02X", 0xFF & b));
-					}
-					  String senhaMD5 = hexString.toString();			
-					    
-					    Usuario u = new Usuario();
-						u.setLogin(login);
-						u.setSenha(senhaMD5);
-						u.setTipo(tipo);
-						
-						dusu = new DaoUsuario();
-						dusu.save(u);
-						
-				} catch (NoSuchAlgorithmException e) {
-					e.printStackTrace();
-				}				
-
-				request.getRequestDispatcher("/jsp/usuario/index.jsp").forward(request, response);
-			}
-			else if(acao.equals("inserirNovo")) {
-				String login = request.getParameter("login");
-				String senha = request.getParameter("senha");
-				String tipo = request.getParameter("tipo");
+				Mestre mestre = new Mestre();
+				mestre.setNome(nome);
 				
-				MessageDigest algorithm;
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				java.sql.Date data;
 				try {
-					algorithm = MessageDigest.getInstance("MD5");
-					byte messageDigest[] = algorithm.digest("senha".getBytes("UTF-8"));
-					StringBuilder hexString = new StringBuilder();
-					for (byte b : messageDigest) {
-					  hexString.append(String.format("%02X", 0xFF & b));
-					}
-					  String senhaMD5 = hexString.toString();			
-					    
-					    Usuario u = new Usuario();
-						u.setLogin(login);
-						u.setSenha(senhaMD5);
-						u.setTipo(tipo);
-						
-						dusu = new DaoUsuario();
-						dusu.save(u);
-						
-				} catch (NoSuchAlgorithmException e) {
-					e.printStackTrace();
-				}				
+					data = new java.sql.Date(format.parse(data_nasc).getTime());
+					mestre.setData_nasc(data);
+				} catch (ParseException e) {
 
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
-			}
+				}
+								
+				mestre.setLogin(login);
+				
+				try {
+					mestre.setSenha(hash.toMD5(senha));
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+				}
+				mestre.setEmail(email);
+				mestre.setCep(cep);
+				mestre.setEndereco(endereco);
+				mestre.setBairro(bairro);
+				mestre.setCidade(cidade);
+				mestre.setEstado(estado);
+				
+				daoMestre.save(mestre);
+				
+				mensagem = "Cadastro realizado com sucesso! A confirmação de cadastro será enviada para seu email: "+email;
+			}else {
+				mensagem = "Houve algum erro, retorne mais tarde.";
+			}			
+				request.setAttribute("mensagem", mensagem);
+				request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 	}
 }

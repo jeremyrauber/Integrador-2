@@ -82,49 +82,49 @@
 									</div>
 								</form>
 								<form id="register-form" action="" method="post" action="<%=request.getContextPath()%>/register" role="form" style="display: none;" onsubmit="return validateForm()">
-									<div class="form-group  has-error has-feedback">
-										<p id="val_nome"></p>
-										<label class="control-label" for="nome">Nome</label>
+									<input type="hidden" name="acao" value="cadastrar"/>
+									
+									<div class="form-group">
+										<label id="val_nome" class="control-label" for="nome">Nome</label>
 										<input type="text" name="nome" id="nome" tabindex="1" class="form-control" placeholder="Nome" value="" autofocus>
 									</div>
 									<div class="form-group">
-										<p id="val_data_nasc"></p>
-										<input type="text" name="data_nasc" id="data_nasc" tabindex="1" class="form-control" placeholder="Data Nascimento" value="">
+										<label id="val_data_nasc" class="control-label" for="data_nasc">Data de Nascimento</label>
+										<input type="date" name="data_nasc" id="data_nasc" tabindex="1" class="form-control" placeholder="Data Nascimento" value="">
 									</div>
 									<div class="form-group">
-										<p id="val_login"></p>
+										<label id="val_login" class="control-label" for="login">Login</label>
 										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Login" value="">
 									</div>
 									<div class="form-group">
-										<p id="val_senha"></p>
+									 	<label id="val_senha" class="control-label" for="text_senha">Senha</label>
 										<input type="password" name="text_senha" id="text_senha" tabindex="2" class="form-control" placeholder="Senha">
 									</div>
 									<div class="form-group">
-										<p id="val_repetir_senha"></p>
 										<input type="password" name="repetir_senha" id="repetir_senha" tabindex="2" class="form-control" placeholder="Confirme a Senha">
 									</div>
 									<div class="form-group">
-										<p id="val_endereco"></p>
+										<label id="val_endereco" class="control-label" for="endereco">Endereço</label>
 										<input type="text" name="endereco" id="endereco" tabindex="1" class="form-control" placeholder="Endereço" value="">
 									</div>
 									<div class="form-group">
-										<p id="val_email"></p>
+										<label id="val_email" class="control-label" for="email">Email</label>
 										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
 									</div>
 									<div class="form-group">
-										<p id="val_cep"></p>
+										<label id="val_cep" class="control-label" for="cep">CEP</label>
 										<input type="text" name="cep" id="cep" tabindex="2" class="form-control" placeholder="CEP">
 									</div>
 									<div class="form-group">
-										<p id="val_bairro"></p>
+										<label id="val_bairro" class="control-label" for="bairo">Bairro</label>
 										<input type="text" name="bairro" id="bairro" tabindex="2" class="form-control" placeholder="Bairro">
 									</div>
 									<div class="form-group">
-										<p id="val_cidade"></p>
+										<label id="val_cidade" class="control-label" for="cidade">Cidade</label>
 										<input type="text" name="cidade" id="cidade" tabindex="2" class="form-control" placeholder="Cidade">
 									</div>
 									<div class="form-group">
-										<p id="val_estado"></p>
+										<label id="val_estado" class="control-label" for="estado">Estado</label>
 										<input type="text" name="estado" id="estado" tabindex="2" class="form-control" placeholder="Estado">
 									</div>
 									<div class="form-group">
@@ -142,8 +142,8 @@
 			</div>
 		</div>
 	</div>
-</div>
 	<%@include file="/jsp/inc/rodape.jsp" %>
 	<script src="<%=request.getContextPath()%>/js/login/login.js"></script>	
+	</div>
   </body>
 </html>

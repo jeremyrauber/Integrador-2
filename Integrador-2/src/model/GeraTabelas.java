@@ -5,6 +5,7 @@ import javax.persistence.Persistence;
 
 public class GeraTabelas {
 	
+	@SuppressWarnings("unused")
 	public GeraTabelas(){
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("cinemaPU");

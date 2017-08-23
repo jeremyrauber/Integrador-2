@@ -2,10 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,15 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.DaoArtista;
-import dao.DaoCategoria;
-import dao.DaoEntity;
 import dao.DaoEstudio;
-import dao.DaoFilme;
-import model.Artista;
-import model.Categoria;
 import model.Estudio;
-import model.Filme;
 import model.Usuario;
 
 
@@ -34,6 +25,7 @@ public class EstudioServlet extends HttpServlet {
 		doPost(request,response);
 		
 	}
+	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		String acao = request.getParameter("acao");

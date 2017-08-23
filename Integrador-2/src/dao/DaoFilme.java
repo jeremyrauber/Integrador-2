@@ -12,11 +12,13 @@ public class DaoFilme extends DaoEntity<Filme, Integer> {
 		super(Filme.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Filme> findByTitulo(String fquery) {
 		Query q = em.createNativeQuery("SELECT * from filme WHERE titulo LIKE '%"+fquery+"%'",Filme.class);
 		return q.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Filme> findByLike(String Parametro) {
 		Query q = em.createNativeQuery("SELECT * FROM filme ORDER by likes ASC limit "+Parametro,Filme.class);
 		return q.getResultList();

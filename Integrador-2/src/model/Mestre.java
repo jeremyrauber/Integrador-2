@@ -46,6 +46,9 @@ public class Mestre {
 	private String bairro;
 	
 	@Column(nullable=false)
+	private String cidade;
+	
+	@Column(nullable=false)
 	private String estado;
 
 	public Integer getId() {
@@ -128,6 +131,14 @@ public class Mestre {
 		this.bairro = bairro;
 	}
 
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+	
 	public String getEstado() {
 		return estado;
 	}
