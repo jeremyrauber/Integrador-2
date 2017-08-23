@@ -44,5 +44,5 @@
 	  	
     </ul>
   </nav>
-  <h3 class="text-muted" ><a href="<%=request.getContextPath()%>/">Cinema7</a></h3>
+  <h3 class="text-muted" ><a href="<%=request.getContextPath()%>/">Sistema Aedes</a></h3>
 </div>

@@ -7,20 +7,25 @@
   <head>
 	<%@include file="/jsp/inc/topo.jsp" %>
 	<link href="<%=request.getContextPath()%>/css/login/login.css" rel="stylesheet">
-	<script src="<%=request.getContextPath()%>/js/login/login.js"></script>
   </head>
   <body>
-	  
+	  <div id="wrap">
 	  <c:if test="${ not empty mensagem}">
 	  	<c:choose>
 	  		<c:when test="${mensagem == 'Você foi deslogado.' }" >
-			  	<div class="alert alert-info col-md-4 col-md-offset-4">
+			  	<div class="alert alert-info col-md-4 col-md-offset-4 has-feedback" role="alert">
+  					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  						<span aria-hidden="true">&times;</span>
+  					</button>
 			  		<strong>Informativo!</strong> ${mensagem}
 				</div>
 			</c:when>
 			<c:otherwise>
-	    	<div class="alert alert-danger col-md-4 col-md-offset-4">
-			  <strong>Atenção!</strong> ${mensagem}
+	    	<div class="alert alert-danger col-md-4 col-md-offset-4"role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			  	<strong>Atenção!</strong> ${mensagem}
 			</div>
 	 		</c:otherwise>
 		</c:choose>
@@ -44,14 +49,21 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<form id="login-form" action="" action="<%=request.getContextPath()%>/login"  role="form" style="display: block;">
+								<form id="login-form" method="post" action="<%=request.getContextPath()%>/login"  role="form" style="display: block;">
 									<input type="hidden" name="acao" value="login"/>
-									<div class="form-group">
-										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Login" value="">
+									
+									<div class="input-group">
+									    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+									    <input id="login" type="text" class="form-control" name="login" tabindex="1" placeholder="Login" value="${not empty login ? senha : ''}">
 									</div>
-									<div class="form-group">
-										<input type="password" name="senha" id="senha" tabindex="2" class="form-control" placeholder="Senha">
+									 
+									 
+									
+									<div class="input-group">
+									    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+									    <input id="senha" type="password" class="form-control" name="senha" tabindex="2" placeholder="Senha" value="${not empty senha ? senha : ''}">
 									</div>
+																		
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
@@ -69,18 +81,51 @@
 										</div>
 									</div>
 								</form>
-								<form id="register-form" action="" method="post" role="form" style="display: none;">
-									<div class="form-group">
-										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+								<form id="register-form" action="" method="post" action="<%=request.getContextPath()%>/register" role="form" style="display: none;" onsubmit="return validateForm()">
+									<div class="form-group  has-error has-feedback">
+										<p id="val_nome"></p>
+										<label class="control-label" for="nome">Nome</label>
+										<input type="text" name="nome" id="nome" tabindex="1" class="form-control" placeholder="Nome" value="" autofocus>
 									</div>
 									<div class="form-group">
-										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+										<p id="val_data_nasc"></p>
+										<input type="text" name="data_nasc" id="data_nasc" tabindex="1" class="form-control" placeholder="Data Nascimento" value="">
 									</div>
 									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+										<p id="val_login"></p>
+										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Login" value="">
 									</div>
 									<div class="form-group">
-										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+										<p id="val_senha"></p>
+										<input type="password" name="text_senha" id="text_senha" tabindex="2" class="form-control" placeholder="Senha">
+									</div>
+									<div class="form-group">
+										<p id="val_repetir_senha"></p>
+										<input type="password" name="repetir_senha" id="repetir_senha" tabindex="2" class="form-control" placeholder="Confirme a Senha">
+									</div>
+									<div class="form-group">
+										<p id="val_endereco"></p>
+										<input type="text" name="endereco" id="endereco" tabindex="1" class="form-control" placeholder="Endereço" value="">
+									</div>
+									<div class="form-group">
+										<p id="val_email"></p>
+										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
+									</div>
+									<div class="form-group">
+										<p id="val_cep"></p>
+										<input type="text" name="cep" id="cep" tabindex="2" class="form-control" placeholder="CEP">
+									</div>
+									<div class="form-group">
+										<p id="val_bairro"></p>
+										<input type="text" name="bairro" id="bairro" tabindex="2" class="form-control" placeholder="Bairro">
+									</div>
+									<div class="form-group">
+										<p id="val_cidade"></p>
+										<input type="text" name="cidade" id="cidade" tabindex="2" class="form-control" placeholder="Cidade">
+									</div>
+									<div class="form-group">
+										<p id="val_estado"></p>
+										<input type="text" name="estado" id="estado" tabindex="2" class="form-control" placeholder="Estado">
 									</div>
 									<div class="form-group">
 										<div class="row">
@@ -97,5 +142,8 @@
 			</div>
 		</div>
 	</div>
+</div>
+	<%@include file="/jsp/inc/rodape.jsp" %>
+	<script src="<%=request.getContextPath()%>/js/login/login.js"></script>	
   </body>
 </html>

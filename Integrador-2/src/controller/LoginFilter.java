@@ -44,7 +44,6 @@ public class LoginFilter implements Filter {
 	     
 	     
 	    String loginServlet = request.getContextPath() + "/login";
-	    System.out.println(session.getAttribute("user"));
 	    
         boolean loggedIn = session != null && session.getAttribute("user") != null;
         boolean loginRequest = request.getRequestURI().equals(loginServlet);
@@ -70,6 +69,8 @@ public class LoginFilter implements Filter {
 			if ( uri.indexOf("/css") > 0 || uri.indexOf(rootPath+"/css") > 0){
 				chain.doFilter(request, response);
 			}else if ( uri.indexOf("/js") > 0 || uri.indexOf(rootPath+"/js") > 0){
+				chain.doFilter(request, response);
+			}else if ( uri.indexOf("/fonts") > 0 || uri.indexOf(rootPath+"/fonts") > 0){
 				chain.doFilter(request, response);
 			}else {
 				response.sendRedirect(loginServlet);
