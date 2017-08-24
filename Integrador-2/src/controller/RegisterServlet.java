@@ -1,8 +1,11 @@
 package controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,12 +21,7 @@ import model.Mestre;
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
-    public RegisterServlet() {
-        super();
-      
-    }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	doPost(request,response);
@@ -32,6 +30,9 @@ public class RegisterServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		System.out.println("--------------------entrou aqui");
+		
+		
 		DaoMestre daoMestre = new DaoMestre();
     	HashMD5 hash = new HashMD5();
     	    	
@@ -40,7 +41,7 @@ public class RegisterServlet extends HttpServlet {
     	String nome = request.getParameter("nome");
         String data_nasc = request.getParameter("data_nasc");
         String login = request.getParameter("login");
-        String senha = request.getParameter("senha");
+        String senha = request.getParameter("text_senha");
         String endereco = request.getParameter("endereco");
         String email = request.getParameter("email");
         String cep = request.getParameter("cep");
@@ -48,11 +49,13 @@ public class RegisterServlet extends HttpServlet {
         String cidade = request.getParameter("cidade");
         String estado = request.getParameter("estado");
         
-        String mensagem = "";
+        System.out.println(senha+"-"+data_nasc);
         
+        String mensagem = "";
+    	mensagem ="nenhum if";
         
     	if(acao == null){
-    		System.out.println("Entrou primeira vez.");
+    		mensagem ="acao nula";
     		login = "";
             senha ="";
     	}
@@ -63,14 +66,16 @@ public class RegisterServlet extends HttpServlet {
 				Mestre mestre = new Mestre();
 				mestre.setNome(nome);
 				
-				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-				java.sql.Date data;
+				
+				 DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+				 Date date;
 				try {
-					data = new java.sql.Date(format.parse(data_nasc).getTime());
-					mestre.setData_nasc(data);
-				} catch (ParseException e) {
-
+					date = format.parse(data_nasc);
+					mestre.setDataNascimento(date);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
 				}
+				
 								
 				mestre.setLogin(login);
 				
@@ -89,7 +94,8 @@ public class RegisterServlet extends HttpServlet {
 				
 				daoMestre.save(mestre);
 				
-				mensagem = "Cadastro realizado com sucesso! A confirmação de cadastro será enviada para seu email: "+email;
+				mensagem = "Cadastro realizado com sucesso! A confirmação de cadastro será enviada para seu email: "+email
+						+"Só será permitida a entrada após validação.";
 			}else {
 				mensagem = "Houve algum erro, retorne mais tarde.";
 			}			

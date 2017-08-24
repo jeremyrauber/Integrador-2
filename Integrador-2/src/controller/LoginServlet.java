@@ -35,7 +35,6 @@ public class LoginServlet extends HttpServlet {
     	
     	String login = request.getParameter("login");
         String senha = request.getParameter("senha");
-        System.out.println(acao+"-"+login+"-"+senha);
         String mensagem = "";
         request.setAttribute("login", login);
         request.setAttribute("senha", senha);

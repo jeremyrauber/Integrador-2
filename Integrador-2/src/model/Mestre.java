@@ -15,14 +15,14 @@ public class Mestre {
 	
 	@Id
 	@Column(name="usuario_id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer id;
 	
 	@Column(nullable=false)
 	private String nome;
 	
-	@Column(nullable=false)
-	private Date data_nasc;
+	@Column(nullable=false,name="data_nasc")
+	private Date dataNascimento;
 	
 	@Column(nullable=false,unique = true)
 	private String login;
@@ -67,12 +67,12 @@ public class Mestre {
 		this.nome = nome;
 	}
 
-	public Date getData_nasc() {
-		return data_nasc;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setData_nasc(Date data_nasc) {
-		this.data_nasc = data_nasc;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getLogin() {

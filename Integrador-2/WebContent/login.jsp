@@ -81,7 +81,7 @@
 										</div>
 									</div>
 								</form>
-								<form id="register-form" action="" method="post" action="<%=request.getContextPath()%>/register" role="form" style="display: none;" onsubmit="return validateForm()">
+								<form id="register-form" method="post" action="<%=request.getContextPath()%>/register" role="form" style="display: none;" onsubmit="return validateForm()">
 									<input type="hidden" name="acao" value="cadastrar"/>
 									
 									<div class="form-group">
