@@ -54,24 +54,28 @@ public class LoginServlet extends HttpServlet {
             }
             
             if (mensagem.isEmpty() && (!senha.isEmpty() && !login.isEmpty())) {
-            	Mestre mestre;
-            	
+            	Mestre mestre = new Mestre();
             	
 				try {
+					
 					mestre = daoMestre.findMestre(login,hash.toMD5(senha));
+					
+					System.out.println(mestre.isAtivo());
+					
+					if (mestre != null ) {
+						
+						if(mestre.isAtivo()){
+			                request.getSession().setAttribute("user", mestre);
+			                
+			                response.sendRedirect(request.getContextPath() + "/index.jsp");
+			                return;
+						}else if(!mestre.isAtivo()) {
+			            	 mensagem = "Verifique seu email e confirme sua conta. Caso já o tenha feito contate nossos administradores.";
+			            }
+		            }	
 				} catch (Exception e) {
-					mestre = null;
+					 mensagem = "Login invalido, tente novamente.";
 				}
-
-	
-				if (mestre != null) {
-	                request.getSession().setAttribute("user", mestre);
-	                
-	                response.sendRedirect(request.getContextPath() + "/index.jsp");
-	                return;
-	            }else {
-	                mensagem = "Login invalido, tente novamente.";
-	            }
             } 	
         }else if(acao.equals("logout")) {
             	

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Helper.EmailSender;
 import Helper.HashMD5;
 import dao.DaoMestre;
 import model.Mestre;
@@ -31,7 +32,7 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.println("--------------------entrou aqui");
-		
+		EmailSender es = new EmailSender();
 		
 		DaoMestre daoMestre = new DaoMestre();
     	HashMD5 hash = new HashMD5();
@@ -93,6 +94,8 @@ public class RegisterServlet extends HttpServlet {
 				mestre.setEstado(estado);
 				
 				daoMestre.save(mestre);
+				
+				es.enviar(mestre.getEmail());
 				
 				mensagem = "Cadastro realizado com sucesso! A confirmação de cadastro será enviada para seu email: "+email
 						+"Só será permitida a entrada após validação.";
