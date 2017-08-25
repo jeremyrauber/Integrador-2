@@ -12,9 +12,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import com.sun.mail.util.MailLogger;
-import com.sun.mail.util.BASE64DecoderStream;
-
 
 
 public class EmailSender{
@@ -22,12 +19,14 @@ public class EmailSender{
       public void enviar(String destinatario) {
     	  
             Properties props = new Properties();
+            
             /** Parâmetros de conexão com servidor Gmail */
-            props.put("mail.smtp.host", "mail.turmadogrubbi.com.br");
-            props.put("mail.smtp.socketFactory.port", "25");
+            
+            props.put("mail.smtp.host", "nuvem34br.hoteldaweb.com.br");
+            props.put("mail.smtp.socketFactory.port", "465");
             props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
             props.put("mail.smtp.auth", "false");
-            props.put("mail.smtp.port", "25");
+            props.put("mail.smtp.port", "465");
                         
 
             Session session = Session.getDefaultInstance(props,
