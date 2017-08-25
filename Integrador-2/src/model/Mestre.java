@@ -50,6 +50,9 @@ public class Mestre {
 	
 	@Column(nullable=false)
 	private String estado;
+	
+	@Column
+	private String hashValidador;
 
 	public Integer getId() {
 		return id;
@@ -145,6 +148,14 @@ public class Mestre {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getHashValidador() {
+		return hashValidador;
+	}
+
+	public void setHashValidador(String hashValidador) {
+		this.hashValidador = hashValidador;
 	}
 	
 

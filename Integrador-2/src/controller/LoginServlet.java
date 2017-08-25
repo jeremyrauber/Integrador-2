@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Helper.HashMD5;
 import dao.DaoMestre;
+import helper.HashMD5;
 import model.Mestre;
 
 @WebServlet("/login")

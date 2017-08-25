@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Helper.EmailSender;
-import Helper.HashMD5;
 import dao.DaoMestre;
+import helper.EmailSender;
+import helper.HashMD5;
 import model.Mestre;
 
 @WebServlet("/register")
@@ -93,9 +94,22 @@ public class RegisterServlet extends HttpServlet {
 				mestre.setCidade(cidade);
 				mestre.setEstado(estado);
 				
+				String uuid = UUID.randomUUID().toString();
+				
+				String hashValidador;
+				
+				try {
+					hashValidador = hash.toMD5(uuid);
+					mestre.setHashValidador(hashValidador);
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+				}
+				
+				
 				daoMestre.save(mestre);
 				
-				es.enviar(mestre.getEmail());
+				es.enviar(mestre.getEmail(),mestre.getHashValidador());
 				
 				mensagem = "Cadastro realizado com sucesso! A confirmação de cadastro será enviada para seu email: "+email
 						+"Só será permitida a entrada após validação.";
