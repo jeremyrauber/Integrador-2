@@ -6,10 +6,11 @@ CREATE TABLE IF NOT EXISTS `projeto`.`mestre` (
   `id_mestre` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `data_nasc` TIMESTAMP NOT NULL,
-  `login` VARCHAR(45) NOT NULL,
+  `login` VARCHAR(45) NOT NULL UNIQUE,
   `senha` VARCHAR(45) NOT NULL,
+  `senhanu` VARCHAR(45) NOT NULL,
   `endereco` VARCHAR(255) NULL,
-  `email` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL UNIQUE,
   `ativo` TINYINT(1) NULL DEFAULT 0,
   `cep` VARCHAR(45) NOT NULL,
   `bairro` VARCHAR(45) NOT NULL,
@@ -122,6 +123,6 @@ CREATE TABLE IF NOT EXISTS `projeto`.`evento_has_atividade` (
     REFERENCES `projeto`.`atividade` (`id_atividade`))
 ENGINE = InnoDB;
 
+ALTER TABLE mestre ADD UNIQUE (login);
 
-
-INSERT INTO mestre (`id_mestre`, `nome`, `data_nasc`, `login`, `senha`, `endereco`, `email`, `ativo`, `cep`, `bairro`, `cidade`, `estado`) VALUES (1, 'Jeremy', '1990-01-21', 'admin', 'admin', 'rua puma, n 224', 'jeremy_rauber@live.com',1, '85860-240', 'Vila A','Foz do Iguaçu', 'PR');
+INSERT INTO mestre (`id_mestre`, `nome`, `data_nasc`, `login`, `senha`, `endereco`, `email`, `ativo`, `cep`, `bairro`, `cidade`, `estado`) VALUES (1, 'Jeremy', '1990-01-21', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'rua puma, n 224', 'jeremy_rauber@live.com',1, '85860-240', 'Vila A','Foz do Iguaçu', 'PR');

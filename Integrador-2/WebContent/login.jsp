@@ -20,6 +20,14 @@
 			  		<strong>Informativo!</strong> ${mensagem}
 				</div>
 			</c:when>
+			<c:when test="${mensagem == 'Email enviado com sucesso!' }" >
+			  	<div class="alert alert-info col-md-4 col-md-offset-4 has-feedback" role="alert">
+  					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  						<span aria-hidden="true">&times;</span>
+  					</button>
+			  		<strong>Informativo!</strong> ${mensagem}
+				</div>
+			</c:when>
 			<c:otherwise>
 	    	<div class="alert alert-danger col-md-4 col-md-offset-4"role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -54,14 +62,14 @@
 									
 									<div class="input-group">
 									    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-									    <input id="login" type="text" class="form-control" name="login" tabindex="1" placeholder="Login" value="${not empty login ? senha : ''}">
+									    <input id="login" type="text" class="form-control" name="login" tabindex="1" placeholder="Login" value="${not empty login ? login : ''}">
 									</div>
 									 
 									 
 									
 									<div class="input-group">
 									    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-									    <input id="senha" type="password" class="form-control" name="senha" tabindex="2" placeholder="Senha" value="${not empty senha ? senha : ''}">
+									    <input id="senha" type="password" class="form-control" name="senha" tabindex="2" placeholder="Senha" value="">
 									</div>
 																		
 									<div class="form-group">
@@ -75,7 +83,7 @@
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="text-center">
-													<a href="" tabindex="5" class="forgot-password">Esqueceu a senha?</a>
+													<a href="<%=request.getContextPath()%>/novasenha.jsp" tabindex="5" class="forgot-password">Esqueceu a senha?</a>
 												</div>
 											</div>
 										</div>
@@ -86,46 +94,46 @@
 									
 									<div class="form-group">
 										<label id="val_nome" class="control-label" for="nome">Nome</label>
-										<input type="text" name="nome" id="nome" tabindex="1" class="form-control" placeholder="Nome" value="" autofocus>
+										<input type="text" name="nome" id="nome" tabindex="1" class="form-control" placeholder="Nome" value="${not empty nome ? nome : ''}" autofocus>
 									</div>
 									<div class="form-group">
 										<label id="val_data_nasc" class="control-label" for="data_nasc">Data de Nascimento</label>
-										<input type="date" name="data_nasc" id="data_nasc" tabindex="1" class="form-control" placeholder="Data Nascimento" value="">
+										<input type="date" name="data_nasc" id="data_nasc" tabindex="1" class="form-control" placeholder="Data Nascimento" value="${not empty data_nasc ? data_nasc: ''}">
 									</div>
 									<div class="form-group">
 										<label id="val_login" class="control-label" for="login">Login</label>
-										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Login" value="">
+										<input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="Login" value="${not empty logincad ? logincad : ''}">
 									</div>
 									<div class="form-group">
 									 	<label id="val_senha" class="control-label" for="text_senha">Senha</label>
-										<input type="password" name="text_senha" id="text_senha" tabindex="2" class="form-control" placeholder="Senha">
+										<input type="password" name="text_senha" id="text_senha" tabindex="2" class="form-control" placeholder="Senha" value="${not empty senhacad ? senhacad : ''}">
 									</div>
 									<div class="form-group">
-										<input type="password" name="repetir_senha" id="repetir_senha" tabindex="2" class="form-control" placeholder="Confirme a Senha">
+										<input type="password" name="repetir_senha" id="repetir_senha" tabindex="2" class="form-control" placeholder="Confirme a Senha" value="${not empty senhacad ? senhacad : ''}">
 									</div>
 									<div class="form-group">
 										<label id="val_endereco" class="control-label" for="endereco">Endereço</label>
-										<input type="text" name="endereco" id="endereco" tabindex="1" class="form-control" placeholder="Endereço" value="">
+										<input type="text" name="endereco" id="endereco" tabindex="1" class="form-control" placeholder="Endereço" value="${not empty endereco ? endereco : ''}">
 									</div>
 									<div class="form-group">
 										<label id="val_email" class="control-label" for="email">Email</label>
-										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
+										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="${not empty email ? email : ''}">
 									</div>
 									<div class="form-group">
 										<label id="val_cep" class="control-label" for="cep">CEP</label>
-										<input type="text" name="cep" id="cep" tabindex="2" class="form-control" placeholder="CEP">
+										<input type="text" name="cep" id="cep" tabindex="2" class="form-control" placeholder="CEP" value="${not empty cep ? cep : ''}" pattern= "\d{5}-?\d{3}" >
 									</div>
 									<div class="form-group">
 										<label id="val_bairro" class="control-label" for="bairo">Bairro</label>
-										<input type="text" name="bairro" id="bairro" tabindex="2" class="form-control" placeholder="Bairro">
+										<input type="text" name="bairro" id="bairro" tabindex="2" class="form-control" placeholder="Bairro" value="${not empty bairro ? bairro : ''}">
 									</div>
 									<div class="form-group">
 										<label id="val_cidade" class="control-label" for="cidade">Cidade</label>
-										<input type="text" name="cidade" id="cidade" tabindex="2" class="form-control" placeholder="Cidade">
+										<input type="text" name="cidade" id="cidade" tabindex="2" class="form-control" placeholder="Cidade" value="${not empty cidade ? cidade : ''}">
 									</div>
 									<div class="form-group">
 										<label id="val_estado" class="control-label" for="estado">Estado</label>
-										<input type="text" name="estado" id="estado" tabindex="2" class="form-control" placeholder="Estado">
+										<input type="text" name="estado" id="estado" tabindex="2" class="form-control" placeholder="Estado" value="${not empty estado ? estado : ''}">
 									</div>
 									<div class="form-group">
 										<div class="row">

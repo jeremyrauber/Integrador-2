@@ -29,7 +29,8 @@ public class LoginServlet extends HttpServlet {
         
     	DaoMestre daoMestre = new DaoMestre();
     	HashMD5 hash = new HashMD5();
-    	
+    	Mestre mestre = new Mestre();
+    	mestre = null;
     	
     	String acao = request.getParameter("acao");
     	
@@ -54,7 +55,7 @@ public class LoginServlet extends HttpServlet {
             }
             
             if (mensagem.isEmpty() && (!senha.isEmpty() && !login.isEmpty())) {
-            	Mestre mestre = new Mestre();
+            	mestre = new Mestre();
             	
 				try {
 					
@@ -62,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 					
 					System.out.println(mestre.isAtivo());
 					
-					if (mestre != null ) {
+					if (mestre.getNome() != null ) {
 						
 						if(mestre.isAtivo()){
 			                request.getSession().setAttribute("user", mestre);
@@ -71,16 +72,19 @@ public class LoginServlet extends HttpServlet {
 			                return;
 						}else if(!mestre.isAtivo()) {
 			            	 mensagem = "Verifique seu email e confirme sua conta. Caso já o tenha feito contate nossos administradores.";
+			            	 mestre = null;
 			            }
 		            }	
 				} catch (Exception e) {
 					 mensagem = "Login invalido, tente novamente.";
+					 mestre = null;
 				}
             } 	
         }else if(acao.equals("logout")) {
-            	
-           	HttpSession session = request.getSession(false);
-           	
+        	mestre = null;
+        	
+        	HttpSession session = request.getSession(false);
+                        
            	if(session!=null){ 
            	//If session is not null
                 mensagem = "Você foi deslogado.";

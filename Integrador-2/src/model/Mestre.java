@@ -54,6 +54,9 @@ public class Mestre {
 	@Column
 	private String hashValidador;
 
+	@Column(nullable=false)
+	private String senhanu;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -156,6 +159,14 @@ public class Mestre {
 
 	public void setHashValidador(String hashValidador) {
 		this.hashValidador = hashValidador;
+	}
+
+	public String getSenhanu() {
+		return senhanu;
+	}
+
+	public void setSenhanu(String senhanu) {
+		this.senhanu = senhanu;
 	}
 	
 

@@ -76,6 +76,8 @@ public class LoginFilter implements Filter {
 				chain.doFilter(request, response);
 			}else if ( uri.indexOf("/servicos") > 0 || uri.indexOf(rootPath+"/servicos") > 0){
 				chain.doFilter(request, response);
+			}else if ( uri.indexOf("/novasenha") > 0 || uri.indexOf(rootPath+"/novasenha") > 0){
+				chain.doFilter(request, response);
 			}else {
 				response.sendRedirect(loginServlet);
 			}
