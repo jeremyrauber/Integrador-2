@@ -93,7 +93,7 @@
 									<input type="hidden" name="acao" value="cadastrar"/>
 									
 									<div class="form-group">
-										<label id="val_nome" class="control-label" for="nome">Nome</label>
+										<label id="val_nome" class="control-label" for="nome">Nome Completo</label>
 										<input type="text" name="nome" id="nome" tabindex="1" class="form-control" placeholder="Nome" value="${not empty nome ? nome : ''}" autofocus>
 									</div>
 									<div class="form-group">

@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `projeto`.`mestre` (
   `bairro` VARCHAR(45) NOT NULL,
   `cidade` VARCHAR(45) NOT NULL,
   `estado` VARCHAR(45) NOT NULL,
+  `data_cadastro`  DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_mestre`));
 
 

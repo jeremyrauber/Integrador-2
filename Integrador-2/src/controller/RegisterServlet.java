@@ -89,6 +89,7 @@ public class RegisterServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 					mestre.setEmail(email);
+					mestre.setSenhanu(senha);
 					mestre.setCep(cep);
 					mestre.setEndereco(endereco);
 					mestre.setBairro(bairro);

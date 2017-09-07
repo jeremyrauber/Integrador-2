@@ -22,6 +22,11 @@ public class DaoMestre extends DaoEntity<Mestre, Integer> {
 		return (Mestre) (q.getSingleResult()); 
 	}
 
+	public Mestre refreshNoMestre(Mestre mestre) {
+		em.refresh(mestre);
+		return mestre;
+	}
+	
 	public Mestre findByHash(String hash) {
 		Query q = em.createNativeQuery("Select * from mestre WHERE hashValidador='"+hash+"'",Mestre.class);
 		return (Mestre) q.getSingleResult();

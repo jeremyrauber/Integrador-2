@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Mestre {
 	
 	@Id
-	@Column(name="usuario_id")
+	@Column(name="id_mestre")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer id;
 	
@@ -56,6 +56,9 @@ public class Mestre {
 
 	@Column(nullable=false)
 	private String senhanu;
+	
+	@Column(nullable=false,name="data_cadastro")
+	private Date dataCadastro;
 	
 	public Integer getId() {
 		return id;
@@ -167,6 +170,14 @@ public class Mestre {
 
 	public void setSenhanu(String senhanu) {
 		this.senhanu = senhanu;
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 	
 

@@ -61,14 +61,18 @@ public class LoginServlet extends HttpServlet {
 					
 					mestre = daoMestre.findMestre(login,hash.toMD5(senha));
 					
+					//da um refresh no usuario mestre;
+					mestre = daoMestre.refreshNoMestre(mestre);
+					
 					System.out.println(mestre.isAtivo());
 					
 					if (mestre.getNome() != null ) {
 						
 						if(mestre.isAtivo()){
 			                request.getSession().setAttribute("user", mestre);
-			                
-			                response.sendRedirect(request.getContextPath() + "/index.jsp");
+			                request.setAttribute("mestre", mestre);
+			                //response.sendRedirect(request.getContextPath() + "/index.jsp");
+			                request.getRequestDispatcher("index.jsp").forward(request, response);
 			                return;
 						}else if(!mestre.isAtivo()) {
 			            	 mensagem = "Verifique seu email e confirme sua conta. Caso já o tenha feito contate nossos administradores.";
