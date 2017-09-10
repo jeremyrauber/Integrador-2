@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `projeto`.`evento` (
   `data_inicio` TIMESTAMP  NOT NULL DEFAULT now(),
   `data_fim` TIMESTAMP  NOT NULL ,
   `descricao` VARCHAR(45) NULL,
+  `palavra_chave` VARCHAR(45) NULL,
   `mestre_id_mestre` INT NOT NULL,
   PRIMARY KEY (`id`, `mestre_id_mestre`),
   INDEX `fk_evento_mestre_idx` (`mestre_id_mestre` ASC),
@@ -125,5 +126,6 @@ CREATE TABLE IF NOT EXISTS `projeto`.`evento_has_atividade` (
 ENGINE = InnoDB;
 
 ALTER TABLE mestre ADD UNIQUE (login);
+ALTER TABLE evento ADD COLUMN  palavra_chave varchar(255);
 
-INSERT INTO mestre (`id_mestre`, `nome`, `data_nasc`, `login`, `senha`, `endereco`, `email`, `ativo`, `cep`, `bairro`, `cidade`, `estado`) VALUES (1, 'Jeremy', '1990-01-21', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'rua puma, n 224', 'jeremy_rauber@live.com',1, '85860-240', 'Vila A','Foz do Iguaçu', 'PR');
+INSERT INTO mestre (`id_mestre`, `nome`, `data_nasc`, `login`, `senha`, `endereco`, `email`, `ativo`, `cep`, `bairro`, `cidade`, `estado`,`senhanu`) VALUES (1, 'Jeremy', '1990-01-21', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'rua puma, n 224', 'jeremy_rauber@live.com',1, '85860-240', 'Vila A','Foz do Iguaçu', 'PR','admin');

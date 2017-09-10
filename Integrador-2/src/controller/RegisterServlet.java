@@ -70,8 +70,8 @@ public class RegisterServlet extends HttpServlet {
 					mestre.setNome(nome);
 					
 					
-					 DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-					 Date date;
+					DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+					Date date;
 					try {
 						date = format.parse(data_nasc);
 						mestre.setDataNascimento(date);
@@ -135,10 +135,12 @@ public class RegisterServlet extends HttpServlet {
 					
 				}
 			}else if(acao.equals("recuperar")){
+				
 				System.out.println("entrou aqui"+acao);
 				String email = request.getParameter("email");
 				es.recuperar(email);
 				mensagem = "Email enviado com sucesso!";
+				
 			
 			}else {
 				mensagem = "Houve algum erro, retorne mais tarde.";

@@ -11,7 +11,6 @@ public class DaoMestre extends DaoEntity<Mestre, Integer> {
 	public DaoMestre() {
 		super(Mestre.class);
 	}
-
 	
 	public Mestre findMestre(String login,String senha) {
 		

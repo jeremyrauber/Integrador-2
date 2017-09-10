@@ -1,12 +1,14 @@
 package model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -59,6 +61,9 @@ public class Mestre {
 	
 	@Column(nullable=false,name="data_cadastro")
 	private Date dataCadastro;
+	
+	@OneToMany(mappedBy="mestre")
+    private Set<Evento> eventos;
 	
 	public Integer getId() {
 		return id;
@@ -178,6 +183,14 @@ public class Mestre {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public Set<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(Set<Evento> eventos) {
+		this.eventos = eventos;
 	}
 	
 

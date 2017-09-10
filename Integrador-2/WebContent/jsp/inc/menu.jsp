@@ -52,5 +52,5 @@
     
     
   </nav>
-  <h3 class="titulo"><a href="<%=request.getContextPath()%>/">Sistema Aedes</a></h3>
+  <h3 class="titulo"><a href="<%=request.getContextPath()%>">Sistema Aedes</a></h3>
 </div>

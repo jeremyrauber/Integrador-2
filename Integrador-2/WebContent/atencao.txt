@@ -1,0 +1,4 @@
+criar um arquivo com nome senha.txt na pasta c:\temp\
+colocar a senha de validação do email. 
+
+c:\\temp\\senha.txt

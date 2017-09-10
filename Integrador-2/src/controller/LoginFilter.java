@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DaoMestre;
+import helper.HashMD5;
 import model.Mestre;
 
 
@@ -41,11 +43,13 @@ public class LoginFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 	    HttpServletResponse response = (HttpServletResponse) res;
 	    HttpSession session = request.getSession(true);
+	    DaoMestre daoMestre = new DaoMestre();
+	    HashMD5 hash = new HashMD5();
 	     
 	     
 	    String loginServlet = request.getContextPath() + "/login";
 	    
-        boolean loggedIn = session != null && session.getAttribute("user") != null;
+        boolean loggedIn = session != null && session.getAttribute("mestre") != null;
         boolean loginRequest = request.getRequestURI().equals(loginServlet);
         
         
@@ -58,8 +62,14 @@ public class LoginFilter implements Filter {
         	
         	// existe usuário logado, ele permite a requisição:
         	
-        	Mestre usuario = (Mestre) session.getAttribute("user");
-        	request.setAttribute("user", usuario);
+        	Mestre mestreSession = (Mestre) session.getAttribute("mestre");
+        	Mestre mestre = mestreSession;
+        	try {
+        		mestre = daoMestre.findMestre(mestreSession.getLogin(),hash.toMD5(mestreSession.getSenhanu()));
+        	}catch (Exception e) {
+        		
+        	}
+        	request.setAttribute("mestre", mestre);
             chain.doFilter(request, response);
             
         }else {

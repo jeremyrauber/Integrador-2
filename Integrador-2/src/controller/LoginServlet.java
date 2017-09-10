@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        System.out.println("ta na raiz");
     	DaoMestre daoMestre = new DaoMestre();
     	HashMD5 hash = new HashMD5();
     	Mestre mestre = new Mestre();
@@ -69,9 +69,8 @@ public class LoginServlet extends HttpServlet {
 					if (mestre.getNome() != null ) {
 						
 						if(mestre.isAtivo()){
-			                request.getSession().setAttribute("user", mestre);
+			                request.getSession().setAttribute("mestre", mestre);
 			                request.setAttribute("mestre", mestre);
-			                //response.sendRedirect(request.getContextPath() + "/index.jsp");
 			                request.getRequestDispatcher("index.jsp").forward(request, response);
 			                return;
 						}else if(!mestre.isAtivo()) {
@@ -95,7 +94,8 @@ public class LoginServlet extends HttpServlet {
                 session.invalidate(); //removes all session attributes bound to the session
                 System.out.println("Logged out");
            	}    	
-        }    	    	
+        }
+    	 
         request.setAttribute("mensagem", mensagem);
         request.getRequestDispatcher("/login.jsp").forward(request, response);
        
