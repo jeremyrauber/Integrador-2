@@ -35,7 +35,7 @@
    					<div class="row"><br /></div>
    					<div class="row">
    						<c:forEach var="evento" items="${mestre.eventos}">
-							<div class="col-md-2 text-center"><a href="<%=request.getContextPath()%>/evento?acao=editar&id=${evento.id}" class="btn btn-success" role="button">${evento.nome }</a></div>
+							<div class="col-md-2 text-center"><a href="<%=request.getContextPath()%>/evento?acao=visualizar&id=${evento.id}" class="btn btn-success" role="button">${evento.nome }</a></div>
 					 	</c:forEach>
    						
    						   						

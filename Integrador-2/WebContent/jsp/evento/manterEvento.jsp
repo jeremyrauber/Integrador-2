@@ -38,7 +38,7 @@
     				<form class="form-horizontal">
 						<fieldset>
 						
-							<legend>Evento: ${evento.nome}</legend>
+							<legend>Informações do Evento </legend>
 					
 							<c:if test="${ not empty mensagem}">
 							  	<c:choose>
@@ -62,119 +62,66 @@
 									</c:when>
 								</c:choose>
 							  </c:if>
-						
-							<!-- Appended Input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="matricula">Matricula</label>
-							  <div class="col-md-6">
-							    <div class="input-group">
-							      <input id="matricula" name="matricula" class="form-control" placeholder="matricula" type="text" required="">
-							      <span class="input-group-addon">Pesquisar</span>
+							<!--Informacao do evento -->
+								<div class="panel panel-primary">
+							      <div class="panel-heading">
+							        <h3 class="panel-title"><i class="fa fa-windows fa-2x"></i>Nome:${evento.nome}</h3>
+							      </div>
+							      <div class="panel-body">
+							      <img src=""></a>
+							        <ul>
+									<li><strong>Descrição:</strong> ${evento.descricao}</li>
+									<li><strong>Data Início:</strong> <fmt:formatDate pattern = "dd-MM-yyyy" value = "${evento.dataInicio}" /></li>
+									<li><strong>Data Fim:</strong> <fmt:formatDate pattern = "dd-MM-yyyy" value = "${evento.dataFim}" /></li>
+									<li><strong>Palavra Chave:</strong> ${evento.palavraChave}</li>
+									</ul>
+							      </div>
 							    </div>
-							    <p class="help-block">(digite a sua matricula da SEMEC)</p>
-							  </div>
-							</div>
-							<!-- Text input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="fullname">Nome</label>  
-							  <div class="col-md-6">
-							  <input id="fullname" name="fullname" type="text" placeholder="seu nome" class="form-control input-md">
-							    
-							  </div>
-							</div>
-							
-							<!-- Text input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="cpf">CPF</label>  
-							  <div class="col-md-6">
-							  <input id="cpf" name="cpf" type="text" placeholder="seu CPF" class="form-control input-md">
-							    
-							  </div>
-							</div>
-							
-							<!-- Password input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="password">Senha</label>
-							  <div class="col-md-6">
-							    <input id="password" name="password" type="password" placeholder="senha" class="form-control input-md" required="">
-							    <span class="help-block">(crie uma senha)</span>
-							  </div>
-							</div>
-							
-							<!-- Password input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="confirmpassword">Confirmar senha</label>
-							  <div class="col-md-6">
-							    <input id="confirmpassword" name="confirmpassword" type="password" placeholder="senha" class="form-control input-md" required="">
-							    <span class="help-block">(Confirme sua senha)</span>
-							  </div>
-							</div>
-							
-							<!-- Multiple Radios -->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="rad">Tipo de usuário</label>
-							  <div class="col-md-4">
-							  <div class="radio">
-							    <label for="rad-0">
-							      <input type="radio" name="rad" id="rad-0" value="1" checked="checked">
-							      Operador
-							    </label>
-							    </div>
-							  <div class="radio">
-							    <label for="rad-1">
-							      <input type="radio" name="rad" id="rad-1" value="2">
-							      Administrador
-							    </label>
-								</div>
-							  </div>
-							</div>
-							
-							<!-- Button (Double) -->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="Cadastrar"></label>
-							  <div class="col-md-8">
-							    <button id="Cadastrar" name="Cadastrar" class="btn btn-success">Cadastrar</button>
-							    <button id="Cancelar" name="Cancelar" class="btn btn-danger">Cancelar</button>
-							  </div>
-							</div>
-							
-				</fieldset>
-				</form> 
+					</fieldset>
+					</form>
 				</div>
 				<div class="col-md-6">
 					<fieldset>
 					<legend>Ranking usuários <a href="<%=request.getContextPath()%>/" class="direita btn btn-info" role="button">Listar</a></legend>
-					<table class="table table-bordered">
-  						<thead>
-  							 <tr>
-  							 	<th>#</th>
-  							 	<th>First Name</th>
-  							 	<th>Last Name</th>
-  							 	<th>Username</th>
-  							  </tr>
-  						</thead>
-  						<tbody>
-  						 	<tr>
-  						 		<th scope="row">1</th>
-  						 		<td>Mark</td>
-  						 	 	<td>Otto</td>
-  						 	 	<td>@mdo</td>
-  						 	 </tr>
-  						 	 <tr>
-  						 	 	<th scope="row">2</th>
-  						 	 	<td>Jacob</td>
-  						 	 	<td>Thornton</td> 
-  						 	 	<td>@fat</td>
-  						 	 </tr>
-  						 	 <tr>
-  						 	 	<th scope="row">3</th>
-  						 	 	<td colspan="2">Larry the Bird</td>
-  						 	 	<td>@twitter</td>
-  						 	 </tr>
-						</tbody>
-					</table> 
-				</div>				 
+						<table class="table table-bordered">
+		  						<thead>
+		  							 <tr>
+		  							 	<th>#</th>
+		  							 	<th>First Name</th>
+		  							 	<th>Last Name</th>
+		  							 	<th>Username</th>
+		  							  </tr>
+		  						</thead>
+		  						<tbody>
+		  						 	<tr>
+		  						 		<th scope="row">1</th>
+		  						 		<td>Mark</td>
+		  						 	 	<td>Otto</td>
+		  						 	 	<td>@mdo</td>
+		  						 	 </tr>
+		  						 	 <tr>
+		  						 	 	<th scope="row">2</th>
+		  						 	 	<td>Jacob</td>
+		  						 	 	<td>Thornton</td> 
+		  						 	 	<td>@fat</td>
+		  						 	 </tr>
+		  						 	 <tr>
+		  						 	 	<th scope="row">3</th>
+		  						 	 	<td colspan="2">Larry the Bird</td>
+		  						 	 	<td>@twitter</td>
+		  						 	 </tr>
+								</tbody>
+						</table> 
+				</div>			 
 			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<a href="<%=request.getContextPath()%>/evento/avaliar.jsp" class="btn btn-danger" role="button">Avaliar Envios</a>
+				</div>
+				<div class="col-md-6">
+					<a href="<%=request.getContextPath()%>/evento?acao=editar&id=${evento.id}" class="btn btn-info" role="button">Editar Evento</a>
+				</div>			
+			</div>	
 		</div>
 	</div>
     	<%@include file="/jsp/inc/rodape.jsp" %>

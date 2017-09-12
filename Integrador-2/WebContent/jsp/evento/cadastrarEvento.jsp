@@ -38,7 +38,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="fullname">Nome do evento</label>  
 							  <div class="col-md-6">
-							  	<input id="fullname" name="fullname" type="text" placeholder="Nome que será visualizado pelos participantes" class="form-control input-md" maxlength="30" minlength="5">
+							  	<input id="fullname" name="fullname" type="text" placeholder="Nome que será visualizado pelos participantes" class="form-control input-md" maxlength="30" minlength="5" value="${not empty evento.nome ? evento.nome : ''}">
 							  </div>
 							</div>
 							
@@ -46,7 +46,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="datai">Data de Início</label>  
 							  <div class="col-md-6">
-							  <input id="datai" name="datai" type="date" placeholder="" class="form-control input-md" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>">
+							  <input id="datai" name="datai" type="date" placeholder="" class="form-control input-md" value="${not empty evento.dataInicio ? evento.dataInicio : ''}">
 							  </div>
 							</div>
 							
@@ -62,7 +62,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="descricao">Descrição</label>
 							  <div class="col-md-6">
-							    <textarea class="form-control" rows="5" id="descricao" name="descricao"></textarea>
+							    <textarea class="form-control" rows="5" id="descricao" name="descricao">${not empty evento.descricao ? evento.descricao : ''}</textarea>
 							    <span class="help-block">(descrição suscinta)</span>
 							  </div>
 							</div>
@@ -71,7 +71,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="keyword">Palavra - Chave</label>
 							  <div class="col-md-6">
-							    <input id="keyword" name="keyword" type="text" placeholder="palavra-chave" class="form-control input-md" required="">
+							    <input id="keyword" name="keyword" type="text" placeholder="palavra-chave" class="form-control input-md" required="" value="${not empty evento.palavraChave ? evento.palavraChave : ''}">
 							    <span class="help-block">(Chave de acesso ao evento)</span>
 							  </div>
 							</div>
