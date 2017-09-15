@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import dao.DaoEvento;
 import model.Evento;
@@ -101,21 +102,23 @@ public class EventoServlet extends HttpServlet {
 	    		request.setAttribute("evento", evento);    
 	    		request.getRequestDispatcher("jsp/evento/cadastrarEvento.jsp").forward(request, response);
 	    		
-	    	}else if (acao.equals("salvar")) {
+	    	}else if (acao.equals("atualizar")) {
 	    		
 	    		String nome = request.getParameter("fullname");
+	    		Integer id = Integer.parseInt(request.getParameter("id"));
 	    		String dataInicio = request.getParameter("datai");
 	    		String dataFim = request.getParameter("dataf");
 	    		String descricao = request.getParameter("descricao");
 	    		String keyword = request.getParameter("keyword");
 	    		
 	    		
-				Evento e = new Evento();
+				Evento e = daoEvento.findById(id);
 				
 				e.setNome(nome);
 				
 				DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 				Date date;
+				System.out.println("passou aqui");
 				
 				try {
 					date = format.parse(dataInicio);
@@ -132,12 +135,21 @@ public class EventoServlet extends HttpServlet {
 				Mestre mestre = (Mestre) session.getAttribute("mestre");
 				
 				e.setMestre(mestre);
+				
 				daoEvento.update(e);
 				
 				mensagem = "Cadastro de evento realizado com sucesso!";
 				request.setAttribute("mensagem", mensagem);
 				request.setAttribute("evento", e);
-				request.getRequestDispatcher("jsp/evento/evento?acao=visualizar&id="+e.getId()).forward(request, response);
+				request.getRequestDispatcher("jsp/evento/manterEvento.jsp?acao=visualizar&id="+e.getId()).forward(request, response);
+	    		
+	    	}if (acao.equals("avaliar")) {
+	    		
+	    		request.getRequestDispatcher("jsp/evento/avaliarEvento.jsp").forward(request, response);
+	    		
+	    	}if (acao.equals("ranking")) {
+	    		
+	    		request.getRequestDispatcher("jsp/evento/ranking.jsp").forward(request, response);
 	    		
 	    	}
     	}

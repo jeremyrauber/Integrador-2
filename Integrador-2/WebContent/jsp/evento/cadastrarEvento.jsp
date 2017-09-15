@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 <html>
   	<head>
@@ -29,10 +30,10 @@
     	<div id="wrap">
     		<div class="container">
     			<div class="row">
-					<form class="form-horizontal" action="">
+					<form action="<%=request.getContextPath()%>/evento" method="POST">
     					<fieldset>
 							<!-- Form Name -->
-							<legend>Cadastro de evento</legend>
+							<legend>${not empty evento? 'Atualizar ' : 'Cadastro de '} evento</legend>
 							
 							<!-- Text input-->
 							<div class="form-group">
@@ -46,7 +47,9 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="datai">Data de Início</label>  
 							  <div class="col-md-6">
-							  <input id="datai" name="datai" type="date" placeholder="" class="form-control input-md" value="${not empty evento.dataInicio ? evento.dataInicio : ''}">
+							  <jsp:useBean id="now" class="java.util.Date" /><fmt:formatDate var="atual" value="${now}" pattern="yyyy-MM-dd" />
+							  <fmt:formatDate type="date" var="dataInicio" value="${evento.dataInicio}" pattern="yyyy-MM-dd"/>
+							  <input id="datai" name="datai" type="date" placeholder="" class="form-control input-md" value="${not empty evento.dataInicio ? dataInicio : atual}">
 							  </div>
 							</div>
 							
@@ -54,9 +57,15 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="dataf">Data de Término</label>  
 							  <div class="col-md-6">
-							  <input id="dataf" name="dataf" type="date" placeholder="" class="form-control input-md">
+								<c:set var="tomorrow" value="<%=new Date(new Date().getTime() + 2*60*60*24*1000)%>"/>
+								<fmt:formatDate type="date" var="totomorrow" value="${tomorrow}" pattern="yyyy-MM-dd"/>
+								<fmt:formatDate type="date" var="datafim" value="${evento.dataFim}" pattern="yyyy-MM-dd"/>
+							  	<input id="dataf" name="dataf" type="date" placeholder="" class="form-control input-md" value='${not empty evento.dataFim ? datafim : totomorrow}'>
 							  </div>
 							</div>
+						
+
+							
 							
 							<!-- Text input-->
 							<div class="form-group">
@@ -80,7 +89,9 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="Cadastrar"></label>
 							  <div class="col-md-8">
-							  	<button id="Cadastrar" name="acao" class="btn btn-success" value="adicionar">Cadastrar</button>
+							    <input type="hidden" name="acao" value="${not empty evento ? 'atualizar' : 'adicionar'}"/>
+							     <input type="hidden" name="id" value="${evento.id}"/>
+							  	<button type="submit" name="acao" class="btn btn-success">${not empty evento ? 'Atualizar' : 'Inserir'}</button>
 							  	<a href="<%=request.getContextPath()%>/" class="btn btn-danger" role="button">Cancelar</a>
 							  </div>
 							</div>

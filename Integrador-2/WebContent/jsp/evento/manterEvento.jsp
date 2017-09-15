@@ -82,7 +82,7 @@
 				</div>
 				<div class="col-md-6">
 					<fieldset>
-					<legend>Ranking usuários <a href="<%=request.getContextPath()%>/" class="direita btn btn-info" role="button">Listar</a></legend>
+					<legend>Ranking usuários <a href="<%=request.getContextPath()%>/evento?acao=ranking" class="direita btn btn-info" role="button">Listar</a></legend>
 						<table class="table table-bordered">
 		  						<thead>
 		  							 <tr>
@@ -116,10 +116,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<a href="<%=request.getContextPath()%>/evento/avaliar.jsp" class="btn btn-danger" role="button">Avaliar Envios</a>
+					<a href="<%=request.getContextPath()%>/evento?acao=editar&id=${evento.id}" class="btn btn-info" role="button">Editar Evento</a>
 				</div>
 				<div class="col-md-6">
-					<a href="<%=request.getContextPath()%>/evento?acao=editar&id=${evento.id}" class="btn btn-info" role="button">Editar Evento</a>
+					<a href="<%=request.getContextPath()%>/evento?acao=avaliar" class="btn btn-danger" role="button">Avaliar Envios</a>
 				</div>			
 			</div>	
 		</div>
