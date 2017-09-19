@@ -30,6 +30,35 @@
     	<div id="wrap">
     		<div class="container">
     			<div class="row">
+    				
+    				<c:if test="${ not empty mensagem}">
+					  	<c:choose>
+					  		<c:when test="${mensagem == 'Alterações salvas com sucesso!' }" >
+					  		<div class="form-group">
+							  	<div class="alert alert-info col-md-6 col-md-offset-4 has-feedback" role="alert">
+				  					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				  						<span aria-hidden="true">&times;</span>
+				  					</button>
+							  		<strong>Informativo!</strong> ${mensagem}
+								</div>
+							</div>	
+							</c:when>
+							<c:when test="${mensagem == 'Problemas no servidor tente novamente mais tarde!' }" >
+							  	<div class="alert alert-danger col-md-4 col-md-offset-4 has-feedback" role="alert">
+				  					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				  						<span aria-hidden="true">&times;</span>
+				  					</button>
+							  		<strong>Atenção!</strong> ${mensagem}
+								</div>
+							</c:when>
+						</c:choose>
+					  </c:if>
+    			
+    			
+    			
+    			
+    			
+    			
 					<form action="<%=request.getContextPath()%>/evento" method="POST">
     					<fieldset>
 							<!-- Form Name -->

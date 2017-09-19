@@ -35,12 +35,9 @@
     -->
     <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastrar Evento <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="<%=request.getContextPath()%>/evento?acao=cadastrar">
-		   	    		<span class="text-primary"><i class="glyphicon glyphicon-plus primary"></i> Evento</span>
-		   	    	</a></li>
-          </ul>
+          <a href="<%=request.getContextPath()%>/evento?acao=cadastrar">
+  	    		<span class="text-primary"><i class="glyphicon glyphicon-plus primary"></i> Evento</span>
+  	    	</a>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
@@ -52,5 +49,5 @@
     
     
   </nav>
-  <h3 class="titulo"><a href="<%=request.getContextPath()%>">Sistema Aedes</a></h3>
+  <h3 class="titulo"><a href="<%=request.getContextPath()%>/login?acao=inicial">Sistema Aedes</a></h3>
 </div>

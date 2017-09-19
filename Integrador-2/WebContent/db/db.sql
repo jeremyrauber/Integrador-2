@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS `projeto`.`mestre` (
   `data_nasc` TIMESTAMP NOT NULL,
   `login` VARCHAR(45) NOT NULL UNIQUE,
   `senha` VARCHAR(45) NOT NULL,
-  `senhanu` VARCHAR(45) NOT NULL,
   `endereco` VARCHAR(255) NULL,
   `email` VARCHAR(45) NOT NULL UNIQUE,
   `ativo` TINYINT(1) NULL DEFAULT 0,
@@ -133,4 +132,6 @@ ALTER TABLE evento ADD COLUMN  palavra_chave varchar(255);
 INSERT INTO mestre (`id_mestre`, `nome`, `data_nasc`, `login`, `senha`, `endereco`, `email`, `ativo`, `cep`, `bairro`, `cidade`, `estado`,`senhanu`) VALUES (1, 'Jeremy', '1990-01-21', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'rua puma, n 224', 'jeremy_rauber@live.com',1, '85860-240', 'Vila A','Foz do Iguaçu', 'PR','admin');
 INSERT INTO evento (data_fim, data_inicio, descricao, mestre_id_mestre, nome, palavra_chave, id) values     ('2017-09-14', '2017-09-16', ' Cacar mosquitos valentoes no bairro', 1, 'Aedes na mira', 'adeus egypt', 2);
 INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`, `cidade`,`cep`,`email`,`ativo`,`estado`,`banido`,`data_cadastro`) VALUES (1, 'Jobelino das Coves', 'jobe',  'eb62f6b9306db575c2d596b1279627a4', 'av morenitas n 225','2005-10-12','Vilac','Foz do Iguaçu', '85550-040', 'jobedascove@email.com',1,'PR',1,'2017-09-14');
-
+INSERT INTO atividade(id_atividade,descricao,nivel) VALUES (1,"recolher pneus do quintal",3);
+INSERT INTO atividade(id_atividade,descricao,nivel) VALUES (2,"Limpar vasos de plantas",1);
+INSERT INTO evento_has_atividade VALUES ()

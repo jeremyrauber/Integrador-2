@@ -89,7 +89,7 @@ public class EventoServlet extends HttpServlet {
 				e.setMestre(mestre);
 				daoEvento.save(e);
 				
-				mensagem = "Cadastro de evento realizado com sucesso!";
+				mensagem = "Cadastro de evento realizado!";
 				request.setAttribute("mensagem", mensagem);
 				request.setAttribute("evento", e);
 				request.getRequestDispatcher("jsp/evento/manterEvento.jsp").forward(request, response);
@@ -141,7 +141,8 @@ public class EventoServlet extends HttpServlet {
 				mensagem = "Cadastro de evento realizado com sucesso!";
 				request.setAttribute("mensagem", mensagem);
 				request.setAttribute("evento", e);
-				request.getRequestDispatcher("jsp/evento/manterEvento.jsp?acao=visualizar&id="+e.getId()).forward(request, response);
+				request.setAttribute("mestre", mestre);
+				request.getRequestDispatcher("jsp/evento/cadastrarEvento.jsp?acao=visualizar&id="+e.getId()).forward(request, response);
 	    		
 	    	}if (acao.equals("avaliar")) {
 	    		

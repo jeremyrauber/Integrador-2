@@ -40,6 +40,8 @@ public class LoginServlet extends HttpServlet {
         request.setAttribute("login", login);
         request.setAttribute("senha", senha);
         
+        System.out.println("aqui!");
+        
     	if(acao == null){
     		System.out.println("Entrou primeira vez.");
     		login = "";
@@ -69,7 +71,11 @@ public class LoginServlet extends HttpServlet {
 					if (mestre.getNome() != null ) {
 						
 						if(mestre.isAtivo()){
+							System.out.println("aqui mestre");
+							mestre = daoMestre.refreshNoMestre(mestre);
+							mestre.getEventos(); //refreshando os eventos;
 			                request.getSession().setAttribute("mestre", mestre);
+			                
 			                request.setAttribute("mestre", mestre);
 			                request.getRequestDispatcher("index.jsp").forward(request, response);
 			                return;
@@ -94,6 +100,17 @@ public class LoginServlet extends HttpServlet {
                 session.invalidate(); //removes all session attributes bound to the session
                 System.out.println("Logged out");
            	}    	
+        }else  if(acao.equals("inicial")) {
+        	Mestre novoMestre = new Mestre();
+        	
+        	HttpSession session = request.getSession(true);
+        	
+        	mestre = (Mestre) session.getAttribute("mestre");
+        	novoMestre = daoMestre.findMestre(mestre.getLogin(), mestre.getSenha());
+        	
+            request.getSession().setAttribute("mestre", novoMestre);
+            request.setAttribute("mestre", novoMestre);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     	 
         request.setAttribute("mensagem", mensagem);

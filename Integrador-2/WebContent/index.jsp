@@ -34,17 +34,15 @@
    					</div>
    					<div class="row"><br /></div>
    					<div class="row">
-   						<c:forEach var="evento" items="${mestre.eventos}">
-							<div class="col-md-2 text-center"><a href="<%=request.getContextPath()%>/evento?acao=visualizar&id=${evento.id}" class="btn btn-success" role="button">${evento.nome }</a></div>
-					 	</c:forEach>
-   						
-   						   						
+   						<c:forEach  begin="0" end="5" var="evento" items="${mestre.eventos}" varStatus="loop">
+							<div class="col-md-4 text-center"><a href="<%=request.getContextPath()%>/evento?acao=visualizar&id=${evento.id}" class="btn btn-success" role="button">${evento.nome}</a></div>
+							 <c:if test="${loop.count eq 3}"> 
+							 	<br /><br />
+							 </c:if>
+					 	</c:forEach>				
     				</div>
     				<div class="row"><br /></div>
     			</div>	
-    			<div class="row"><br/></div>
-    			<div class="row"><br/></div>
-    			<div class="row"><br/></div>
     			<div class="col-md-12">
     				<div class="row">
     				<!--  Começo do painel do Usuário -->
@@ -61,7 +59,7 @@
 											<li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
 										</ul>
 									</div>
-									<div class="col-md-6"> <strong>Information</strong><br>
+									<div class="col-md-6"> <strong>Informações:</strong><br>
 										<div class="table-responsive">
 											<table class="table table-condensed table-responsive table-user-information">
 												<tbody>

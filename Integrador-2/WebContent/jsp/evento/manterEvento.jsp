@@ -34,21 +34,17 @@
     	<div id="wrap">
     		<div class="container">
     			<div class="row">
-    			<div class="col-md-6">
-    				<form class="form-horizontal">
-						<fieldset>
-						
-							<legend>Informações do Evento </legend>
-					
-							<c:if test="${ not empty mensagem}">
+    			
+    			
+    			<c:if test="${ not empty mensagem}">
 							  	<c:choose>
-						  			<c:when test="${mensagem == 'Alterações salvas com sucesso!' }" >
+						  			<c:when test="${mensagem == 'Cadastro de evento realizado!' }" >
 						  			<div class="form-group">
-									  	<div class="alert alert-info col-md-6 col-md-offset-4 has-feedback" role="alert">
+									  	<div class="alert alert-success col-md-6 col-md-offset-4 has-feedback" role="alert">
 						  					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						  						<span aria-hidden="true">&times;</span>
 						  					</button>
-									  		<strong>Informativo!</strong> ${mensagem}
+									  		<strong>Sucesso!</strong> ${mensagem}
 										</div>
 									</div>	
 									</c:when>
@@ -62,6 +58,15 @@
 									</c:when>
 								</c:choose>
 							  </c:if>
+    			
+    			
+    			<div class="col-md-6">
+    				<form class="form-horizontal">
+						<fieldset>
+						
+							<legend>Informações do Evento </legend>
+
+							  
 							<!--Informacao do evento -->
 								<div class="panel panel-primary">
 							      <div class="panel-heading">
