@@ -135,5 +135,5 @@ INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`
 INSERT INTO atividade(id_atividade,descricao,nivel) VALUES (1,"recolher pneus do quintal",3);
 INSERT INTO atividade(id_atividade,descricao,nivel) VALUES (2,"Limpar vasos de plantas",1);
 INSERT INTO evento_has_atividade(evento_id,evento_mestre_id_mestre,atividade_id_atividade) VALUES (1,1,1);
-INSERT INTO usuario_has_atividade(`usuario_id`,`atividade_id_atividade`,`data_fim_atividade`,`status`,`caminho_imagem`) VALUES (1,1,'2014-10-01',0,'C:\\tempp\\usuario_1_envio_1.jpg');
+INSERT INTO usuario_has_atividade(`usuario_id`,`atividade_id_atividade`,`data_fim_atividade`,`status`,`caminho_imagem`) VALUES (1,1,'2014-10-01',0,'C:\\temp\\usuario_1_envio_1.jpeg');
 INSERT INTO evento_has_usuario (evento_id,evento_mestre_id_mestre,usuario_id,banido_evento) VALUES (1,1,1,0);
