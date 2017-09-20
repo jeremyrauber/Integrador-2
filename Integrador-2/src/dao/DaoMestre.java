@@ -36,7 +36,7 @@ public class DaoMestre extends DaoEntity<Mestre, Integer> {
 		return (BigInteger) q.getSingleResult();
 	}
 	
-	public Mestre findbyrEmail(String email) {
+	public Mestre findbyEmail(String email) {
 		Query q = em.createNativeQuery("Select * from mestre WHERE email ='"+email+"'",Mestre.class);
 		return (Mestre) q.getSingleResult();
 	}

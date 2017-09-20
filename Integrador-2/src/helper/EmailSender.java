@@ -72,7 +72,7 @@ public class EmailSender{
             }
       }
       
-      public void recuperar(String destinatario ) {
+      public void recuperar(String destinatario,String novaSenha ) {
     	  
           Properties props = new Properties();
           
@@ -107,7 +107,8 @@ public class EmailSender{
           try {
         	  
         	  	DaoMestre dao = new DaoMestre();
-        	  	Mestre mestre = dao.findbyrEmail(destinatario);
+        	  	Mestre mestre = dao.findbyEmail(destinatario);
+        	  	
         	  	
                 Message message = new MimeMessage(session);
                 message.setFrom(new InternetAddress("no-reply@turmadogrubbi.com.br")); //Remetente
@@ -116,7 +117,7 @@ public class EmailSender{
                            .parse(destinatario);
                 message.setRecipients(Message.RecipientType.TO, toUser);
                 message.setSubject("Recuperacao de Acesso Sistema Aedes");//Assunto
-                message.setText("Caro Sr.(a), Sua senha do Sistema Aedes é: "+mestre.getSenhanu()+" . Atenciosamente, Sistema Aedes Team.");
+                message.setText("Caro Sr.(a), Sua senha do Sistema Aedes é: "+novaSenha+" . Atenciosamente, Sistema Aedes Team.");
                 
                 /**Método para enviar a mensagem criada*/
                 Transport.send(message);

@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `projeto`.`evento_has_usuario` (
   `evento_id` INT NOT NULL,
   `evento_mestre_id_mestre` INT NOT NULL,
   `usuario_id` INT NOT NULL,
-  `data_vinculo` DATETIME NULL,
+  `data_vinculo` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `banido_evento` TINYINT(1) NULL,
   PRIMARY KEY (`evento_id`, `evento_mestre_id_mestre`, `usuario_id`),
   CONSTRAINT `fk_evento_has_usuario_evento1`
@@ -101,10 +101,10 @@ CREATE TABLE IF NOT EXISTS `projeto`.`usuario_has_atividade` (
   `status` TINYINT(1) NULL,
   `caminho_imagem` VARCHAR(255) NULL,
   PRIMARY KEY (`usuario_id`, `atividade_id_atividade`),
-  CONSTRAINT `fk_usuario_has_atividade_usuario1`
+  CONSTRAINT `fk_usuario_has_atividade_usuario`
     FOREIGN KEY (`usuario_id`)
     REFERENCES `projeto`.`usuario` (`id`),
-  CONSTRAINT `fk_usuario_has_atividade_atividade1`
+  CONSTRAINT `fk_usuario_has_atividade_atividade`
     FOREIGN KEY (`atividade_id_atividade`)
     REFERENCES `projeto`.`atividade` (`id_atividade`))
 ENGINE = InnoDB;
@@ -134,4 +134,6 @@ INSERT INTO evento (data_fim, data_inicio, descricao, mestre_id_mestre, nome, pa
 INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`, `cidade`,`cep`,`email`,`ativo`,`estado`,`banido`,`data_cadastro`) VALUES (1, 'Jobelino das Coves', 'jobe',  'eb62f6b9306db575c2d596b1279627a4', 'av morenitas n 225','2005-10-12','Vilac','Foz do Iguaçu', '85550-040', 'jobedascove@email.com',1,'PR',1,'2017-09-14');
 INSERT INTO atividade(id_atividade,descricao,nivel) VALUES (1,"recolher pneus do quintal",3);
 INSERT INTO atividade(id_atividade,descricao,nivel) VALUES (2,"Limpar vasos de plantas",1);
-INSERT INTO evento_has_atividade VALUES ()
+INSERT INTO evento_has_atividade(evento_id,evento_mestre_id_mestre,atividade_id_atividade) VALUES (1,1,1);
+INSERT INTO usuario_has_atividade
+insert into evento_has_usuario (evento_id,evento_mestre_id_mestre,usuario_id,banido_evento) values (1,1,1,0);

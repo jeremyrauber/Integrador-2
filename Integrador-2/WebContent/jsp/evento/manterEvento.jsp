@@ -56,6 +56,14 @@
 									  		<strong>Atenção!</strong> ${mensagem}
 										</div>
 									</c:when>
+									<c:when test="${mensagem == 'Evento atualizadocom sucesso!' }" >
+									  	<div class="alert alert-success col-md-4 col-md-offset-4 has-feedback" role="alert">
+						  					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						  						<span aria-hidden="true">&times;</span>
+						  					</button>
+									  		<strong>Hey!</strong> ${mensagem}
+										</div>
+									</c:when>
 								</c:choose>
 							  </c:if>
     			

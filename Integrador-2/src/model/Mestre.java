@@ -60,10 +60,7 @@ public class Mestre {
 	@Column
 	private String hashValidador;
 
-	@Column(nullable=false)
-	private String senhanu;
-	
-	@Column(nullable=false,name="data_cadastro")
+	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
 	@OneToMany(mappedBy="mestre",fetch=FetchType.EAGER)
@@ -174,13 +171,6 @@ public class Mestre {
 		this.hashValidador = hashValidador;
 	}
 
-	public String getSenhanu() {
-		return senhanu;
-	}
-
-	public void setSenhanu(String senhanu) {
-		this.senhanu = senhanu;
-	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;

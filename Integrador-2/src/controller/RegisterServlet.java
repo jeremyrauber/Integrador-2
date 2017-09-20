@@ -89,7 +89,6 @@ public class RegisterServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 					mestre.setEmail(email);
-					mestre.setSenhanu(senha);
 					mestre.setCep(cep);
 					mestre.setEndereco(endereco);
 					mestre.setBairro(bairro);
@@ -118,7 +117,7 @@ public class RegisterServlet extends HttpServlet {
 					
 					es.enviar(mestre.getEmail(),mestre.getHashValidador(),rootPath);
 					
-					mensagem = "Cadastro realizado com sucesso! A confirmação de cadastro será enviada para seu email: "+email
+					mensagem = "Cadastro realizado com sucesso! A confirmação de cadastro será enviada para seu email:  "+email
 							+". Só será permitida a entrada após validação.";
 				}else {
 					mensagem = "Login e/ou email já em uso! Favor tentar outro ou recuperar sua senha";
@@ -135,10 +134,23 @@ public class RegisterServlet extends HttpServlet {
 					
 				}
 			}else if(acao.equals("recuperar")){
-				
+								
 				System.out.println("entrou aqui"+acao);
 				String email = request.getParameter("email");
-				es.recuperar(email);
+				Mestre mestre_n = daoMestre.findbyEmail(email);
+				
+				String novaSenha = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
+				String novaSenhaMd5=novaSenha;
+				try {
+					novaSenhaMd5 = hash.toMD5(novaSenha);
+					mestre_n.setSenha(novaSenhaMd5);
+				} catch (Exception e) {
+					novaSenha = "0123"; 
+				}
+				
+				
+				daoMestre.update(mestre_n);
+				es.recuperar(mestre_n.getEmail(),novaSenha);
 				mensagem = "Email enviado com sucesso!";
 				
 			

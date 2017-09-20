@@ -138,11 +138,11 @@ public class EventoServlet extends HttpServlet {
 				
 				daoEvento.update(e);
 				
-				mensagem = "Cadastro de evento realizado com sucesso!";
+				mensagem = "Evento atualizadocom sucesso!";
 				request.setAttribute("mensagem", mensagem);
 				request.setAttribute("evento", e);
 				request.setAttribute("mestre", mestre);
-				request.getRequestDispatcher("jsp/evento/cadastrarEvento.jsp?acao=visualizar&id="+e.getId()).forward(request, response);
+				request.getRequestDispatcher("jsp/evento/manterEvento.jsp?acao=visualizar&id="+e.getId()).forward(request, response);
 	    		
 	    	}if (acao.equals("avaliar")) {
 	    		

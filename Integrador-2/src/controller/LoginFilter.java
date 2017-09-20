@@ -66,7 +66,7 @@ public class LoginFilter implements Filter {
         	Mestre mestre = mestreSession;
         	System.out.println("aqui!");
         	try {
-        		mestre = daoMestre.findMestre(mestreSession.getLogin(),hash.toMD5(mestreSession.getSenhanu()));
+        		mestre = daoMestre.findMestre(mestreSession.getLogin(),mestreSession.getSenha());
         	}catch (Exception e) {
         		
         	}
