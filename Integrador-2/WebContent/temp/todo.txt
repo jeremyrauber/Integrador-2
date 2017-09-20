@@ -1,0 +1,4 @@
+-URGENTE: refazer MER!
+-implementar avaliacao de submissoes
+-implementar ranking
+-implementar informacoes complementares ranking

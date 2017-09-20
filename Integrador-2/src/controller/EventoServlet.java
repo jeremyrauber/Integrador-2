@@ -146,6 +146,8 @@ public class EventoServlet extends HttpServlet {
 	    		
 	    	}if (acao.equals("avaliar")) {
 	    		
+	    		
+	    		
 	    		request.getRequestDispatcher("jsp/evento/avaliarEvento.jsp").forward(request, response);
 	    		
 	    	}if (acao.equals("ranking")) {

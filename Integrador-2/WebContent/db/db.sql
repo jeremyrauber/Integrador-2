@@ -77,14 +77,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projeto`.`evento_has_usuario` (
   `evento_id` INT NOT NULL,
-  `evento_mestre_id_mestre` INT NOT NULL,
   `usuario_id` INT NOT NULL,
   `data_vinculo` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `banido_evento` TINYINT(1) NULL,
-  PRIMARY KEY (`evento_id`, `evento_mestre_id_mestre`, `usuario_id`),
-  CONSTRAINT `fk_evento_has_usuario_evento1`
-    FOREIGN KEY (`evento_id` , `evento_mestre_id_mestre`)
-    REFERENCES `projeto`.`evento` (`id` , `mestre_id_mestre`),
+  PRIMARY KEY (`evento_id`, `usuario_id`),
   CONSTRAINT `fk_evento_has_usuario_usuario1`
     FOREIGN KEY (`usuario_id`)
     REFERENCES `projeto`.`usuario` (`id`))
@@ -133,4 +129,4 @@ INSERT INTO atividade(id_atividade,descricao,nivel) VALUES (1,"recolher pneus do
 INSERT INTO atividade(id_atividade,descricao,nivel) VALUES (2,"Limpar vasos de plantas",1);
 INSERT INTO evento_has_atividade(evento_id,evento_mestre_id_mestre,atividade_id_atividade) VALUES (1,1,1);
 INSERT INTO usuario_has_atividade(`usuario_id`,`atividade_id_atividade`,`data_fim_atividade`,`status`,`caminho_imagem`) VALUES (1,1,'2014-10-01',0,'C:\\temp\\usuario_1_envio_1.jpeg');
-INSERT INTO evento_has_usuario (evento_id,evento_mestre_id_mestre,usuario_id,banido_evento) VALUES (1,1,1,0);
+INSERT INTO evento_has_usuario (evento_id,usuario_id,banido_evento) VALUES (1,1,0);
