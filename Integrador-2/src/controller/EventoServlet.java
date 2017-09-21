@@ -111,6 +111,7 @@ public class EventoServlet extends HttpServlet {
 				
 				e.setAtividades(lista);
 				
+				
 				daoEvento.save(e); 
 				
 				

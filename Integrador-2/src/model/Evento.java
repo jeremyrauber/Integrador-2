@@ -49,7 +49,10 @@ public class Evento implements Serializable {
     @JoinColumn(name="id_mestre", nullable=false)
     private Mestre mestre;
 	
-	@ManyToMany(mappedBy="eventos")
+	 @ManyToMany(fetch = FetchType.LAZY)
+	 @JoinTable(name = "evento_has_atividade",
+	        joinColumns = @JoinColumn(name = "id_evento", referencedColumnName = "id"),
+	        inverseJoinColumns = @JoinColumn(name = "id_atividade", referencedColumnName = "id"))
 	private List<Atividade> atividades;
 	
 	public Integer getId() {

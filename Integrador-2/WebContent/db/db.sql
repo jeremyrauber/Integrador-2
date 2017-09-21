@@ -113,14 +113,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projeto`.`evento_has_atividade` (
   `id_evento` INT NOT NULL,
-  `id_atividade` INT NOT NULL,
-  PRIMARY KEY (`id_evento`, `id_atividade`),
-  CONSTRAINT `fk_evento_has_atividade_evento`
-    FOREIGN KEY (`id_evento`)
-    REFERENCES `projeto`.`evento` (`id`),
-  CONSTRAINT `fk_evento_has_atividade_atividade`
-    FOREIGN KEY (`id_atividade`)
-    REFERENCES `projeto`.`atividade` (`id`))
+  `id_atividade` INT NOT NULL)
 ENGINE = InnoDB;
 
 INSERT INTO mestre (`id`, `nome`, `data_nasc`, `login`, `senha`, `endereco`, `email`, `ativo`, `cep`, `bairro`, `cidade`, `estado`) VALUES (1, 'Jeremy', '1990-01-21', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'rua puma, n 224', 'jeremy_rauber@live.com',1, '85860-240', 'Vila A','Foz do Iguaçu', 'PR');

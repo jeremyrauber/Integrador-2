@@ -37,10 +37,7 @@ public class Atividade implements Comparable<Atividade>,Serializable {
 	@Column(nullable=false,name="nivel")
 	private String nivel;
 	
-	 @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	 @JoinTable(name = "evento_has_atividade",
-	        joinColumns = @JoinColumn(name = "id_atividade", referencedColumnName = "id"),
-	        inverseJoinColumns = @JoinColumn(name = "id_evento", referencedColumnName = "id"))
+	@ManyToMany(mappedBy = "atividades")
 	private List<Evento> eventos;
 	
 	@Transient 
