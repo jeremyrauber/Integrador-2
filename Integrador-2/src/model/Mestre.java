@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,10 +18,11 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name="mestre")
-public class Mestre {
+public class Mestre implements Serializable {
+    private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="id_mestre")
+	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer id;
 	

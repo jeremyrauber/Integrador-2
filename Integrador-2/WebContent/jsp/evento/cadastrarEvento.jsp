@@ -114,6 +114,20 @@
 							  </div>
 							</div>
 							
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="keyword">Atividades para serem desenvolvidas</label>
+							  <div class="col-md-6">
+							    <c:forEach items="${atividades}" var="atividade">
+							    	<div class="checkbox">
+						    			<label>
+						    				<input type="checkbox" name="atividades[]" value="${atividade.id}" ${atividade.selecionado ? 'checked' : '' } > 
+							    			${atividade.descricao} - Nível: ${atividade.nivel }
+							    		</label>
+						    		</div>
+						   		 </c:forEach>
+							  </div>
+							</div>
+							
 							<!-- Button (Double) -->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="Cadastrar"></label>

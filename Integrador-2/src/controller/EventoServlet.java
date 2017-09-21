@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
+import dao.DaoAtividade;
 import dao.DaoEvento;
+import model.Atividade;
 import model.Evento;
 import model.Mestre;
 
@@ -35,6 +41,7 @@ public class EventoServlet extends HttpServlet {
 		String acao = request.getParameter("acao");
 		
 		DaoEvento daoEvento = new DaoEvento();
+		DaoAtividade daoAtividade = new DaoAtividade();
 		
 		String mensagem = "";
 		
@@ -45,13 +52,16 @@ public class EventoServlet extends HttpServlet {
     	}else {
 		
 			if (acao.equals("cadastrar")) {
-	    		
+				
+				List<Atividade> atividades = daoAtividade.findAll();
+				request.setAttribute("atividades", atividades);
 	    		request.getRequestDispatcher("jsp/evento/cadastrarEvento.jsp").forward(request, response);
 	    		
 	    	}else if (acao.equals("visualizar")) {
 	    		
 	    		Integer id = Integer.parseInt(request.getParameter("id"));
 	    		Evento evento = daoEvento.findById(id);
+	    		
 	    		request.setAttribute("evento", evento);    
 	    		request.getRequestDispatcher("jsp/evento/manterEvento.jsp").forward(request, response);
 	    		
@@ -62,10 +72,12 @@ public class EventoServlet extends HttpServlet {
 	    		String dataFim = request.getParameter("dataf");
 	    		String descricao = request.getParameter("descricao");
 	    		String keyword = request.getParameter("keyword");
+	    		String atividades[] = request.getParameterValues("atividades[]");
 	    		
-	    		System.out.println(dataInicio+"*"+dataFim);
-	    		
-				Evento e = new Evento();
+	    		Evento e = new Evento();
+				
+				
+				List<Atividade> lista = new ArrayList<>();
 				
 				e.setNome(nome);
 				
@@ -84,21 +96,47 @@ public class EventoServlet extends HttpServlet {
 				e.setDescricao(descricao);
 				e.setPalavraChave(keyword);
 				
-				Mestre mestre = (Mestre) session.getAttribute("mestre");
+				Mestre mestre = (Mestre) session.getAttribute("mestre");			
 				
 				e.setMestre(mestre);
-				daoEvento.save(e);
+				
+				if(atividades != null) {
+					for(String var: atividades) {
+						Atividade a = daoAtividade.findById(Integer.parseInt(var));
+						System.out.println(a.getId()+"-"+a.getDescricao());
+						lista.add(a);
+					}
+				}
+				
+				
+				e.setAtividades(lista);
+				
+				daoEvento.save(e); 
+				
 				
 				mensagem = "Cadastro de evento realizado!";
 				request.setAttribute("mensagem", mensagem);
+
 				request.setAttribute("evento", e);
 				request.getRequestDispatcher("jsp/evento/manterEvento.jsp").forward(request, response);
 			
 	    	}
 	    	else if (acao.equals("editar")) {
-	    		
 	    		Integer id = Integer.parseInt(request.getParameter("id"));
 	    		Evento evento = daoEvento.findById(id);
+	    		
+	    		
+	    		Set<Atividade> atividades = new TreeSet<Atividade>();
+				for(Atividade a: evento.getAtividades()) {
+					a.setSelecionado(true);
+					atividades.add(a);
+				}
+				atividades.addAll(daoAtividade.findAll());
+				for(Atividade a: atividades) {
+					System.out.println(a.getDescricao()+"9"+a.isSelecionado());
+				}
+				
+				request.setAttribute("atividades", atividades);    		
 	    		request.setAttribute("evento", evento);    
 	    		request.getRequestDispatcher("jsp/evento/cadastrarEvento.jsp").forward(request, response);
 	    		
@@ -110,10 +148,21 @@ public class EventoServlet extends HttpServlet {
 	    		String dataFim = request.getParameter("dataf");
 	    		String descricao = request.getParameter("descricao");
 	    		String keyword = request.getParameter("keyword");
+	    		String atividades[] = request.getParameterValues("atividades[]");
 	    		
-	    		
+	    		List<Atividade> lista = new ArrayList<>();
+				
+				if(atividades != null) {
+					for(String var: atividades) {
+						Atividade a = daoAtividade.findById(Integer.parseInt(var));
+				
+						lista.add(a);
+					}
+				}
+				
 				Evento e = daoEvento.findById(id);
 				
+				e.setAtividades(lista);
 				e.setNome(nome);
 				
 				DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);

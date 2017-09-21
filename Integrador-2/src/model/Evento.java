@@ -1,7 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,7 +22,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="evento")
-public class Evento {
+public class Evento implements Serializable {
+    private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="id")
@@ -43,13 +46,12 @@ public class Evento {
 	private String palavraChave;
 	
 	@ManyToOne
-    @JoinColumn(name="mestre_id_mestre", nullable=false)
+    @JoinColumn(name="id_mestre", nullable=false)
     private Mestre mestre;
 	
-	@OneToMany(mappedBy="evento", cascade=CascadeType.ALL)
-    private Set<EventoUsuario> eventoUsuario = new HashSet<EventoUsuario>();
-
-
+	@ManyToMany(mappedBy="eventos")
+	private List<Atividade> atividades;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -106,12 +108,12 @@ public class Evento {
 		this.mestre = mestre;
 	}
 
-	public Set<EventoUsuario> getEventoUsuario() {
-		return eventoUsuario;
+	public List<Atividade> getAtividades() {
+		return atividades;
 	}
 
-	public void setEventoUsuario(Set<EventoUsuario> eventoUsuario) {
-		this.eventoUsuario = eventoUsuario;
+	public void setAtividades(List<Atividade> atividades) {
+		this.atividades = atividades;
 	}
 	
 }

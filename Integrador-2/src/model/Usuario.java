@@ -60,9 +60,6 @@ public class Usuario {
 	@Column(nullable=false,name="data_nasc")
 	private Date dataNascimento;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-	private Set<EventoUsuario> eventos = new HashSet<EventoUsuario>(0);
-
 	public Integer getId() {
 		return id;
 	}
@@ -175,11 +172,4 @@ public class Usuario {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Set<EventoUsuario> getEventos() {
-		return eventos;
-	}
-
-	public void setEventos(Set<EventoUsuario> eventos) {
-		this.eventos = eventos;
-	}
 }
