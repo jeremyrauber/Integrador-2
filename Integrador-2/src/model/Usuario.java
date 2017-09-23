@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -60,6 +62,10 @@ public class Usuario {
 	@Column(nullable=false,name="data_nasc")
 	private Date dataNascimento;
 	
+
+    @OneToMany(mappedBy = "primaryKey.evento",cascade = CascadeType.ALL)
+	private Set<EventoUsuario> eventoUsuario = new HashSet<EventoUsuario>();
+    
 	public Integer getId() {
 		return id;
 	}
@@ -170,6 +176,14 @@ public class Usuario {
 
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public Set<EventoUsuario> getEventoUsuario() {
+		return eventoUsuario;
+	}
+
+	public void setEventoUsuario(Set<EventoUsuario> eventoUsuario) {
+		this.eventoUsuario = eventoUsuario;
 	}
 
 }

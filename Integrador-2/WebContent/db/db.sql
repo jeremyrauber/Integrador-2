@@ -78,14 +78,9 @@ CREATE TABLE IF NOT EXISTS `projeto`.`evento_has_usuario` (
   `id_evento` INT NOT NULL,
   `id_usuario` INT NOT NULL,
   `data_vinculo` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `banido_evento` TINYINT(1) NULL,
-  PRIMARY KEY (`id_evento`, `id_usuario`),
-  CONSTRAINT `fk_evento_has_usuario_usuario`
-    FOREIGN KEY (`id_usuario`)
-    REFERENCES `projeto`.`usuario` (`id`),
-  CONSTRAINT `fk_evento_has_usuario_evento`
-    FOREIGN KEY (`id_evento`)
-    REFERENCES `projeto`.`evento` (`id`))
+  `banido_evento` TINYINT(1) DEFAULT 0,
+   CONSTRAINT `fk_evento_evento` FOREIGN KEY (`id_evento`) REFERENCES `projeto`.`evento` (`id`),
+   CONSTRAINT `fk_evento_usuario`FOREIGN KEY (`id_usuario`) REFERENCES `projeto`.`usuario` (`id`))
 ENGINE = InnoDB;
 
 
@@ -98,13 +93,7 @@ CREATE TABLE IF NOT EXISTS `projeto`.`usuario_has_atividade` (
   `data_fim_atividade` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `status` TINYINT(1) NULL,
   `caminho_imagem` VARCHAR(255) NULL,
-  PRIMARY KEY (`id_usuario`, `id_atividade`),
-  CONSTRAINT `fk_usuario_has_atividade_usuario`
-    FOREIGN KEY (`id_usuario`)
-    REFERENCES `projeto`.`usuario` (`id`),
-  CONSTRAINT `fk_usuario_has_atividade_atividade`
-    FOREIGN KEY (`id_atividade`)
-    REFERENCES `projeto`.`atividade` (`id`))
+  PRIMARY KEY (`id_usuario`,`id_atividade`))
 ENGINE = InnoDB;
 
 
@@ -113,14 +102,19 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projeto`.`evento_has_atividade` (
   `id_evento` INT NOT NULL,
-  `id_atividade` INT NOT NULL)
+  `id_atividade` INT NOT NULL
+  PRIMARY KEY (`id_evento`,`id_atividade`))
 ENGINE = InnoDB;
 
 INSERT INTO mestre (`id`, `nome`, `data_nasc`, `login`, `senha`, `endereco`, `email`, `ativo`, `cep`, `bairro`, `cidade`, `estado`) VALUES (1, 'Jeremy', '1990-01-21', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'rua puma, n 224', 'jeremy_rauber@live.com',1, '85860-240', 'Vila A','Foz do Iguaçu', 'PR');
-INSERT INTO evento (data_fim, data_inicio, descricao, id_mestre, nome, palavra_chave, id) values     ('2017-09-14', '2017-09-16', ' Cacar mosquitos valentoes no bairro', 1, 'Aedes na mira', 'adeus egypt', 1);
-INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`, `cidade`,`cep`,`email`,`ativo`,`estado`,`banido`,`data_cadastro`) VALUES (1, 'Jobelino das Coves', 'jobe',  'eb62f6b9306db575c2d596b1279627a4', 'av morenitas n 225','2005-10-12','Vilac','Foz do Iguaçu', '85550-040', 'jobedascove@email.com',1,'PR',1,'2017-09-14');
+INSERT INTO evento (data_fim, data_inicio, descricao, id_mestre, nome, palavra_chave, id) VALUES ('2017-09-14', '2017-09-16', ' Cacar mosquitos valentoes no bairro', 1, 'Aedes na mira', 'adeus egypt', 1);
+INSERT INTO evento (data_fim, data_inicio, descricao, id_mestre, nome, palavra_chave, id) VALUES ('2017-09-21', '2017-10-16', ' Cacar mosquitos valentoes no bairro pt2', 1, 'Aedes na mira pt2', 'adeusaegypt', 2);
+INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`, `cidade`,`cep`,`email`,`ativo`,`estado`,`banido`,`data_cadastro`) VALUES (1, 'Jobelino das Coves', 'jobe',  'eb62f6b9306db575c2d596b1279627a4', 'av morenitas n 225','2005-10-12','Vilac','Foz do Iguacu', '85550-040', 'jobedascove@email.com',1,'PR',0,'2017-09-14');
+INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`, `cidade`,`cep`,`email`,`ativo`,`estado`,`banido`,`data_cadastro`) VALUES (2, 'Valderrama', 'val',  'eb62f6b9306db575c2d596b1279627a4', 'av morenitas n 225','2005-10-12','Vilac','Foz do Iguacu', '85550-040', 'valderrama@email.com',1,'PR',0,'2017-09-21');
 INSERT INTO atividade(id,descricao,nivel) VALUES (1,"recolher pneus do quintal",3);
 INSERT INTO atividade(id,descricao,nivel) VALUES (2,"Limpar vasos de plantas",1);
 INSERT INTO evento_has_atividade(id_evento,id_atividade) VALUES (1,1);
 INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`data_fim_atividade`,`status`,`caminho_imagem`) VALUES (1,1,'2014-10-01',0,'C:\\temp\\usuario_1_envio_1.jpeg');
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,1,0);
+INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (2,1,0);
+INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,2,0);

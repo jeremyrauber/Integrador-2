@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -54,7 +55,19 @@ public class Evento implements Serializable {
 	        joinColumns = @JoinColumn(name = "id_evento", referencedColumnName = "id"),
 	        inverseJoinColumns = @JoinColumn(name = "id_atividade", referencedColumnName = "id"))
 	private List<Atividade> atividades;
+	 
+	@OneToMany(mappedBy = "primaryKey.usuario",
+            cascade = CascadeType.ALL)
+	private Set<EventoUsuario> eventoUsuario = new HashSet<EventoUsuario>();
 	
+	public Set<EventoUsuario> getEventoUsuario() {
+		return eventoUsuario;
+	}
+
+	public void setEventoUsuario(Set<EventoUsuario> eventoUsuario) {
+		this.eventoUsuario = eventoUsuario;
+	}
+
 	public Integer getId() {
 		return id;
 	}

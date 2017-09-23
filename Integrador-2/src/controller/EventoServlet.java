@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -21,9 +22,12 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import dao.DaoAtividade;
 import dao.DaoEvento;
+import dao.DaoEventoUsuario;
 import model.Atividade;
 import model.Evento;
+import model.EventoUsuario;
 import model.Mestre;
+import model.Usuario;
 
 @WebServlet("/evento")
 public class EventoServlet extends HttpServlet {
@@ -42,6 +46,7 @@ public class EventoServlet extends HttpServlet {
 		
 		DaoEvento daoEvento = new DaoEvento();
 		DaoAtividade daoAtividade = new DaoAtividade();
+		DaoEventoUsuario daoEventoUsuario = new DaoEventoUsuario();
 		
 		String mensagem = "";
 		
@@ -61,6 +66,14 @@ public class EventoServlet extends HttpServlet {
 	    		
 	    		Integer id = Integer.parseInt(request.getParameter("id"));
 	    		Evento evento = daoEvento.findById(id);
+	    		List<EventoUsuario> eu = daoEventoUsuario.findByEventoId(evento.getId());
+	    		Set<EventoUsuario> foo = new HashSet<EventoUsuario>(eu);
+
+	    		evento.setEventoUsuario(foo);
+	    		
+	    		for(EventoUsuario e : eu) {
+					System.out.println(e.getUsuario().getNome()+">>>>>>>>>>>>>>>>>>>>>>>>");
+				}
 	    		
 	    		request.setAttribute("evento", evento);    
 	    		request.getRequestDispatcher("jsp/evento/manterEvento.jsp").forward(request, response);
