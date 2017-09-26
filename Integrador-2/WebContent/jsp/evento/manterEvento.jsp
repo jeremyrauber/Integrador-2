@@ -123,7 +123,7 @@
 					<a href="<%=request.getContextPath()%>/evento?acao=editar&id=${evento.id}" class="btn btn-info" role="button">Editar Evento</a>
 				</div>
 				<div class="col-md-6">
-					<a href="<%=request.getContextPath()%>/evento?acao=avaliar" class="btn btn-danger" role="button">Avaliar Envios</a>
+					<a href="<%=request.getContextPath()%>/evento?acao=avaliar&id=${evento.id}" class="btn btn-danger" role="button">Avaliar Envios</a>
 				</div>			
 			</div>	
 		</div>

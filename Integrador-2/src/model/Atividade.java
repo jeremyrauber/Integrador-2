@@ -40,6 +40,9 @@ public class Atividade implements Comparable<Atividade>,Serializable {
 	@ManyToMany(mappedBy = "atividades")
 	private List<Evento> eventos;
 	
+	@OneToMany(mappedBy = "primaryKey.usuario")
+	private Set<UsuarioAtividade> usuarioAtividade = new HashSet<UsuarioAtividade>();
+	
 	@Transient 
 	private boolean selecionado = false;
 	
@@ -72,6 +75,8 @@ public class Atividade implements Comparable<Atividade>,Serializable {
 	}
 
 	public void setDescricao(String descricao) {
+		if(descricao.length()>255)
+			descricao.substring(0,255);
 		this.descricao = descricao;
 	}
 	
@@ -80,6 +85,22 @@ public class Atividade implements Comparable<Atividade>,Serializable {
 	@Override
 	public int compareTo(Atividade outro) {
 		return this.descricao.compareTo(outro.getDescricao());
+	}
+
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
+	}
+
+	public Set<UsuarioAtividade> getUsuarioAtividade() {
+		return usuarioAtividade;
+	}
+
+	public void setUsuarioAtividade(Set<UsuarioAtividade> usuarioAtividade) {
+		this.usuarioAtividade = usuarioAtividade;
 	}
 
 	

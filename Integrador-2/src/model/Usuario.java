@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,8 +18,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="usuario")
-public class Usuario {
-
+public class Usuario implements Serializable {
+    private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer id;
@@ -62,8 +63,11 @@ public class Usuario {
 	@Column(nullable=false,name="data_nasc")
 	private Date dataNascimento;
 	
+	@OneToMany(mappedBy = "primaryKey.atividade",fetch = FetchType.LAZY)
+	private Set<UsuarioAtividade> usuarioAtividade = new HashSet<UsuarioAtividade>();
+	
 
-    @OneToMany(mappedBy = "primaryKey.evento",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "primaryKey.evento")
 	private Set<EventoUsuario> eventoUsuario = new HashSet<EventoUsuario>();
     
 	public Integer getId() {
@@ -184,6 +188,14 @@ public class Usuario {
 
 	public void setEventoUsuario(Set<EventoUsuario> eventoUsuario) {
 		this.eventoUsuario = eventoUsuario;
+	}
+
+	public Set<UsuarioAtividade> getUsuarioAtividade() {
+		return usuarioAtividade;
+	}
+
+	public void setUsuarioAtividade(Set<UsuarioAtividade> usuarioAtividade) {
+		this.usuarioAtividade = usuarioAtividade;
 	}
 
 }

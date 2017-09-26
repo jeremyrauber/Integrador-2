@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `projeto`.`evento` (
   `nome` VARCHAR(45) NOT NULL,
   `data_inicio` TIMESTAMP  NOT NULL DEFAULT now(),
   `data_fim` TIMESTAMP  NOT NULL ,
-  `descricao` VARCHAR(45) NULL,
+  `descricao` VARCHAR(255) NULL,
   `palavra_chave` VARCHAR(45) NULL,
   `id_mestre` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -91,9 +91,11 @@ CREATE TABLE IF NOT EXISTS `projeto`.`usuario_has_atividade` (
   `id_usuario` INT NOT NULL,
   `id_atividade` INT NOT NULL,
   `data_fim_atividade` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `status` TINYINT(1) NULL,
+  `status` TINYINT(1) DEFAULT 0,
   `caminho_imagem` VARCHAR(255) NULL,
-  PRIMARY KEY (`id_usuario`,`id_atividade`))
+  PRIMARY KEY (`id_usuario`,`id_atividade`),
+   CONSTRAINT `fk_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `projeto`.`usuario` (`id`),
+   CONSTRAINT `fk_atividade`FOREIGN KEY (`id_atividade`) REFERENCES `projeto`.`atividade` (`id`))
 ENGINE = InnoDB;
 
 
@@ -102,7 +104,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projeto`.`evento_has_atividade` (
   `id_evento` INT NOT NULL,
-  `id_atividade` INT NOT NULL
+  `id_atividade` INT NOT NULL,
   PRIMARY KEY (`id_evento`,`id_atividade`))
 ENGINE = InnoDB;
 
@@ -118,3 +120,4 @@ INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`data_fim_atividad
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,1,0);
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (2,1,0);
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,2,0);
+

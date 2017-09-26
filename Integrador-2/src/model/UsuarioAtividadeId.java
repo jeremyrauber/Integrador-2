@@ -8,9 +8,7 @@ import javax.persistence.ManyToOne;
 
 @Embeddable
 public class UsuarioAtividadeId implements Serializable { 
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	private Usuario usuario;
@@ -33,4 +31,4 @@ public class UsuarioAtividadeId implements Serializable {
     public void setAtividade(Atividade atividade) {
         this.atividade= atividade;
     }
-}
+} 

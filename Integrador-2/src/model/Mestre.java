@@ -65,8 +65,7 @@ public class Mestre implements Serializable {
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
 	
-	@OneToMany(mappedBy="mestre",fetch=FetchType.EAGER)
-	@Fetch(value=FetchMode.SELECT)
+	@OneToMany(mappedBy="mestre",fetch=FetchType.LAZY)
     private Set<Evento> eventos;
 	
 	public Integer getId() {
@@ -82,6 +81,8 @@ public class Mestre implements Serializable {
 	}
 
 	public void setNome(String nome) {
+		if(nome.length()>45)
+			nome.substring(0,45);
 		this.nome = nome;
 	}
 
@@ -98,6 +99,8 @@ public class Mestre implements Serializable {
 	}
 
 	public void setLogin(String login) {
+		if(login.length()>45)
+			login.substring(0,45);
 		this.login = login;
 	}
 
@@ -106,6 +109,8 @@ public class Mestre implements Serializable {
 	}
 
 	public void setSenha(String senha) {
+		if(senha.length()>45)
+			senha.substring(0,45);
 		this.senha = senha;
 	}
 
@@ -114,6 +119,8 @@ public class Mestre implements Serializable {
 	}
 
 	public void setEndereco(String endereco) {
+		if(endereco.length()>255)
+			endereco.substring(0,255);
 		this.endereco = endereco;
 	}
 
@@ -122,6 +129,8 @@ public class Mestre implements Serializable {
 	}
 
 	public void setEmail(String email) {
+		if(email.length()>45)
+			email.substring(0,45);
 		this.email = email;
 	}
 
@@ -146,6 +155,8 @@ public class Mestre implements Serializable {
 	}
 
 	public void setBairro(String bairro) {
+		if(bairro.length()>45)
+			bairro.substring(0,45);
 		this.bairro = bairro;
 	}
 
@@ -154,6 +165,8 @@ public class Mestre implements Serializable {
 	}
 
 	public void setCidade(String cidade) {
+		if(cidade.length()>45)
+			cidade.substring(0,45);
 		this.cidade = cidade;
 	}
 	
@@ -162,6 +175,8 @@ public class Mestre implements Serializable {
 	}
 
 	public void setEstado(String estado) {
+		if(estado.length()>45)
+			estado.substring(0,45);
 		this.estado = estado;
 	}
 

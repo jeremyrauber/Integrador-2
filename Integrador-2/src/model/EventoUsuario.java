@@ -71,9 +71,6 @@ public class EventoUsuario implements java.io.Serializable {
         getPrimaryKey().setEvento(evento);
     }
  
-	
-	
-	
 	public Date getDataVinculo() {
 		return dataVinculo;
 	}

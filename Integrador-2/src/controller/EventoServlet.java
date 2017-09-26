@@ -120,14 +120,11 @@ public class EventoServlet extends HttpServlet {
 						lista.add(a);
 					}
 				}
-				
-				
-				e.setAtividades(lista);
-				
-				
+			
+				e.setAtividades(lista);			
+			
 				daoEvento.save(e); 
-				
-				
+			
 				mensagem = "Cadastro de evento realizado!";
 				request.setAttribute("mensagem", mensagem);
 
@@ -169,48 +166,53 @@ public class EventoServlet extends HttpServlet {
 				if(atividades != null) {
 					for(String var: atividades) {
 						Atividade a = daoAtividade.findById(Integer.parseInt(var));
-				
+						System.out.println(a.getDescricao());
 						lista.add(a);
 					}
 				}
 				
-				Evento e = daoEvento.findById(id);
+				Evento eve =  daoEvento.findById(id);
 				
-				e.setAtividades(lista);
-				e.setNome(nome);
+				eve.setAtividades(lista);
+				eve.setNome(nome);
 				
 				DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 				Date date;
-				System.out.println("passou aqui");
+				List<EventoUsuario> eu = daoEventoUsuario.findByEventoId(id);
+	    		Set<EventoUsuario> foo = new HashSet<EventoUsuario>(eu);
+
+	    		eve.setEventoUsuario(foo);
 				
 				try {
 					date = format.parse(dataInicio);
-					e.setDataInicio(date);
+					eve.setDataInicio(date);
 					date = format.parse(dataFim);
-					e.setDataFim(date);
+					eve.setDataFim(date);
 					
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
-				e.setDescricao(descricao);
-				e.setPalavraChave(keyword);
+				eve.setDescricao(descricao);
+				eve.setPalavraChave(keyword);
 				
 				Mestre mestre = (Mestre) session.getAttribute("mestre");
 				
-				e.setMestre(mestre);
+				eve.setMestre(mestre);
 				
-				daoEvento.update(e);
+				daoEvento.update(eve);
 				
 				mensagem = "Evento atualizadocom sucesso!";
 				request.setAttribute("mensagem", mensagem);
-				request.setAttribute("evento", e);
+				request.setAttribute("evento", eve);
 				request.setAttribute("mestre", mestre);
-				request.getRequestDispatcher("jsp/evento/manterEvento.jsp?acao=visualizar&id="+e.getId()).forward(request, response);
+				request.getRequestDispatcher("jsp/evento/manterEvento.jsp?acao=visualizar&id="+id).forward(request, response);
 	    		
 	    	}if (acao.equals("avaliar")) {
 	    		
+	    		Integer id = Integer.parseInt(request.getParameter("id"));
 	    		
-	    		
+	    		Evento e =  daoEvento.findById(id);
+	    		request.setAttribute("evento", e);
 	    		request.getRequestDispatcher("jsp/evento/avaliarEvento.jsp").forward(request, response);
 	    		
 	    	}if (acao.equals("ranking")) {

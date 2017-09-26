@@ -100,7 +100,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="descricao">Descrição</label>
 							  <div class="col-md-6">
-							    <textarea class="form-control" rows="5" id="descricao" name="descricao">${not empty evento.descricao ? evento.descricao : ''}</textarea>
+							    <textarea class="form-control" rows="5" id="descricao" name="descricao" maxlength="255">${not empty evento.descricao ? evento.descricao : ''}</textarea>
 							    <span class="help-block">(descrição suscinta)</span>
 							  </div>
 							</div>

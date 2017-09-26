@@ -16,7 +16,7 @@ public class EventoUsuarioId implements Serializable {
 	private Usuario usuario;
     private Evento evento;
  
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     public Usuario getUsuario() {
         return usuario;
     }
@@ -25,7 +25,7 @@ public class EventoUsuarioId implements Serializable {
         this.usuario = usuario;
     }
  
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     public Evento getEvento() {
         return evento;
     }

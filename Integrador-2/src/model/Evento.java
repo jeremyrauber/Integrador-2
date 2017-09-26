@@ -56,8 +56,7 @@ public class Evento implements Serializable {
 	        inverseJoinColumns = @JoinColumn(name = "id_atividade", referencedColumnName = "id"))
 	private List<Atividade> atividades;
 	 
-	@OneToMany(mappedBy = "primaryKey.usuario",
-            cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "primaryKey.usuario",fetch = FetchType.LAZY)
 	private Set<EventoUsuario> eventoUsuario = new HashSet<EventoUsuario>();
 	
 	public Set<EventoUsuario> getEventoUsuario() {
@@ -81,6 +80,8 @@ public class Evento implements Serializable {
 	}
 
 	public void setNome(String nome) {
+		if(nome.length()>45)
+			nome.substring(0,45);
 		this.nome = nome;
 	}
 
@@ -89,6 +90,8 @@ public class Evento implements Serializable {
 	}
 
 	public void setDescricao(String descricao) {
+		if(descricao.length()>255)
+			descricao.substring(0,255);
 		this.descricao = descricao;
 	}
 
@@ -113,6 +116,8 @@ public class Evento implements Serializable {
 	}
 
 	public void setPalavraChave(String palavraChave) {
+		if(palavraChave.length()>45)
+			palavraChave.substring(0,45);
 		this.palavraChave = palavraChave;
 	}
 
