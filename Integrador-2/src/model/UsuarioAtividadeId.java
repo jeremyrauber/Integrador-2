@@ -13,6 +13,7 @@ public class UsuarioAtividadeId implements Serializable {
 	
 	private Usuario usuario;
     private Atividade atividade;
+    private Evento evento;
  
     @ManyToOne(cascade = CascadeType.ALL)
     public Usuario getUsuario() {
@@ -30,5 +31,14 @@ public class UsuarioAtividadeId implements Serializable {
  
     public void setAtividade(Atividade atividade) {
         this.atividade= atividade;
+    }
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    public Evento getEvento() {
+        return evento;
+    }
+ 
+    public void setEvento(Evento evento) {
+        this.evento= evento;
     }
 } 

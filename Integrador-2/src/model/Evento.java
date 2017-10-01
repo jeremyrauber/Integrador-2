@@ -59,6 +59,9 @@ public class Evento implements Serializable {
 	@OneToMany(mappedBy = "primaryKey.usuario",fetch = FetchType.LAZY)
 	private Set<EventoUsuario> eventoUsuario = new HashSet<EventoUsuario>();
 	
+	 @OneToMany(mappedBy = "primaryKey.evento")
+		private Set<UsuarioAtividade> usuarioAtividade = new HashSet<UsuarioAtividade>();
+	
 	public Set<EventoUsuario> getEventoUsuario() {
 		return eventoUsuario;
 	}

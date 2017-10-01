@@ -63,7 +63,7 @@ public class Usuario implements Serializable {
 	@Column(nullable=false,name="data_nasc")
 	private Date dataNascimento;
 	
-	@OneToMany(mappedBy = "primaryKey.atividade",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "primaryKey.usuario",fetch = FetchType.LAZY)
 	private Set<UsuarioAtividade> usuarioAtividade = new HashSet<UsuarioAtividade>();
 	
 

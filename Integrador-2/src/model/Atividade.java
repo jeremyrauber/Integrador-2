@@ -40,7 +40,7 @@ public class Atividade implements Comparable<Atividade>,Serializable {
 	@ManyToMany(mappedBy = "atividades")
 	private List<Evento> eventos;
 	
-	@OneToMany(mappedBy = "primaryKey.usuario")
+	@OneToMany(mappedBy = "primaryKey.atividade")
 	private Set<UsuarioAtividade> usuarioAtividade = new HashSet<UsuarioAtividade>();
 	
 	@Transient 

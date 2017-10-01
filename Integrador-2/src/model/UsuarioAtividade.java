@@ -15,10 +15,12 @@ import javax.persistence.Transient;
 
 
 @Entity
-@Table(name="usuario_has_usuario")
+@Table(name="usuario_has_atividade")
 @AssociationOverrides({
     @AssociationOverride(name = "primaryKey.usuario",
         joinColumns = @JoinColumn(name = "id_usuario")),
+    @AssociationOverride(name = "primaryKey.evento",
+    joinColumns = @JoinColumn(name = "id_evento")),
     @AssociationOverride(name = "primaryKey.atividade",
         joinColumns = @JoinColumn(name = "id_atividade")) })
 public class UsuarioAtividade implements java.io.Serializable {
@@ -36,13 +38,13 @@ public class UsuarioAtividade implements java.io.Serializable {
 	private Date dataFimAtividade;
 	
 	@Column(name="caminho_imagem")
-	private Integer caminhoImagem;
+	private String caminhoImagem;
 	
 	@Column(name="status",columnDefinition = "int default 0")
 	private Integer status;
 
 
-	 @EmbeddedId
+	@EmbeddedId
     public UsuarioAtividadeId getPrimaryKey() {
         return primaryKey;
     }
@@ -61,14 +63,24 @@ public class UsuarioAtividade implements java.io.Serializable {
     }
  
     @Transient
-    public Atividade getEvento() {
+    public Atividade getAtividade() {
         return getPrimaryKey().getAtividade();
     }
  
-    public void setAtividade(Atividade evento) {
-        getPrimaryKey().setAtividade(evento);
+    public void setAtividade(Atividade atividade) {
+        getPrimaryKey().setAtividade(atividade);
+    }
+    
+    @Transient
+    public Evento getEvento() {
+        return getPrimaryKey().getEvento();
     }
  
+    public void setEvento(Evento evento) {
+        getPrimaryKey().setEvento(evento);
+    }
+ 
+    @Column(name="data_fim_atividade")
 	public Date getDataFimAtividade() {
 		return dataFimAtividade;
 	}
@@ -76,12 +88,13 @@ public class UsuarioAtividade implements java.io.Serializable {
 	public void setDataFimAtividade(Date dataVinculo) {
 		this.dataFimAtividade = dataVinculo;
 	}
-
-	public Integer getCaminhoImagem() {
+	
+	@Column(name="caminho_imagem")
+	public String getCaminhoImagem() {
 		return caminhoImagem;
 	}
 
-	public void setCaminhoImagem(Integer caminhoImagem) {
+	public void setCaminhoImagem(String caminhoImagem) {
 		this.caminhoImagem = caminhoImagem;
 	}
 

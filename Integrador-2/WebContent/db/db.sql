@@ -90,12 +90,14 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `projeto`.`usuario_has_atividade` (
   `id_usuario` INT NOT NULL,
   `id_atividade` INT NOT NULL,
+  `id_evento` INT NOT NULL,
   `data_fim_atividade` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `status` TINYINT(1) DEFAULT 0,
   `caminho_imagem` VARCHAR(255) NULL,
-  PRIMARY KEY (`id_usuario`,`id_atividade`),
+  PRIMARY KEY (`id_usuario`,`id_atividade`,`id_evento`),
    CONSTRAINT `fk_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `projeto`.`usuario` (`id`),
-   CONSTRAINT `fk_atividade`FOREIGN KEY (`id_atividade`) REFERENCES `projeto`.`atividade` (`id`))
+   CONSTRAINT `fk_atividade`FOREIGN KEY (`id_atividade`) REFERENCES `projeto`.`atividade` (`id`),
+   CONSTRAINT `fk_evento` FOREIGN KEY (`id_evento`) REFERENCES `projeto`.`evento` (`id`))
 ENGINE = InnoDB;
 
 
@@ -119,11 +121,17 @@ INSERT INTO atividade(id,descricao,nivel) VALUES (3,"Limpar uma piscina",2);
 INSERT INTO atividade(id,descricao,nivel) VALUES (4,"Remover lixo do quintal",2);
 INSERT INTO atividade(id,descricao,nivel) VALUES (5,"Adicionar areia aos vasos de plantas",1);
 INSERT INTO evento_has_atividade(id_evento,id_atividade) VALUES (1,1);
-INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`data_fim_atividade`,`status`,`caminho_imagem`) VALUES (1,1,'2014-10-01',0,'C:\\temp\\usuario_1_envio_1.jpeg');
-INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`data_fim_atividade`,`status`,`caminho_imagem`) VALUES (1,2,'2014-10-01',0,'C:\\temp\\usuario_1_envio_2.jpeg');
-INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`data_fim_atividade`,`status`,`caminho_imagem`) VALUES (1,3,'2014-10-01',0,'C:\\temp\\usuario_1_envio_3.jpeg');
-INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`data_fim_atividade`,`status`,`caminho_imagem`) VALUES (1,4,'2014-10-25',0,'C:\\temp\\usuario_1_envio_4.jpeg');
-INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`data_fim_atividade`,`status`,`caminho_imagem`) VALUES (1,5,'2014-10-26',1,'C:\\temp\\usuario_1_envio_5.jpeg');
+INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`id_evento`,`status`,`caminho_imagem`) VALUES (1,1,1,0,'images/usuario1_atividade1_evento1.JPG');
+INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`id_evento`,`status`,`caminho_imagem`) VALUES (1,2,1,0,'images/usuario1_atividade2_evento1.JPG');
+INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`id_evento`,`status`,`caminho_imagem`) VALUES (1,3,1,0,'images/usuario1_atividade3_evento1.JPG');
+INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`id_evento`,`status`,`caminho_imagem`) VALUES (1,4,1,0,'images/usuario1_atividade4_evento1.JPG');
+INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`id_evento`,`status`,`caminho_imagem`) VALUES (1,5,1,1,'images/usuario1_atividade5_evento1.JPG');
+INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`id_evento`,`status`,`caminho_imagem`) VALUES (2,1,1,1,'images/usuario2_atividade1_evento1.JPG');
+INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`id_evento`,`status`,`caminho_imagem`) VALUES (2,2,1,1,'images/usuario2_atividade2_evento1.JPG');
+INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`id_evento`,`status`,`caminho_imagem`) VALUES (2,3,1,1,'images/usuario2_atividade3_evento1.JPG');
+INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`id_evento`,`status`,`caminho_imagem`) VALUES (2,1,2,1,'images/usuario2_atividade1_evento2.JPG');
+INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`id_evento`,`status`,`caminho_imagem`) VALUES (2,2,2,1,'images/usuario2_atividade2_evento2.JPG');
+INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`id_evento`,`status`,`caminho_imagem`) VALUES (2,3,2,0,'images/usuario2_atividade3_evento2.JPG');
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,1,0);
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (2,1,0);
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,2,0);

@@ -13,9 +13,24 @@ public class DaoUsuarioAtividade extends DaoEntity<UsuarioAtividade, Integer> {
 		super(UsuarioAtividade.class);
 	}
 	
-	public List<UsuarioAtividade> findByEventoId(Integer id) {
-		Query q = em.createNativeQuery("Select * from usuario_has_atividade WHERE id_evento="+id,EventoUsuario.class);
-		return  q.getResultList();
+	public UsuarioAtividade findByEventoId(Integer id) {
+		try{
+			Query q = em.createNativeQuery("SELECT * FROM usuario_has_atividade WHERE id_evento="+id+" AND caminho_imagem IS NOT NULL AND caminho_imagem <> '' AND status=0 LIMIT 1",UsuarioAtividade.class);
+			return  (UsuarioAtividade) q.getSingleResult();
+		}catch (Exception e) {
+			return null;
+		}
 	}
+	
+	public List<UsuarioAtividade> findEnviosByUsuarioAndEventoId(Integer id_evento, Integer id_usuario) {
+		try{
+			Query q = em.createNativeQuery("SELECT * FROM usuario_has_atividade WHERE id_evento="+id_evento+" AND id_usuario="+id_usuario+" AND caminho_imagem IS NOT NULL AND caminho_imagem <> '' AND status=0",UsuarioAtividade.class);
+		
+			return  q.getResultList();
+		}catch (Exception e) {
+			return null;
+		}
+	}
+	
 
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,11 +24,13 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 import dao.DaoAtividade;
 import dao.DaoEvento;
 import dao.DaoEventoUsuario;
+import dao.DaoUsuarioAtividade;
 import model.Atividade;
 import model.Evento;
 import model.EventoUsuario;
 import model.Mestre;
 import model.Usuario;
+import model.UsuarioAtividade;
 
 @WebServlet("/evento")
 public class EventoServlet extends HttpServlet {
@@ -43,10 +46,11 @@ public class EventoServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		
 		String acao = request.getParameter("acao");
-		
+		PrintWriter out = response.getWriter();
 		DaoEvento daoEvento = new DaoEvento();
 		DaoAtividade daoAtividade = new DaoAtividade();
 		DaoEventoUsuario daoEventoUsuario = new DaoEventoUsuario();
+		DaoUsuarioAtividade daoUsuarioAtividade = new DaoUsuarioAtividade();
 		
 		String mensagem = "";
 		
@@ -207,19 +211,45 @@ public class EventoServlet extends HttpServlet {
 				request.setAttribute("mestre", mestre);
 				request.getRequestDispatcher("jsp/evento/manterEvento.jsp?acao=visualizar&id="+id).forward(request, response);
 	    		
-	    	}if (acao.equals("avaliar")) {
+	    	}else if (acao.equals("avaliar")) {
 	    		
 	    		Integer id = Integer.parseInt(request.getParameter("id"));
 	    		
 	    		Evento e =  daoEvento.findById(id);
+	    		UsuarioAtividade ua = new UsuarioAtividade();
+	    		ua = daoUsuarioAtividade.findByEventoId(e.getId());
+	    		try {
+	    			List<UsuarioAtividade> envios = daoUsuarioAtividade.findEnviosByUsuarioAndEventoId(e.getId(), ua.getUsuario().getId());
+	    			request.setAttribute("envios", envios);
+	    		}catch (Exception erro) {
+	    			request.setAttribute("envios",null);
+				}
 	    		request.setAttribute("evento", e);
+	    		request.setAttribute("envio_usuario", ua);
+	    		
 	    		request.getRequestDispatcher("jsp/evento/avaliarEvento.jsp").forward(request, response);
 	    		
-	    	}if (acao.equals("ranking")) {
+	    	}else if (acao.equals("ranking")) {
 	    		
 	    		request.getRequestDispatcher("jsp/evento/ranking.jsp").forward(request, response);
 	    		
+	    	}else if (acao.equals("julgar")) {
+	    		
+	    		String tipo = request.getParameter("tipo");
+	    		 
+	    		if(tipo.equals("correto")) {
+	    			mensagem = "correto";
+	    			
+	    		}else if(tipo.equals("errado")) {
+	    			mensagem = "errado";
+	    			
+	    		}else if(tipo.equals("banir")) {
+	    			mensagem = "banir";
+	    			
+	    		}
+	    		out.print(mensagem);
 	    	}
+			
     	}
 	}
 }
