@@ -44,10 +44,13 @@
 									</div>
 									<c:choose>
 								    <c:when test="${envio_usuario!=null}">
-								        <div class="col-md-10 text-center"> <strong>Envio do Usuario:</strong><br>
+								        <div class="col-md-10 text-center"> <strong>Últimos Envios do Usuario:</strong><br>
 											<div class="row">
-												<c:forEach  begin="0" end="5" var="imagens" items="${envios}" >
-													<img alt="Submissões anteriores do Usuário" class="img-thumbnail" style="width:100px; border:1px solid;" title="" src="${imagens.caminhoImagem}">
+												<c:forEach  begin="0" end="6" var="imagens" items="${envios}" >
+													<c:if test = "${imagens.caminhoImagem ne envio_usuario.caminhoImagem }">
+											         <img alt="Submissões anteriores do Usuário" class="img-thumbnail" style="width:100px; border:1px solid;" title="" src="${imagens.caminhoImagem}">
+											      </c:if>
+													
 											 	</c:forEach>
 											</div>
 											<div class="row">
