@@ -236,9 +236,18 @@ public class EventoServlet extends HttpServlet {
 	    	}else if (acao.equals("julgar")) {
 	    		
 	    		String tipo = request.getParameter("tipo");
+	    		String ids = request.getParameter("ids");
+	    		String[] parts = ids.split("-");
+
+	    		Integer id_evento= Integer.parseInt(parts[0]);
+	    		Integer id_atividade = Integer.parseInt(parts[1]);
+	    		Integer id_usuario= Integer.parseInt(parts[2]);
 	    		 
 	    		if(tipo.equals("correto")) {
-	    			mensagem = "correto";
+	    			UsuarioAtividade usua = daoUsuarioAtividade.findByEventoAtividadeUsuarioId(id_evento, id_atividade, id_usuario);
+	    			usua.setStatus(1);
+	    			daoUsuarioAtividade.update(usua);
+	    			mensagem = "correto"+ids;
 	    			
 	    		}else if(tipo.equals("errado")) {
 	    			mensagem = "errado";

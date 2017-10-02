@@ -114,7 +114,7 @@
 						</div>
     				</div>
     			</div>
-					
+					<input type="hidden" value="${envio_usuario.evento.id}-${envio_usuario.atividade.id}-${envio_usuario.usuario.id}-" id="ids">
 					
 				</div>
 			</div>
@@ -126,9 +126,10 @@
 	
 	$("#correto" ).click(function() {
 			$.ajax({
+				
 				method: "POST",
 				url: "<%=request.getContextPath()%>/evento",
-				data: { acao: "julgar", tipo: "correto"},
+				data: { acao: "julgar", tipo: "correto",ids : $('#ids').val()},
 				success: function(data){
 					alert("deu bom "+data);
 					console.log(data);
@@ -140,10 +141,11 @@
 		});
 	
 	$("#banir" ).click(function() {
+		
 		$.ajax({
 			method: "POST",
 			url: "<%=request.getContextPath()%>/evento",
-			data: { acao: "julgar", tipo: "banir"},
+			data: { acao: "julgar", tipo: "banir",ids : $('#ids').val()},
 			success: function(data){
 				alert("deu bom "+data);
 				console.log(data);
@@ -158,7 +160,7 @@
 		$.ajax({
 			method: "POST",
 			url: "<%=request.getContextPath()%>/evento",
-			data: { acao: "julgar", tipo: "errado"},
+			data: { acao: "julgar", tipo: "errado",ids : $('#ids').val()},
 			success: function(data){
 				alert("deu bom "+data);
 				console.log(data);

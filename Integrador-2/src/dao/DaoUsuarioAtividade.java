@@ -22,6 +22,15 @@ public class DaoUsuarioAtividade extends DaoEntity<UsuarioAtividade, Integer> {
 		}
 	}
 	
+	public UsuarioAtividade findByEventoAtividadeUsuarioId(Integer id_evento,Integer id_atividade, Integer id_usuario) {
+		try{
+			Query q = em.createNativeQuery("SELECT * FROM usuario_has_atividade WHERE id_evento="+id_evento+" AND id_atividade="+id_atividade+" AND id_usuario="+id_usuario,UsuarioAtividade.class);
+			return  (UsuarioAtividade) q.getSingleResult();
+		}catch (Exception e) {
+			return null;
+		}
+	}
+	
 	public List<UsuarioAtividade> findEnviosByUsuarioAndEventoId(Integer id_evento, Integer id_usuario) {
 		try{
 			Query q = em.createNativeQuery("SELECT * FROM usuario_has_atividade WHERE id_evento="+id_evento+" AND id_usuario="+id_usuario+" AND caminho_imagem IS NOT NULL AND caminho_imagem <> '' AND status=0",UsuarioAtividade.class);
@@ -30,6 +39,10 @@ public class DaoUsuarioAtividade extends DaoEntity<UsuarioAtividade, Integer> {
 		}catch (Exception e) {
 			return null;
 		}
+	}
+	
+	public void atualizaEnvio(Integer id_evento, Integer id_usuario,Integer id_atividade) {
+		Query q = em.createNativeQuery("UPDATE usuario_has_atividade SET status=1 WHERE id_evento="+id_evento+" AND id_usuario="+id_usuario+" AND id_atividade="+id_atividade);
 	}
 	
 
