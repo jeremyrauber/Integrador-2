@@ -148,9 +148,15 @@ public class EventoServlet extends HttpServlet {
 					a.setSelecionado(true);
 					atividades.add(a);
 				}
-				atividades.addAll(daoAtividade.findAll());
+				
+				for(Atividade a: daoAtividade.findAll()) {
+					atividades.add(a);
+					System.out.println(a.getDescricao());
+				}
+				
+System.out.println("testese");
 				for(Atividade a: atividades) {
-					System.out.println(a.getDescricao()+"9"+a.isSelecionado());
+					System.out.println(a.getDescricao());
 				}
 				
 				request.setAttribute("atividades", atividades);    		

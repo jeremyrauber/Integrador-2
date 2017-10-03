@@ -96,8 +96,7 @@ public class Atividade implements java.io.Serializable,Comparable<Atividade> {
 
 	@Override
 	public int compareTo(Atividade o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.getDescricao().compareTo(o.getDescricao());
 	}
 
 	
