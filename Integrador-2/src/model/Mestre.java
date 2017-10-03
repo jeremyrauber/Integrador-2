@@ -1,209 +1,184 @@
 package model;
 
-import java.io.Serializable;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+
 
 @Entity
-@Table(name="mestre")
-public class Mestre implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Table(name = "mestre", catalog = "projeto", uniqueConstraints = { @UniqueConstraint(columnNames = "email"),
+		@UniqueConstraint(columnNames = "login") })
+public class Mestre implements java.io.Serializable {
+
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String nome;
+	private Date dataNascimento;
+	private String login;
+	private String senha;
+	private String endereco;
+	private String email;
+	private Boolean ativo;
+	private String cep;
+	private String bairro;
+	private String cidade;
+	private String estado;
+	private Date dataCadastro;
+	private String hashValidador;
+	private Set<Evento> eventos = new HashSet<Evento>(0);
+
 	
 	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Integer id;
-	
-	@Column(nullable=false)
-	private String nome;
-	
-	@Column(nullable=false,name="data_nasc")
-	private Date dataNascimento;
-	
-	@Column(nullable=false,unique = true)
-	private String login;
-		
-	@Column(nullable=false)
-	private String senha;
-
-	@Column(nullable=false)
-	private String endereco;
-	
-	@Column(nullable=false)
-	private String email;
-	
-	@Column(nullable=false)
-	private boolean ativo;
-	
-	@Column(nullable=false)
-	private String cep;
-	
-	@Column(nullable=false)
-	private String bairro;
-	
-	@Column(nullable=false)
-	private String cidade;
-	
-	@Column(nullable=false)
-	private String estado;
-	
-	@Column
-	private String hashValidador;
-
-	@Column(name="data_cadastro")
-	private Date dataCadastro;
-	
-	@OneToMany(mappedBy="mestre",fetch=FetchType.LAZY)
-    private Set<Evento> eventos;
-	
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+	@Column(name = "nome", nullable = false, length = 45)
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
-		if(nome.length()>45)
-			nome.substring(0,45);
 		this.nome = nome;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_nasc", nullable = false, length = 19)
 	public Date getDataNascimento() {
-		return dataNascimento;
+		return this.dataNascimento;
 	}
 
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
+	@Column(name = "login", unique = true, nullable = false, length = 45)
 	public String getLogin() {
-		return login;
+		return this.login;
 	}
 
 	public void setLogin(String login) {
-		if(login.length()>45)
-			login.substring(0,45);
 		this.login = login;
 	}
 
+	@Column(name = "senha", nullable = false, length = 45)
 	public String getSenha() {
-		return senha;
+		return this.senha;
 	}
 
 	public void setSenha(String senha) {
-		if(senha.length()>45)
-			senha.substring(0,45);
 		this.senha = senha;
 	}
 
+	@Column(name = "endereco")
 	public String getEndereco() {
-		return endereco;
+		return this.endereco;
 	}
 
 	public void setEndereco(String endereco) {
-		if(endereco.length()>255)
-			endereco.substring(0,255);
 		this.endereco = endereco;
 	}
 
+	@Column(name = "email", unique = true, nullable = false, length = 45)
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
-		if(email.length()>45)
-			email.substring(0,45);
 		this.email = email;
 	}
 
-	public boolean isAtivo() {
-		return ativo;
+	@Column(name = "ativo")
+	public Boolean getAtivo() {
+		return this.ativo;
 	}
 
-	public void setAtivo(boolean ativo) {
+	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
 
+	@Column(name = "cep", nullable = false, length = 45)
 	public String getCep() {
-		return cep;
+		return this.cep;
 	}
 
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
 
+	@Column(name = "bairro", nullable = false, length = 45)
 	public String getBairro() {
-		return bairro;
+		return this.bairro;
 	}
 
 	public void setBairro(String bairro) {
-		if(bairro.length()>45)
-			bairro.substring(0,45);
 		this.bairro = bairro;
 	}
 
+	@Column(name = "cidade", nullable = false, length = 45)
 	public String getCidade() {
-		return cidade;
+		return this.cidade;
 	}
 
 	public void setCidade(String cidade) {
-		if(cidade.length()>45)
-			cidade.substring(0,45);
 		this.cidade = cidade;
 	}
-	
+
+	@Column(name = "estado", nullable = false, length = 45)
 	public String getEstado() {
-		return estado;
+		return this.estado;
 	}
 
 	public void setEstado(String estado) {
-		if(estado.length()>45)
-			estado.substring(0,45);
 		this.estado = estado;
 	}
 
-	public String getHashValidador() {
-		return hashValidador;
-	}
-
-	public void setHashValidador(String hashValidador) {
-		this.hashValidador = hashValidador;
-	}
-
-
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_cadastro", length = 19)
 	public Date getDataCadastro() {
-		return dataCadastro;
+		return this.dataCadastro;
 	}
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 
+	@Column(name = "hashValidador")
+	public String getHashValidador() {
+		return this.hashValidador;
+	}
+
+	public void setHashValidador(String hashValidador) {
+		this.hashValidador = hashValidador;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mestre")
 	public Set<Evento> getEventos() {
-		return eventos;
+		return this.eventos;
 	}
 
 	public void setEventos(Set<Evento> eventos) {
 		this.eventos = eventos;
 	}
-	
 
 }

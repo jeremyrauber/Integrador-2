@@ -2,109 +2,103 @@ package model;
 
 import java.util.Date;
 
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 
 @Entity
-@Table(name="usuario_has_atividade")
-@AssociationOverrides({
-    @AssociationOverride(name = "primaryKey.usuario",
-        joinColumns = @JoinColumn(name = "id_usuario")),
-    @AssociationOverride(name = "primaryKey.evento",
-    joinColumns = @JoinColumn(name = "id_evento")),
-    @AssociationOverride(name = "primaryKey.atividade",
-        joinColumns = @JoinColumn(name = "id_atividade")) })
+@Table(name = "usuario_has_atividade", catalog = "projeto")
 public class UsuarioAtividade implements java.io.Serializable {
-	
 
 	private static final long serialVersionUID = 1L;
-	
-	// composite-id key
-	 @EmbeddedId
-    private UsuarioAtividadeId primaryKey = new UsuarioAtividadeId();
-		
-	//outros atributos
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_fim_atividade", insertable=false)
+	private UsuarioAtividadeId id;
+	private Atividade atividade;
+	private Evento evento;
+	private Usuario usuario;
 	private Date dataFimAtividade;
-	
-	@Column(name="caminho_imagem")
+	private Boolean status;
 	private String caminhoImagem;
-	
-	@Column(name="status",columnDefinition = "int default 0")
-	private Integer status;
 
 
 	@EmbeddedId
-    public UsuarioAtividadeId getPrimaryKey() {
-        return primaryKey;
-    }
- 
-	public void setPrimaryKey(UsuarioAtividadeId primaryKey) {
-        this.primaryKey = primaryKey;
-    }
- 
-    @Transient
-    public Usuario getUsuario() {
-        return getPrimaryKey().getUsuario();
-    }
- 
-    public void setUsuario(Usuario usuario) {
-        getPrimaryKey().setUsuario(usuario);
-    }
- 
-    @Transient
-    public Atividade getAtividade() {
-        return getPrimaryKey().getAtividade();
-    }
- 
-    public void setAtividade(Atividade atividade) {
-        getPrimaryKey().setAtividade(atividade);
-    }
-    
-    @Transient
-    public Evento getEvento() {
-        return getPrimaryKey().getEvento();
-    }
- 
-    public void setEvento(Evento evento) {
-        getPrimaryKey().setEvento(evento);
-    }
- 
-    @Column(name="data_fim_atividade")
-	public Date getDataFimAtividade() {
-		return dataFimAtividade;
+
+	@AttributeOverrides({
+			@AttributeOverride(name = "idUsuario", column = @Column(name = "id_usuario", nullable = false)),
+			@AttributeOverride(name = "idAtividade", column = @Column(name = "id_atividade", nullable = false)),
+			@AttributeOverride(name = "idEvento", column = @Column(name = "id_evento", nullable = false)) })
+	public UsuarioAtividadeId getId() {
+		return this.id;
 	}
 
-	public void setDataFimAtividade(Date dataVinculo) {
-		this.dataFimAtividade = dataVinculo;
+	public void setId(UsuarioAtividadeId id) {
+		this.id = id;
 	}
-	
-	@Column(name="caminho_imagem")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_atividade", nullable = false, insertable = false, updatable = false)
+	public Atividade getAtividade() {
+		return this.atividade;
+	}
+
+	public void setAtividade(Atividade atividade) {
+		this.atividade = atividade;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_evento", nullable = false, insertable = false, updatable = false)
+	public Evento getEvento() {
+		return this.evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_usuario", nullable = false, insertable = false, updatable = false)
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_fim_atividade", length = 19)
+	public Date getDataFimAtividade() {
+		return this.dataFimAtividade;
+	}
+
+	public void setDataFimAtividade(Date dataFimAtividade) {
+		this.dataFimAtividade = dataFimAtividade;
+	}
+
+	@Column(name = "status")
+	public Boolean getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	@Column(name = "caminho_imagem")
 	public String getCaminhoImagem() {
-		return caminhoImagem;
+		return this.caminhoImagem;
 	}
 
 	public void setCaminhoImagem(String caminhoImagem) {
 		this.caminhoImagem = caminhoImagem;
 	}
 
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	
 }

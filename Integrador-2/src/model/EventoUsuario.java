@@ -2,90 +2,81 @@ package model;
 
 import java.util.Date;
 
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
-import javax.persistence.CascadeType;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 
 @Entity
-@Table(name="evento_has_usuario")
-@AssociationOverrides({
-    @AssociationOverride(name = "primaryKey.usuario",
-        joinColumns = @JoinColumn(name = "id_usuario")),
-    @AssociationOverride(name = "primaryKey.evento",
-        joinColumns = @JoinColumn(name = "id_evento")) })
+@Table(name = "evento_has_usuario", catalog = "projeto")
 public class EventoUsuario implements java.io.Serializable {
-	
 
 	private static final long serialVersionUID = 1L;
-	
-	// composite-id key
-	 @EmbeddedId
-    private EventoUsuarioId primaryKey = new EventoUsuarioId();
-		
-	//outros atributos
-	@Temporal(TemporalType.DATE)
-	@Column(name = "data_vinculo")
+	private EventoUsuarioId id;
+	private Evento evento;
+	private Usuario usuario;
 	private Date dataVinculo;
-	
-	@Column(name="banido_evento")
-	private Integer banidoEvento;
+	private Boolean banidoEvento;
 
 
-	 @EmbeddedId
-    public EventoUsuarioId getPrimaryKey() {
-        return primaryKey;
-    }
- 
-	public void setPrimaryKey(EventoUsuarioId primaryKey) {
-        this.primaryKey = primaryKey;
-    }
- 
-    @Transient
-    public Usuario getUsuario() {
-        return getPrimaryKey().getUsuario();
-    }
- 
-    public void setUsuario(Usuario usuario) {
-        getPrimaryKey().setUsuario(usuario);
-    }
- 
-    @Transient
-    public Evento getEvento() {
-        return getPrimaryKey().getEvento();
-    }
- 
-    public void setEvento(Evento evento) {
-        getPrimaryKey().setEvento(evento);
-    }
- 
+	@EmbeddedId
+
+	@AttributeOverrides({
+			@AttributeOverride(name = "idUsuario", column = @Column(name = "id_usuario", nullable = false)),
+			@AttributeOverride(name = "idEvento", column = @Column(name = "id_evento", nullable = false)) })
+	public EventoUsuarioId getId() {
+		return this.id;
+	}
+
+	public void setId(EventoUsuarioId id) {
+		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_evento", nullable = false, insertable = false, updatable = false)
+	public Evento getEvento() {
+		return this.evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_usuario", nullable = false, insertable = false, updatable = false)
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_vinculo", length = 19)
 	public Date getDataVinculo() {
-		return dataVinculo;
+		return this.dataVinculo;
 	}
 
 	public void setDataVinculo(Date dataVinculo) {
 		this.dataVinculo = dataVinculo;
 	}
 
-	public Integer getBanidoEvento() {
-		return banidoEvento;
+	@Column(name = "banido_evento")
+	public Boolean getBanidoEvento() {
+		return this.banidoEvento;
 	}
 
-	public void setBanidoEvento(Integer banidoEvento) {
+	public void setBanidoEvento(Boolean banidoEvento) {
 		this.banidoEvento = banidoEvento;
 	}
-
-	
 }

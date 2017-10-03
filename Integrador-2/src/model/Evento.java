@@ -1,13 +1,9 @@
 package model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,124 +16,126 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+
 
 @Entity
-@Table(name="evento")
-public class Evento implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Table(name = "evento", catalog = "projeto")
+public class Evento implements java.io.Serializable {
 
-	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private static final long serialVersionUID = 1L;
 	private Integer id;
-	
-	@Column(nullable=false)
+	private Mestre mestre;
 	private String nome;
-	
-	@Column(nullable=false)
-	private String descricao;
-	
-	@Column(nullable=false,name="data_inicio")
 	private Date dataInicio;
-	
-	@Column(nullable=false,name="data_fim")
 	private Date dataFim;
-	
-	@Column(nullable=false,name="palavra_chave")
+	private String descricao;
 	private String palavraChave;
-	
-	@ManyToOne
-    @JoinColumn(name="id_mestre", nullable=false)
-    private Mestre mestre;
-	
-	 @ManyToMany(fetch = FetchType.LAZY)
-	 @JoinTable(name = "evento_has_atividade",
-	        joinColumns = @JoinColumn(name = "id_evento", referencedColumnName = "id"),
-	        inverseJoinColumns = @JoinColumn(name = "id_atividade", referencedColumnName = "id"))
-	private List<Atividade> atividades;
-	 
-	@OneToMany(mappedBy = "primaryKey.usuario",fetch = FetchType.LAZY)
-	private Set<EventoUsuario> eventoUsuario = new HashSet<EventoUsuario>();
-	
-	 @OneToMany(mappedBy = "primaryKey.evento")
-		private Set<UsuarioAtividade> usuarioAtividade = new HashSet<UsuarioAtividade>();
-	
-	public Set<EventoUsuario> getEventoUsuario() {
-		return eventoUsuario;
-	}
+	private Set<Atividade> atividades = new HashSet<Atividade>(0);
+	private Set<UsuarioAtividade> usuarioAtividades = new HashSet<UsuarioAtividade>(0);
+	private Set<EventoUsuario> eventoUsuarios = new HashSet<EventoUsuario>(0);
 
-	public void setEventoUsuario(Set<EventoUsuario> eventoUsuario) {
-		this.eventoUsuario = eventoUsuario;
-	}
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
+	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		if(nome.length()>45)
-			nome.substring(0,45);
-		this.nome = nome;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		if(descricao.length()>255)
-			descricao.substring(0,255);
-		this.descricao = descricao;
-	}
-
-	public Date getDataInicio() {
-		return dataInicio;
-	}
-
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
-	}
-
-	public Date getDataFim() {
-		return dataFim;
-	}
-
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
-	}
-
-	public String getPalavraChave() {
-		return palavraChave;
-	}
-
-	public void setPalavraChave(String palavraChave) {
-		if(palavraChave.length()>45)
-			palavraChave.substring(0,45);
-		this.palavraChave = palavraChave;
-	}
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_mestre", nullable = false)
 	public Mestre getMestre() {
-		return mestre;
+		return this.mestre;
 	}
 
 	public void setMestre(Mestre mestre) {
 		this.mestre = mestre;
 	}
 
-	public List<Atividade> getAtividades() {
-		return atividades;
+	@Column(name = "nome", nullable = false, length = 45)
+	public String getNome() {
+		return this.nome;
 	}
 
-	public void setAtividades(List<Atividade> atividades) {
-		this.atividades = atividades;
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_inicio", nullable = false, length = 19)
+	public Date getDataInicio() {
+		return this.dataInicio;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_fim", nullable = false, length = 19)
+	public Date getDataFim() {
+		return this.dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+
+	@Column(name = "descricao")
+	public String getDescricao() {
+		return this.descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	@Column(name = "palavra_chave", length = 45)
+	public String getPalavraChave() {
+		return this.palavraChave;
+	}
+
+	public void setPalavraChave(String palavraChave) {
+		this.palavraChave = palavraChave;
 	}
 	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "evento_has_atividade", catalog = "projeto", joinColumns = {
+			@JoinColumn(name = "id_evento", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "id_atividade", nullable = false, updatable = false) })
+	public Set<Atividade> getAtividades() {
+		return this.atividades;
+	}
+
+	public void setAtividades(Set<Atividade> atividades) {
+		this.atividades = atividades;
+	}	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "evento")
+	public Set<UsuarioAtividade> getUsuarioAtividades() {
+		return this.usuarioAtividades;
+	}
+
+	public void setUsuarioAtividades(Set<UsuarioAtividade> usuarioAtividades) {
+		this.usuarioAtividades = usuarioAtividades;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "evento")
+	public Set<EventoUsuario> getEventoUsuarios() {
+		return this.eventoUsuarios;
+	}
+
+	public void setEventoUsuarios(Set<EventoUsuario> eventoUsuarios) {
+		this.eventoUsuarios = eventoUsuarios;
+	}
+
 }
+

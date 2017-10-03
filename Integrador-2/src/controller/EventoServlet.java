@@ -73,7 +73,7 @@ public class EventoServlet extends HttpServlet {
 	    		List<EventoUsuario> eu = daoEventoUsuario.findByEventoId(evento.getId());
 	    		Set<EventoUsuario> foo = new HashSet<EventoUsuario>(eu);
 
-	    		evento.setEventoUsuario(foo);
+	    		evento.setEventoUsuarios(foo);
 	    		
 	    		for(EventoUsuario e : eu) {
 					System.out.println(e.getUsuario().getNome()+">>>>>>>>>>>>>>>>>>>>>>>>");
@@ -94,8 +94,7 @@ public class EventoServlet extends HttpServlet {
 	    		Evento e = new Evento();
 				
 				
-				List<Atividade> lista = new ArrayList<>();
-				
+				Set<Atividade> lista = new HashSet<>();
 				e.setNome(nome);
 				
 				DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
@@ -117,6 +116,8 @@ public class EventoServlet extends HttpServlet {
 				
 				e.setMestre(mestre);
 				
+				
+				//ARRUMAR AQUI!!!
 				if(atividades != null) {
 					for(String var: atividades) {
 						Atividade a = daoAtividade.findById(Integer.parseInt(var));
@@ -142,6 +143,7 @@ public class EventoServlet extends HttpServlet {
 	    		
 	    		
 	    		Set<Atividade> atividades = new TreeSet<Atividade>();
+	    		
 				for(Atividade a: evento.getAtividades()) {
 					a.setSelecionado(true);
 					atividades.add(a);
@@ -165,7 +167,7 @@ public class EventoServlet extends HttpServlet {
 	    		String keyword = request.getParameter("keyword");
 	    		String atividades[] = request.getParameterValues("atividades[]");
 	    		
-	    		List<Atividade> lista = new ArrayList<>();
+	    		Set<Atividade> lista = new HashSet<>();
 				
 				if(atividades != null) {
 					for(String var: atividades) {
@@ -185,7 +187,7 @@ public class EventoServlet extends HttpServlet {
 				List<EventoUsuario> eu = daoEventoUsuario.findByEventoId(id);
 	    		Set<EventoUsuario> foo = new HashSet<EventoUsuario>(eu);
 
-	    		eve.setEventoUsuario(foo);
+	    		eve.setEventoUsuarios(foo);
 				
 				try {
 					date = format.parse(dataInicio);
@@ -245,7 +247,7 @@ public class EventoServlet extends HttpServlet {
 	    		 
 	    		if(tipo.equals("correto")) {
 	    			UsuarioAtividade usua = daoUsuarioAtividade.findByEventoAtividadeUsuarioId(id_evento, id_atividade, id_usuario);
-	    			usua.setStatus(1);
+	    			usua.setStatus(true);
 	    			daoUsuarioAtividade.update(usua);
 	    			mensagem = "correto"+ids;
 	    			

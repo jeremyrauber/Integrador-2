@@ -106,7 +106,7 @@
 		  							  </tr>
 		  						</thead>
 		  						<tbody>
-		  							<c:forEach  begin="0" end="5" var="evento" items="${evento.eventoUsuario}" varStatus="loop">
+		  							<c:forEach  begin="0" end="5" var="evento" items="${evento.eventoUsuarios}" varStatus="loop">
 			  						 	<tr>
 			  						 		<th scope="row">${loop.count}</th>
 			  						 		<td>${evento.usuario.login}</td>

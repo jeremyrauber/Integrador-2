@@ -66,11 +66,10 @@ public class LoginServlet extends HttpServlet {
 					//da um refresh no usuario mestre;
 					mestre = daoMestre.refreshNoMestre(mestre);
 					
-					System.out.println(mestre.isAtivo());
 					
 					if (mestre.getNome() != null ) {
 						
-						if(mestre.isAtivo()){
+						if(mestre.getAtivo()){
 							System.out.println("aqui mestre");
 							mestre = daoMestre.refreshNoMestre(mestre);
 							mestre.getEventos(); //refreshando os eventos;
@@ -79,7 +78,7 @@ public class LoginServlet extends HttpServlet {
 			                request.setAttribute("mestre", mestre);
 			                request.getRequestDispatcher("index.jsp").forward(request, response);
 			                return;
-						}else if(!mestre.isAtivo()) {
+						}else if(!mestre.getAtivo()) {
 			            	 mensagem = "Verifique seu email e confirme sua conta. Caso já o tenha feito contate nossos administradores.";
 			            	 mestre = null;
 			            }

@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `projeto`.`mestre` (
   `cidade` VARCHAR(45) NOT NULL,
   `estado` VARCHAR(45) NOT NULL,
   `data_cadastro`  DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `hashValidador` varchar(255),
   PRIMARY KEY (`id`));
 
 
@@ -79,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `projeto`.`evento_has_usuario` (
   `id_usuario` INT NOT NULL,
   `data_vinculo` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `banido_evento` TINYINT(1) DEFAULT 0,
+  PRIMARY KEY (`id_usuario`,`id_evento`),
    CONSTRAINT `fk_evento_evento` FOREIGN KEY (`id_evento`) REFERENCES `projeto`.`evento` (`id`),
    CONSTRAINT `fk_evento_usuario`FOREIGN KEY (`id_usuario`) REFERENCES `projeto`.`usuario` (`id`))
 ENGINE = InnoDB;
@@ -107,7 +109,9 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `projeto`.`evento_has_atividade` (
   `id_evento` INT NOT NULL,
   `id_atividade` INT NOT NULL,
-  PRIMARY KEY (`id_evento`,`id_atividade`))
+  PRIMARY KEY (`id_evento`,`id_atividade`),
+  CONSTRAINT `fk_evento_atividade` FOREIGN KEY (`id_evento`) REFERENCES `projeto`.`evento` (`id`),
+  CONSTRAINT `fk_atividade_atividade`FOREIGN KEY (`id_atividade`) REFERENCES `projeto`.`atividade` (`id`))
 ENGINE = InnoDB;
 
 INSERT INTO mestre (`id`, `nome`, `data_nasc`, `login`, `senha`, `endereco`, `email`, `ativo`, `cep`, `bairro`, `cidade`, `estado`) VALUES (1, 'Jeremy', '1990-01-21', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'rua puma, n 224', 'jeremy_rauber@live.com',1, '85860-240', 'Vila A','Foz do Iguaçu', 'PR');
