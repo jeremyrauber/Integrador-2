@@ -42,6 +42,7 @@ public class RegisterServlet extends HttpServlet {
         System.out.println(acao);
         String mensagem = "";
     	mensagem ="nenhum if";
+    	String email="";
         
     	if(acao == null){
     		mensagem ="";
@@ -57,7 +58,7 @@ public class RegisterServlet extends HttpServlet {
 		        String login = request.getParameter("login");
 		        String senha = request.getParameter("text_senha");
 		        String endereco = request.getParameter("endereco");
-		        String email = request.getParameter("email");
+		        email = request.getParameter("email");
 		        String cep = request.getParameter("cep");
 		        String bairro = request.getParameter("bairro");
 		        String cidade = request.getParameter("cidade");
@@ -117,8 +118,8 @@ public class RegisterServlet extends HttpServlet {
 					
 					es.enviar(mestre.getEmail(),mestre.getHashValidador(),rootPath);
 					
-					mensagem = "Cadastro realizado com sucesso! A confirmação de cadastro será enviada para seu email:  "+email
-							+". Só será permitida a entrada após validação.";
+					mensagem = "Cadastro realizado com sucesso!";
+					String email2 = email;
 				}else {
 					mensagem = "Login e/ou email já em uso! Favor tentar outro ou recuperar sua senha";
 					request.setAttribute("nome", nome);
@@ -136,7 +137,7 @@ public class RegisterServlet extends HttpServlet {
 			}else if(acao.equals("recuperar")){
 								
 				System.out.println("entrou aqui"+acao);
-				String email = request.getParameter("email");
+				email = request.getParameter("email");
 				Mestre mestre_n = daoMestre.findbyEmail(email);
 				
 				String novaSenha = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
@@ -157,7 +158,7 @@ public class RegisterServlet extends HttpServlet {
 			}else {
 				mensagem = "Houve algum erro, retorne mais tarde.";
 			}
-			
+				request.setAttribute("email", email);
 				request.setAttribute("mensagem", mensagem);
 				request.getRequestDispatcher("/login.jsp").forward(request, response);
 				

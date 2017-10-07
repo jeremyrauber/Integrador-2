@@ -50,7 +50,7 @@
 							<div class="panel-body inf-content">
 								<div class="row">
 									<div class="col-md-4"> 
-										<img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/user-453533-fdadfd.png" data-original-title="Usuario">
+										<img alt="" style="width:300px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/user-453533-fdadfd.png" data-original-title="Usuario">
 										<ul title="Ratings" class="list-inline ratings text-center">
 											<li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
 											<li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>

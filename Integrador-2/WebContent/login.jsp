@@ -25,6 +25,14 @@
   					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
   						<span aria-hidden="true">&times;</span>
   					</button>
+			  		<strong>Informativo!</strong> A confirmação de cadastro será enviada para seu emai: ${email}. Só será permitida a entrada após validação.
+				</div>
+			</c:when>
+			<c:when test="${mensagem == 'Cadastro realizado com sucesso!' }" >
+			  	<div class="alert alert-success col-md-4 col-md-offset-4 has-feedback" role="alert">
+  					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  						<span aria-hidden="true">&times;</span>
+  					</button>
 			  		<strong>Informativo!</strong> ${mensagem}
 				</div>
 			</c:when>

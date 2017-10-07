@@ -154,7 +154,6 @@ public class EventoServlet extends HttpServlet {
 					System.out.println(a.getDescricao());
 				}
 				
-System.out.println("testese");
 				for(Atividade a: atividades) {
 					System.out.println(a.getDescricao());
 				}
@@ -190,7 +189,9 @@ System.out.println("testese");
 				
 				DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 				Date date;
-				List<EventoUsuario> eu = daoEventoUsuario.findByEventoId(id);
+
+	    		
+	    		List<EventoUsuario> eu = daoEventoUsuario.findByEventoId(eve.getId());
 	    		Set<EventoUsuario> foo = new HashSet<EventoUsuario>(eu);
 
 	    		eve.setEventoUsuarios(foo);
@@ -212,6 +213,14 @@ System.out.println("testese");
 				eve.setMestre(mestre);
 				
 				daoEvento.update(eve);
+				
+				eve =  daoEvento.findById(id);
+				eu = daoEventoUsuario.findByEventoId(id);
+				for(EventoUsuario e : eu) {
+					System.out.println(e.getUsuario().getNome()+">>>>>>>>>>>>>>>>>>>>>>>>");
+				}
+				
+				mestre = (Mestre) session.getAttribute("mestre");
 				
 				mensagem = "Evento atualizadocom sucesso!";
 				request.setAttribute("mensagem", mensagem);
@@ -252,16 +261,25 @@ System.out.println("testese");
 	    		Integer id_usuario= Integer.parseInt(parts[2]);
 	    		 
 	    		if(tipo.equals("correto")) {
-	    			UsuarioAtividade usua = daoUsuarioAtividade.findByEventoAtividadeUsuarioId(id_evento, id_atividade, id_usuario);
-	    			usua.setStatus(true);
-	    			daoUsuarioAtividade.update(usua);
+	    			UsuarioAtividade novousuario = daoUsuarioAtividade.findByEventoAtividadeUsuarioId(id_evento, id_atividade, id_usuario);
+	    			novousuario.setStatus(true);
+	    			daoUsuarioAtividade.update(novousuario);
+	    			novousuario = null;
 	    			mensagem = "correto"+ids;
 	    			
 	    		}else if(tipo.equals("errado")) {
+	    			UsuarioAtividade novousuario= daoUsuarioAtividade.findByEventoAtividadeUsuarioId(id_evento, id_atividade, id_usuario);
+	    			novousuario.setStatus(false);
+	    			novousuario.setCaminhoImagem("");
+	    			daoUsuarioAtividade.update(novousuario);
+	    			novousuario = null;
 	    			mensagem = "errado";
 	    			
 	    		}else if(tipo.equals("banir")) {
-	    			mensagem = "banir";
+	    			EventoUsuario eu = (EventoUsuario) daoEventoUsuario.findByEventoAndUsuarioID(id_evento,id_usuario);
+	    			eu.setBanidoEvento(true);
+	    			daoEventoUsuario.update(eu);
+	    			mensagem = "Usuario banido!";
 	    			
 	    		}
 	    		out.print(mensagem);

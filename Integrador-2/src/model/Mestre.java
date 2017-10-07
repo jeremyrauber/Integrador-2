@@ -37,7 +37,7 @@ public class Mestre implements java.io.Serializable {
 	private String bairro;
 	private String cidade;
 	private String estado;
-	private Date dataCadastro;
+	private Date dataCadastro  = new java.util.Date();
 	private String hashValidador;
 	private Set<Evento> eventos = new HashSet<Evento>(0);
 
