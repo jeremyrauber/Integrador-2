@@ -46,7 +46,7 @@
 								    <c:when test="${envio_usuario!=null}">
 								        <div class="col-md-10 text-center"> <strong>Últimos Envios do Usuario:</strong><br>
 											<div class="row">
-												<c:forEach  begin="0" end="6" var="imagens" items="${envios}" >
+												<c:forEach  var="imagens" items="${envios}" >
 													<c:if test = "${imagens.caminhoImagem ne envio_usuario.caminhoImagem }">
 														<c:if test = "${imagens.status eq true}">
 											         		<img alt="Submissões anteriores do Usuário" class="img-thumbnail" style="width:80px; height:60px; border:1px solid;" title="" src="${imagens.caminhoImagem}">
@@ -132,8 +132,8 @@
 				url: "<%=request.getContextPath()%>/evento",
 				data: { acao: "julgar", tipo: "correto",ids : $('#ids').val()},
 				success: function(data){
-					alert("deu bom "+data);
 					document.location.reload(); 
+					alert("deu bom "+data);
 				},
 				error:function(){
 					alert("Erro no servidor, tente novamente mais tarde.");
@@ -148,8 +148,8 @@
 			url: "<%=request.getContextPath()%>/evento",
 			data: { acao: "julgar", tipo: "banir",ids : $('#ids').val()},
 			success: function(data){
+				document.location.reload(); 
 				alert("deu bom "+data);
-				console.log(data);
 			},
 			error:function(){
 				alert("Erro no servidor, tente novamente mais tarde.");
@@ -163,8 +163,8 @@
 			url: "<%=request.getContextPath()%>/evento",
 			data: { acao: "julgar", tipo: "errado",ids : $('#ids').val()},
 			success: function(data){
+				document.location.reload(); 
 				alert("deu bom "+data);
-				console.log(data);
 			},
 			error:function(){
 				alert("Erro no servidor, tente novamente mais tarde.");
