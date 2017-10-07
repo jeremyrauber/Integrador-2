@@ -5,7 +5,9 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -91,6 +93,22 @@ public class EventoServlet extends HttpServlet {
 	    		String keyword = request.getParameter("keyword");
 	    		String atividades[] = request.getParameterValues("atividades[]");
 	    		
+	    		String erro = "";
+	    		String timeStamp = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+	    		Integer hoje  = Integer.parseInt(timeStamp);
+	    		Integer datai = Integer.parseInt(dataInicio.replaceAll("-", ""));
+	    		Integer dataf = Integer.parseInt(dataFim.replaceAll("-", ""));
+  		
+	    		if(nome.equals("") || nome.length()<5 ){
+	    			erro = " Nome não pode ser vazio ou menor que 5 caracteres!";
+	    		}
+	    		if(datai - hoje<0) {
+	    			erro = erro + " Data de início não pode ser inferior a hoje!";
+	    		}
+	    		if(dataf - hoje<0) {
+	    			erro = erro + " Data de fim não pode ser inferior a hoje!";
+	    		}
+	    		
 	    		Evento e = new Evento();
 				
 				
@@ -117,7 +135,7 @@ public class EventoServlet extends HttpServlet {
 				e.setMestre(mestre);
 				
 				
-				//ARRUMAR AQUI!!!
+				
 				if(atividades != null) {
 					for(String var: atividades) {
 						Atividade a = daoAtividade.findById(Integer.parseInt(var));
@@ -127,14 +145,23 @@ public class EventoServlet extends HttpServlet {
 				}
 			
 				e.setAtividades(lista);			
+				
+				
+				if(erro.equals("")) {
+					daoEvento.save(e); 
 			
-				daoEvento.save(e); 
-			
-				mensagem = "Cadastro de evento realizado!";
-				request.setAttribute("mensagem", mensagem);
+					mensagem = "Cadastro de evento realizado!";
+					request.setAttribute("mensagem", mensagem);
 
-				request.setAttribute("evento", e);
-				request.getRequestDispatcher("jsp/evento/manterEvento.jsp").forward(request, response);
+					request.setAttribute("evento", e);
+					request.getRequestDispatcher("jsp/evento/manterEvento.jsp").forward(request, response);
+				}else {
+					List<Atividade> a1 = daoAtividade.findAll();
+					request.setAttribute("atividades", a1);
+					request.setAttribute("evento", e);
+					request.setAttribute("erro", erro);
+					request.getRequestDispatcher("jsp/evento/cadastrarEvento.jsp").forward(request, response);
+				}
 			
 	    	}
 	    	else if (acao.equals("editar")) {
@@ -235,12 +262,16 @@ public class EventoServlet extends HttpServlet {
 	    		Evento e =  daoEvento.findById(id);
 	    		UsuarioAtividade ua = new UsuarioAtividade();
 	    		ua = daoUsuarioAtividade.findByEventoId(e.getId());
+	    		
+	    		
 	    		try {
 	    			List<UsuarioAtividade> envios = daoUsuarioAtividade.findEnviosByUsuarioAndEventoId(e.getId(), ua.getUsuario().getId());
 	    			request.setAttribute("envios", envios);
 	    		}catch (Exception erro) {
 	    			request.setAttribute("envios",null);
 				}
+	    		
+	    		
 	    		request.setAttribute("evento", e);
 	    		request.setAttribute("envio_usuario", ua);
 	    		
@@ -265,7 +296,6 @@ public class EventoServlet extends HttpServlet {
 	    			novousuario.setStatus(true);
 	    			daoUsuarioAtividade.update(novousuario);
 	    			novousuario = null;
-	    			mensagem = "correto"+ids;
 	    			
 	    		}else if(tipo.equals("errado")) {
 	    			UsuarioAtividade novousuario= daoUsuarioAtividade.findByEventoAtividadeUsuarioId(id_evento, id_atividade, id_usuario);
@@ -273,13 +303,13 @@ public class EventoServlet extends HttpServlet {
 	    			novousuario.setCaminhoImagem("");
 	    			daoUsuarioAtividade.update(novousuario);
 	    			novousuario = null;
-	    			mensagem = "errado";
+
 	    			
 	    		}else if(tipo.equals("banir")) {
 	    			EventoUsuario eu = (EventoUsuario) daoEventoUsuario.findByEventoAndUsuarioID(id_evento,id_usuario);
 	    			eu.setBanidoEvento(true);
 	    			daoEventoUsuario.update(eu);
-	    			mensagem = "Usuario banido!";
+	    			mensagem = "Usuario banido do evento!";
 	    			
 	    		}
 	    		out.print(mensagem);

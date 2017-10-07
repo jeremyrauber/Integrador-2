@@ -43,21 +43,16 @@
 										</button>
 									</div>
 									<c:choose>
-								    <c:when test="${envio_usuario!=null}">
+								    <c:when test="${envio_usuario!=null }">
 								        <div class="col-md-10 text-center"> <strong>Últimos Envios do Usuario:</strong><br>
 											<div class="row">
-												<c:forEach  var="imagens" items="${envios}" >
-													<c:if test = "${imagens.caminhoImagem ne envio_usuario.caminhoImagem }">
-														<c:if test = "${imagens.status eq true}">
-											         		<img alt="Submissões anteriores do Usuário" class="img-thumbnail" style="width:80px; height:60px; border:1px solid;" title="" src="${imagens.caminhoImagem}">
-											      		</c:if>
-											      </c:if>
+												<c:forEach  var="imagens" items="${envios}" >		
+											    	<img alt="Submissões anteriores do Usuário" class="img-thumbnail" style="width:80px; height:60px; border:1px solid;" title="" src="${imagens.caminhoImagem}">${$imagens.status}
 											 	</c:forEach>
 											</div>
 											<div class="row">
 												<div class="table-responsive">
-												<img alt="Submissão do Usuário" style="width:350px;" title="" class="img-circle img-thumbnail isTooltip" src="${envio_usuario.caminhoImagem}" data-original-title="Usuario">
-												
+													<img alt="Submissão do Usuário" style="width:350px;" title="" class="img-circle img-thumbnail isTooltip" src="${envio_usuario.caminhoImagem}" data-original-title="Usuario">
 												</div>
 											</div>
 											<div class="row">

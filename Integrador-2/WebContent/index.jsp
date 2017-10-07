@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
   	<head>
@@ -28,21 +29,22 @@
 		<%@include file="/jsp/inc/menu.jsp" %>
     	<div id="wrap">
     		<div class="container">
-   				<div class="col-md-12 bg-success painel-eventos">
-   					<div class="row">
-   						<span class="label label-default titulo-eventos">Painel de Eventos</span>
-   					</div>
-   					<div class="row"><br /></div>
-   					<div class="row">
-   						<c:forEach  begin="0" end="5" var="evento" items="${mestre.eventos}" varStatus="loop">
-							<div class="col-md-4 text-center"><a href="<%=request.getContextPath()%>/evento?acao=visualizar&id=${evento.id}" class="btn btn-success" role="button">${evento.nome}</a></div>
-							 <c:if test="${loop.count eq 3}"> 
-							 	<br /><br />
-							 </c:if>
-					 	</c:forEach>				
+   				<div class="container bootstrap snippet">
+					<div class="panel-body inf-content bg-success">
+						<div class="row">
+	   						<span class="label label-default titulo-eventos">Painel de Eventos</span>
+	   					</div>
+	   					<div class="row">
+	   						<c:forEach  begin="0" end="5" var="evento" items="${mestre.eventos}" varStatus="loop">
+								<div class="col-md-4 text-center"><a href="<%=request.getContextPath()%>/evento?acao=visualizar&id=${evento.id}" class="btn btn-success" role="button">${fn:substring(evento.nome, 0, 20)}</a></div>
+								 <c:if test="${loop.count eq 3}"> 
+								 	<br /><br />
+								 </c:if>
+						 	</c:forEach>				
+	    				</div>
     				</div>
-    				<div class="row"><br /></div>
-    			</div>	
+    			</div>
+    			<div class="row"><br/></div>	
     			<div class="col-md-12">
     				<div class="row">
     				<!--  Começo do painel do Usuário -->

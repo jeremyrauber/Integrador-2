@@ -4168,6 +4168,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   min-height: 50px;
   margin-bottom: 20px;
   border: 1px solid transparent;
+  margin-top:-90px;
 }
 @media (min-width: 768px) {
   .navbar {
@@ -6755,3 +6756,10 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+.footer {
+  position: absolute;
+  margin-bottom: -0px; /* negative value of footer height */
+  height: 75px;
+  clear:both;
+  padding-top:20px;
+}

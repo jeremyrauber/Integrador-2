@@ -3,51 +3,39 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<style>
-	.navbar{
-		padding-left:20px;
-		padding-right:20px;
-	}
-</style>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<%=request.getContextPath()%>/login?acao=inicial">Sistema Aedes</a>
+    </div>
 
-<div class="navbar navbar-default navbar-fixed-top">
-  <nav>
-  <!-- 
-    <ul class="nav nav-pills pull-right">
-	    <li class="dropdown">
-		<a href="#" id="drop0" role="button" class="dropdown-toggle" data-toggle="dropdown">Cadastrar Envento<b class="caret"></b></a>
-			<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
-		   	    <li role="presentation">
-		   	    	<a href="<%=request.getContextPath()%>/evento?acao=cadastrar">
-		   	    		<span class="text-primary"><i class="glyphicon glyphicon-plus primary"></i> Evento</span>
-		   	    	</a>
-		   	    </li>
-			</ul>
-	  	</li>	  	
-	  	<li class="dropdown">
-		<a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">User<b class="caret"></b></a>
-			<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
-				<li role="presentation"><a href="<%=request.getContextPath()%>/login?acao=logout">Logout</a></li>
-			</ul>
-	  	</li>
-	  	
-    </ul>
-    -->
-    <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="<%=request.getContextPath()%>/evento?acao=cadastrar">
-  	    		<span class="text-primary"><i class="glyphicon glyphicon-plus primary"></i> Evento</span>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="<%=request.getContextPath()%>/evento?acao=cadastrar">
+  	    		<span class="text-primary"> <i class="glyphicon glyphicon-plus primary"></i>  Evento</span>
   	    	</a>
-        </li>
+  	    </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mestre<span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li><a href="#">Alterar Senha</a></li>
+            <li role="separator" class="divider"></li>
             <li><a href="<%=request.getContextPath()%>/login?acao=logout">Logout</a></li>
           </ul>
         </li>
       </ul>
-    
-    
-  </nav>
-  <h3 class="titulo"><a href="<%=request.getContextPath()%>/login?acao=inicial">Sistema Aedes</a></h3>
-</div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+

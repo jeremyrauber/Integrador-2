@@ -9,6 +9,6 @@
 
 <title>Sistema Aedes</title>
 
-<link href="<%=request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/js/dataTable/jquery.dataTables.min.css" rel="stylesheet">
 

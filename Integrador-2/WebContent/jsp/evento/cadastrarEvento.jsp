@@ -30,6 +30,17 @@
     	<div id="wrap">
     		<div class="container">
     			<div class="row">
+    			
+    				<c:if test="${ not empty erro}">
+	    				<div class="form-group">
+	    					<div class="alert alert-danger col-md-4 col-md-offset-4 has-feedback" role="alert">
+			  					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			  						<span aria-hidden="true">&times;</span>
+			  					</button>
+						  		<strong>Atenção!</strong> ${erro}
+							</div>
+						</div>	
+	    			</c:if>
     				
     				<c:if test="${ not empty mensagem}">
 					  	<c:choose>
@@ -44,25 +55,25 @@
 							</div>	
 							</c:when>
 							<c:when test="${mensagem == 'Problemas no servidor tente novamente mais tarde!' }" >
+							<div class="form-group">
 							  	<div class="alert alert-danger col-md-4 col-md-offset-4 has-feedback" role="alert">
 				  					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				  						<span aria-hidden="true">&times;</span>
 				  					</button>
 							  		<strong>Atenção!</strong> ${mensagem}
 								</div>
+							</div>
 							</c:when>
 						</c:choose>
 					  </c:if>
     			
+
     			
-    			
-    			
-    			
-    			
-					<form action="<%=request.getContextPath()%>/evento" method="POST">
+    			<div class="col-md-12">
+					<form action="<%=request.getContextPath()%>/evento" method="POST" id="cadastrar">
     					<fieldset>
 							<!-- Form Name -->
-							<legend>${not empty evento? 'Atualizar ' : 'Cadastro de '} evento</legend>
+							<legend>${not empty evento.id ? 'Atualizar ' : 'Cadastro de '} evento</legend>
 							
 							<!-- Text input-->
 							<div class="form-group">
@@ -132,9 +143,9 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="Cadastrar"></label>
 							  <div class="col-md-8">
-							    <input type="hidden" name="acao" value="${not empty evento ? 'atualizar' : 'adicionar'}"/>
+							    <input type="hidden" name="acao" value="${not empty evento.id  ? 'atualizar' : 'adicionar'}"/>
 							     <input type="hidden" name="id" value="${evento.id}"/>
-							  	<button type="submit" name="acao" class="btn btn-success">${not empty evento ? 'Atualizar' : 'Inserir'}</button>
+							  	<button type="submit" name="acao" class="btn btn-success">${not empty evento.id ? 'Atualizar' : 'Inserir'}</button>
 							  	<a href="<%=request.getContextPath()%>/" class="btn btn-danger" role="button">Cancelar</a>
 							  </div>
 							</div>
@@ -142,9 +153,21 @@
 						</fieldset>
 					</form>
 				</div>
+				</div>
 			</div>
 		</div>
     	<%@include file="/jsp/inc/rodape.jsp" %>
 	</body>
 </html>
+
+<script>
+$("#cadastrar").submit(function(e){
+    var dataFim = $('#dataf').val().replace('-', '');
+    var dataInicio = parseInt($('#datai').val().replace('-', ''));
+     alert($('#dataf').val().replace('-', '');
+    alert(dataFim.toString()+"-"+dataInicio);
+
+	return false;
+});
+</script>
 
