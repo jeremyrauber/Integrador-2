@@ -137,11 +137,11 @@
 									</div>
 									<div class="form-group">
 										<label id="val_cidade" class="control-label" for="cidade">Cidade</label>
-										<input type="text" name="cidade" id="cidade" tabindex="2" class="form-control" placeholder="Cidade" value="${not empty cidade ? cidade : ''}">
+										<input type="text" name="cidade" id="cidade" tabindex="2" class="form-control" placeholder="Cidade" value="Foz do Iguaçu" disabled>
 									</div>
 									<div class="form-group">
 										<label id="val_estado" class="control-label" for="estado">Estado</label>
-										<input type="text" name="estado" id="estado" tabindex="2" class="form-control" placeholder="Estado" value="${not empty estado ? estado : ''}">
+										<input type="text" name="estado" id="estado" tabindex="2" class="form-control" placeholder="Estado" value="PR" disabled>
 									</div>
 									<div class="form-group">
 										<div class="row">

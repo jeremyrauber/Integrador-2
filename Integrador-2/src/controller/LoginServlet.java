@@ -110,6 +110,7 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("mestre", novoMestre);
             request.setAttribute("mestre", novoMestre);
             request.getRequestDispatcher("index.jsp").forward(request, response);
+            return;
         }
     	 
         request.setAttribute("mensagem", mensagem);
