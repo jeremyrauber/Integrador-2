@@ -119,7 +119,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 
 
-CREATE TABLE IF NOT EXISTS `projeto`.`bairros` (
+CREATE TABLE IF NOT EXISTS `projeto`.`bairro` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`));

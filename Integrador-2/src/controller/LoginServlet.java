@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DaoBairro;
 import dao.DaoMestre;
 import helper.HashMD5;
+import model.Bairro;
 import model.Mestre;
 
 @WebServlet("/login")
@@ -112,7 +115,11 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("index.jsp").forward(request, response);
             return;
         }
-    	 
+    	
+    	DaoBairro daoBairro = new DaoBairro();
+    	List<Bairro> bairros = daoBairro.findAll();
+    	
+    	request.setAttribute("bairros", bairros);
         request.setAttribute("mensagem", mensagem);
         request.getRequestDispatcher("/login.jsp").forward(request, response);
        

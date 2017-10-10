@@ -136,6 +136,10 @@
 										<input type="text" name="bairro" id="bairro" tabindex="2" class="form-control" placeholder="Bairro" value="${not empty bairro ? bairro : ''}">
 									</div>
 									<div class="form-group">
+										<label id="val_bairro" class="control-label" for="bairo">Bairro</label>
+										<form:select path="bairro" items="${bairro}" />
+									</div>
+									<div class="form-group">
 										<label id="val_cidade" class="control-label" for="cidade">Cidade</label>
 										<input type="text" name="cidade" id="cidade" tabindex="2" class="form-control" placeholder="Cidade" value="Foz do Iguaçu" disabled>
 									</div>
