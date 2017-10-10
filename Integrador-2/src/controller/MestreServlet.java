@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.DaoMestre;
+import helper.HashMD5;
 import model.Mestre;
 
 @WebServlet("/mestre")
@@ -76,7 +77,72 @@ public class MestreServlet extends HttpServlet {
     		mensagem = "Alterações salvas com sucesso!";
         	request.setAttribute("mensagem", mensagem);
     		request.getRequestDispatcher("jsp/mestre/manterMestre.jsp").forward(request, response);
-    	}    		
+    		
+    	}else if(acao.equals("alterarSenha")){
+			Mestre mestre = (Mestre) session.getAttribute("mestre");
+			request.setAttribute("mestre", mestre);
+			request.getRequestDispatcher("jsp/mestre/alterarSenha.jsp").forward(request, response);
+			
+    	}else if(acao.equals("novaSenha")){
+    		
+    		String senhaAntiga = request.getParameter("senhaAntiga");
+	        String senha = request.getParameter("senha");
+	        String senhare = request.getParameter("senhare");
+	        
+	        
+	        HashMD5 hash = new HashMD5();
+	        Mestre mestre = (Mestre) session.getAttribute("mestre");
+	        String senhaHash="";
+	        try {
+	        	senhaHash = hash.toMD5(senhaAntiga);
+			} catch (Exception e) {
+				mensagem = "erro no servidor";
+				request.setAttribute("mensagem", mensagem);
+				request.getRequestDispatcher("jsp/mestre/manterMestre.jsp").forward(request, response);
+			}
+	        System.out.println(mestre.getSenha()+"-"+senhaHash);
+	        if(mestre.getSenha().toUpperCase().equals(senhaHash)){
+	        	if(senha.equals(senhare)) {
+	        		String senhaNovaHash = "";
+	        		try {
+	    	        	senhaNovaHash = hash.toMD5(senha);
+	    	        	
+	    			} catch (Exception e) {
+	    				mensagem = "erro no servidor";
+	    				request.setAttribute("mensagem", mensagem);
+	    				request.getRequestDispatcher("jsp/mestre/manterMestre.jsp").forward(request, response);
+	    			}
+	        		
+	        		mestre.setSenha(senhaNovaHash);
+	        		daoMestre.update(mestre);
+	        		request.getSession().setAttribute("mestre", mestre);
+	        		
+	        		request.setAttribute("mestre", mestre);
+	    			mensagem = "Senha alterada com sucesso!";
+	            	request.setAttribute("mensagem", mensagem);
+	    			request.getRequestDispatcher("jsp/mestre/alterarSenha.jsp").forward(request, response);
+	    			
+	        	}else {
+	        		mensagem = "Senhas não coincidem!";
+					request.setAttribute("mestre", mestre);
+					request.setAttribute("mensagem",mensagem);
+	    			request.getRequestDispatcher("jsp/mestre/alterarSenha.jsp").forward(request, response);
+	        		
+	        	}	        	
+	        }else {
+	        	mensagem = "Senha atual incorreta!";
+				request.setAttribute("mestre", mestre);
+				request.setAttribute("mensagem",mensagem);
+				request.getRequestDispatcher("jsp/mestre/alterarSenha.jsp").forward(request, response);
+	        }
+	        
+	       
+    		
+			
+			
+    	} 	
+		
+		
 	}
 
 }

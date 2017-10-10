@@ -114,7 +114,7 @@ html, body {
 .footer {
   position: relative ;
   margin-left: 100px;
-  margin-bottom: -20px; /* negative value of footer height */
+  margin-bottom: -70px !important;/* negative value of footer height */
   height: 75px;
   clear:both;
   padding-top:20px;
