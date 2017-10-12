@@ -27,6 +27,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mestre<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="<%=request.getContextPath()%>/mestre?acao=alterarSenha">Alterar Senha</a></li>
+            <li><a href="<%=request.getContextPath()%>/mestre?acao=upload">Alterar Imagem</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="<%=request.getContextPath()%>/login?acao=logout">Logout</a></li>
           </ul>

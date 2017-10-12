@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS `projeto`.`mestre` (
   `estado` VARCHAR(45) NOT NULL,
   `data_cadastro` NOT NULL DATETIME DEFAULT CURRENT_TIMESTAMP,
   `hashValidador` varchar(255),
+  `caminho_imagem` varchar(255),
   PRIMARY KEY (`id`));
 
 

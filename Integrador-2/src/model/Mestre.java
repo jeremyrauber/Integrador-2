@@ -32,13 +32,14 @@ public class Mestre implements java.io.Serializable {
 	private String senha;
 	private String endereco;
 	private String email;
-	private Boolean ativo;
+	private Boolean ativo = false;
 	private String cep;
 	private String bairro;
 	private String cidade;
 	private String estado;
 	private Date dataCadastro  = new java.util.Date();
 	private String hashValidador;
+	private String caminhoImagem;
 	private Set<Evento> eventos = new HashSet<Evento>(0);
 
 	
@@ -170,6 +171,15 @@ public class Mestre implements java.io.Serializable {
 
 	public void setHashValidador(String hashValidador) {
 		this.hashValidador = hashValidador;
+	}
+
+	@Column(name = "caminho_imagem")
+	public String getCaminhoImagem() {
+		return caminhoImagem;
+	}
+
+	public void setCaminhoImagem(String caminhoImagem) {
+		this.caminhoImagem = caminhoImagem;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mestre")

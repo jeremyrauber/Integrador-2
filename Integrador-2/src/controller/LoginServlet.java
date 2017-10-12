@@ -35,6 +35,9 @@ public class LoginServlet extends HttpServlet {
     	Mestre mestre = new Mestre();
     	mestre = null;
     	
+    	DaoBairro daoBairro = new DaoBairro();
+    	List<Bairro> bairros = daoBairro.findOrdenado();
+    	
     	String acao = request.getParameter("acao");
     	
     	String login = request.getParameter("login");
@@ -111,13 +114,13 @@ public class LoginServlet extends HttpServlet {
         	novoMestre = daoMestre.findMestre(mestre.getLogin(), mestre.getSenha());
         	
             request.getSession().setAttribute("mestre", novoMestre);
+            request.setAttribute("bairros", bairros);
             request.setAttribute("mestre", novoMestre);
             request.getRequestDispatcher("index.jsp").forward(request, response);
             return;
         }
     	
-    	DaoBairro daoBairro = new DaoBairro();
-    	List<Bairro> bairros = daoBairro.findAll();
+    	
     	
     	request.setAttribute("bairros", bairros);
         request.setAttribute("mensagem", mensagem);

@@ -36,6 +36,15 @@
 			  		<strong>Informativo!</strong> ${mensagem}
 				</div>
 			</c:when>
+			<c:when test="${mensagem == 'Email para recuperar senha foi enviado com sucesso!' }" >
+			  	<div class="alert alert-success col-md-4 col-md-offset-4 has-feedback" role="alert">
+  					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  						<span aria-hidden="true">&times;</span>
+  					</button>
+			  		<strong>Informativo!</strong> ${mensagem}
+				</div>
+			</c:when>
+			
 			<c:otherwise>
 	    	<div class="alert alert-danger col-md-4 col-md-offset-4"role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -117,6 +126,7 @@
 										<input type="password" name="text_senha" id="text_senha" tabindex="2" class="form-control" placeholder="Senha" value="${not empty senhacad ? senhacad : ''}">
 									</div>
 									<div class="form-group">
+										<label id="val_senha" class="control-label" for="text_senha">Repita sua senha</label>
 										<input type="password" name="repetir_senha" id="repetir_senha" tabindex="2" class="form-control" placeholder="Confirme a Senha" value="${not empty senhacad ? senhacad : ''}">
 									</div>
 									<div class="form-group">
@@ -129,19 +139,19 @@
 									</div>
 									<div class="form-group">
 										<label id="val_cep" class="control-label" for="cep">CEP</label>
-										<input type="text" name="cep" id="cep" tabindex="2" class="form-control" placeholder="CEP" value="${not empty cep ? cep : ''}" pattern= "\d{5}-?\d{3}" >
+										<input type="text" name="cep" id="cep" tabindex="2" class="form-control" placeholder="CEP" value="${not empty cep ? cep : ''}" >
 									</div>
 									<div class="form-group">
-										<label id="val_bairro" class="control-label" for="bairo">Bairro</label>
-										<input type="text" name="bairro" id="bairro" tabindex="2" class="form-control" placeholder="Bairro" value="${not empty bairro ? bairro : ''}">
-									</div>
-									<div class="form-group">
-										<label id="val_bairro" class="control-label" for="bairo">Bairro</label>
-										<form:select path="bairro" items="${bairro}" />
+										<label id="val_bairro" class="control-label" for="bairro">Bairro</label>
+										<select id="bairro" name="bairro" class="form-control" >
+  										<c:forEach  var="bairro" items="${bairros}" >		
+										    	<option value="${bairro.nome}">${bairro.nome}</option>
+									 	</c:forEach>
+									 	</select>
 									</div>
 									<div class="form-group">
 										<label id="val_cidade" class="control-label" for="cidade">Cidade</label>
-										<input type="text" name="cidade" id="cidade" tabindex="2" class="form-control" placeholder="Cidade" value="Foz do Iguaçu" disabled>
+										<input type="text" name="cidade" id="cidade" tabindex="2" class="form-control" placeholder="Cidade" value="Foz do Iguacu" disabled>
 									</div>
 									<div class="form-group">
 										<label id="val_estado" class="control-label" for="estado">Estado</label>

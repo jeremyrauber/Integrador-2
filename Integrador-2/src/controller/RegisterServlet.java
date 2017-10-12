@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -14,9 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.DaoBairro;
 import dao.DaoMestre;
 import helper.EmailSender;
 import helper.HashMD5;
+import model.Bairro;
 import model.Mestre;
 
 @WebServlet("/register")
@@ -32,9 +35,11 @@ public class RegisterServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("--------------------entrou aqui");
+		System.out.println("--------------------no register aqui");
 		EmailSender es = new EmailSender();
-		
+    	
+    	DaoBairro daoBairro = new DaoBairro();
+    	List<Bairro> bairros = daoBairro.findOrdenado();
 		DaoMestre daoMestre = new DaoMestre();
     	HashMD5 hash = new HashMD5();
     	    	
@@ -64,6 +69,9 @@ public class RegisterServlet extends HttpServlet {
 		        String cidade = request.getParameter("cidade");
 		        String estado = request.getParameter("estado");
 				
+		        
+		        System.out.println(cidade+"-"+bairro+"-"+estado);
+		        
 				Integer existeMestre = new Integer(daoMestre.findExistingLoginOrEmail(login,email).intValue());
 				
 				if(existeMestre == 0) {
@@ -93,8 +101,8 @@ public class RegisterServlet extends HttpServlet {
 					mestre.setCep(cep);
 					mestre.setEndereco(endereco);
 					mestre.setBairro(bairro);
-					mestre.setCidade(cidade);
-					mestre.setEstado(estado);
+					mestre.setCidade("Foz do Iguaçu");
+					mestre.setEstado("PR");
 					
 					String uuid = UUID.randomUUID().toString();
 					
@@ -152,12 +160,14 @@ public class RegisterServlet extends HttpServlet {
 				
 				daoMestre.update(mestre_n);
 				es.recuperar(mestre_n.getEmail(),novaSenha);
-				mensagem = "Email enviado com sucesso!";
+				mensagem = "Email para recuperar senha foi enviado com sucesso!";
 				
 			
 			}else {
 				mensagem = "Houve algum erro, retorne mais tarde.";
 			}
+			
+				request.setAttribute("bairros", bairros);
 				request.setAttribute("email", email);
 				request.setAttribute("mensagem", mensagem);
 				request.getRequestDispatcher("/login.jsp").forward(request, response);

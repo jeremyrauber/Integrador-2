@@ -257,9 +257,9 @@ public class EventoServlet extends HttpServlet {
 	    		
 	    	}else if (acao.equals("avaliar")) {
 	    		
-	    		Integer id = Integer.parseInt(request.getParameter("id"));
+	    		Integer eventoId = Integer.parseInt(request.getParameter("id"));
 	    		
-	    		Evento e =  daoEvento.findById(id);
+	    		Evento e =  daoEvento.findById(eventoId);
 	    		UsuarioAtividade ua = new UsuarioAtividade();
 	    		ua = daoUsuarioAtividade.findByEventoId(e.getId());
 	    		

@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -47,7 +48,7 @@
 								        <div class="col-md-10 text-center"> <strong>Últimos Envios do Usuario:</strong><br>
 											<div class="row">
 												<c:forEach  var="imagens" items="${envios}" >		
-											    	<img alt="Submissões anteriores do Usuário" class="img-thumbnail" style="width:80px; height:60px; border:1px solid;" title="" src="${imagens.caminhoImagem}">${$imagens.status}
+											    	<img alt="Submissões anteriores do Usuário" class="img-thumbnail" style="width:80px; height:60px; border:1px solid;" title="" src="${imagens.caminhoImagem}">${imagens.status}
 											 	</c:forEach>
 											</div>
 											<div class="row">

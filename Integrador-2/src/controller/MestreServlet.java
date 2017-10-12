@@ -1,10 +1,12 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.ServletException;
@@ -13,6 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import dao.DaoMestre;
 import helper.HashMD5;
@@ -34,6 +40,7 @@ public class MestreServlet extends HttpServlet {
 		DaoMestre daoMestre = new DaoMestre();
 		
 		if(acao == null){
+			System.out.println("NAO DEVIA PASAR AQUI");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 			
     	}else if (acao.equals("editar")) {
@@ -140,10 +147,16 @@ public class MestreServlet extends HttpServlet {
     		
 			
 			
-    	} 	
+    	}else if(acao.equals("upload")){
+    		request.getRequestDispatcher("jsp/mestre/upload.jsp").forward(request, response);
+    		
+    	}else if(acao.equals("carregar")) {
+    		
+    		
+    	}
+	
 		
 		
 	}
-
 }
 

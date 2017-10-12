@@ -2,3 +2,6 @@ criar um arquivo com nome senha.txt na pasta c:\temp\
 colocar a senha de validação do email. 
 
 c:\\temp\\senha.txt
+
+SEMPRE QUE MUDAR DE COMPUTADOR MUDAR CAMINHO DE UPLOAD DE IMAGEM DOS ADMS, no UPLOADSERVLET:
+File uploadedFile = new File("caminho onde esta o projeto\\WebContent\\images\\usuarios\\"+momeArquivo");

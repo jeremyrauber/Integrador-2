@@ -28,7 +28,7 @@
   	<body>
 		<%@include file="/jsp/inc/menu.jsp" %>
     	<div id="wrap">
-    		<div class="container">
+    		<div class="container">		
    				<div class="container bootstrap snippet">
 					<div class="panel-body inf-content bg-success">
 						<div class="row">
@@ -44,6 +44,9 @@
 	    				</div>
     				</div>
     			</div>
+    			<div class="row"><br/>
+    			${mensagem}
+    			</div>
     			<div class="row"><br/></div>	
     			<div class="col-md-12">
     				<div class="row">
@@ -52,7 +55,7 @@
 							<div class="panel-body inf-content">
 								<div class="row">
 									<div class="col-md-4"> 
-										<img alt="" style="width:300px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/user-453533-fdadfd.png" data-original-title="Usuario">
+										<img alt="" style="width:300px;" title="" class="img-circle img-thumbnail isTooltip" src="${not empty mestre.caminhoImagem ? mestre.caminhoImagem : 'images/usuarios/padrao.png'}" data-original-title="Usuario">									
 										<ul title="Ratings" class="list-inline ratings text-center">
 											<li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
 											<li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
@@ -88,7 +91,7 @@
 														<td class="text-primary"> <fmt:formatDate pattern = "dd-MM-yyyy" value = "${mestre.dataNascimento}" /></td>
 													</tr>
 													<tr>
-														<td> <strong> <span class="glyphicon glyphicon-calendar text-primary"></span> Data de Cadastrado </strong></td>
+														<td> <strong> <span class="glyphicon glyphicon-calendar text-primary"></span> Data de Cadastro </strong></td>
 														<td class="text-primary"> <fmt:formatDate pattern = "dd-MM-yyyy" value = "${mestre.dataCadastro}" />  </td>
 													</tr>
 												</tbody>
