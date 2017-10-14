@@ -152,4 +152,4 @@ INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (2,1,
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,2,0);
 
 
-
+SELECT usuario.nome,id_usuario,SUM(TIMESTAMPDIFF(second,'2017-09-29',data_fim_atividade)) AS tempo_total,count(id_atividade) AS total_atividade FROM usuario INNER JOIN usuario_has_atividade ON id_usuario=id WHERE id_evento=1 and status=1 group by id_usuario order by total_atividade DESC, tempo_total ASC;
