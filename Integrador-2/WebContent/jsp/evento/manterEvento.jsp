@@ -95,7 +95,10 @@
 				</div>
 				<div class="col-md-6">
 					<fieldset>
-					<legend>Ranking usuários <a href="<%=request.getContextPath()%>/evento?acao=ranking" class="direita btn btn-info" role="button">Listar</a></legend>
+					<legend>Ranking usuários <a href="<%=request.getContextPath()%>/evento?acao=ranking&id=${evento.id}" class="direita btn btn-info" role="button">Listar</a></legend>
+					<c:forEach  begin="0" end="5" var="ranke" items="${ranking}" varStatus="loop">
+						${ranke.tempoTotal}
+					</c:forEach>
 						<table class="table table-bordered">
 		  						<thead>
 		  							 <tr>

@@ -26,8 +26,10 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 import dao.DaoAtividade;
 import dao.DaoEvento;
 import dao.DaoEventoUsuario;
+import dao.DaoRanking;
 import dao.DaoUsuarioAtividade;
 import model.Atividade;
+import model.Ranking;
 import model.Evento;
 import model.EventoUsuario;
 import model.Mestre;
@@ -279,6 +281,14 @@ public class EventoServlet extends HttpServlet {
 	    		
 	    	}else if (acao.equals("ranking")) {
 	    		
+	    		DaoRanking daoRanking = new DaoRanking();
+	    		Integer id = Integer.parseInt(request.getParameter("id"));
+	    		List<Ranking> ranking = daoRanking.findByEvento(id);
+	    		for(Ranking r: ranking){
+	    			System.out.println(r.getLogin()+"-"+r.getTempoTotal()+"-"+r.getTotalAtividade());
+	    			
+	    		}
+	    		request.setAttribute("ranking", ranking);
 	    		request.getRequestDispatcher("jsp/evento/ranking.jsp").forward(request, response);
 	    		
 	    	}else if (acao.equals("julgar")) {

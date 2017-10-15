@@ -30,6 +30,9 @@
     		<div class="container">
     			<div class="row">
 					Rankear a coisa toda
+					<c:forEach  var="ranke" items="${ranking}">
+						${ranke.nome}
+					</c:forEach>
 				</div>
 			</div>
 		</div>
