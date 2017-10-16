@@ -55,6 +55,7 @@ public class EventoServlet extends HttpServlet {
 		DaoAtividade daoAtividade = new DaoAtividade();
 		DaoEventoUsuario daoEventoUsuario = new DaoEventoUsuario();
 		DaoUsuarioAtividade daoUsuarioAtividade = new DaoUsuarioAtividade();
+		DaoRanking daoRanking = new DaoRanking();
 		
 		String mensagem = "";
 		
@@ -83,6 +84,8 @@ public class EventoServlet extends HttpServlet {
 					System.out.println(e.getUsuario().getNome()+">>>>>>>>>>>>>>>>>>>>>>>>");
 				}
 	    		
+	    		List<Ranking> ranking = daoRanking.findByEvento(id);
+	    		request.setAttribute("ranking", ranking);
 	    		request.setAttribute("evento", evento);    
 	    		request.getRequestDispatcher("jsp/evento/manterEvento.jsp").forward(request, response);
 	    		
@@ -281,13 +284,10 @@ public class EventoServlet extends HttpServlet {
 	    		
 	    	}else if (acao.equals("ranking")) {
 	    		
-	    		DaoRanking daoRanking = new DaoRanking();
+	    		
 	    		Integer id = Integer.parseInt(request.getParameter("id"));
 	    		List<Ranking> ranking = daoRanking.findByEvento(id);
-	    		for(Ranking r: ranking){
-	    			System.out.println(r.getLogin()+"-"+r.getTempoTotal()+"-"+r.getTotalAtividade());
-	    			
-	    		}
+
 	    		request.setAttribute("ranking", ranking);
 	    		request.getRequestDispatcher("jsp/evento/ranking.jsp").forward(request, response);
 	    		

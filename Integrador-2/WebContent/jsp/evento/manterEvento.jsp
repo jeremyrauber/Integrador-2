@@ -96,9 +96,6 @@
 				<div class="col-md-6">
 					<fieldset>
 					<legend>Ranking usuários <a href="<%=request.getContextPath()%>/evento?acao=ranking&id=${evento.id}" class="direita btn btn-info" role="button">Listar</a></legend>
-					<c:forEach  begin="0" end="5" var="ranke" items="${ranking}" varStatus="loop">
-						${ranke.tempoTotal}
-					</c:forEach>
 						<table class="table table-bordered">
 		  						<thead>
 		  							 <tr>
@@ -106,15 +103,23 @@
 		  							 	<th>Login</th>
 		  							 	<th>Nome</th>
 		  							 	<th>Bairro</th>
+		  							 	<th>Cidade</th>
+		  							 	<th>UF</th>
+		  							 	<th>Tempo Gasto</th>
+		  							 	<th>Atividades Completas</th>
 		  							  </tr>
 		  						</thead>
 		  						<tbody>
-		  							<c:forEach  begin="0" end="5" var="evento" items="${evento.eventoUsuarios}" varStatus="loop">
+		  							<c:forEach  var="ranking" items="${ranking}" varStatus="loop">
 			  						 	<tr>
 			  						 		<th scope="row">${loop.count}</th>
-			  						 		<td>${evento.usuario.login}</td>
-			  						 		<td>${evento.usuario.nome}</td>
-			  						 	 	<td>${evento.usuario.bairro}</td>
+			  						 		<td>${ranking.login}</td>
+			  						 		<td>${ranking.nome}</td>
+			  						 	 	<td>${ranking.bairro}</td>
+			  						 	 	<td>${ranking.cidade}</td>
+			  						 	 	<td>${ranking.estado}</td>
+			  						 	 	<td>${ranking.tempoTotal}</td>
+			  						 	 	<td>${ranking.totalAtividade}</td>
 			  						 	 </tr>
 		  						 	 </c:forEach>
 								</tbody>

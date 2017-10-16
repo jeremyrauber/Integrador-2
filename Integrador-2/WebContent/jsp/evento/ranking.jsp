@@ -31,7 +31,7 @@
     			<div class="row">
 					Rankear a coisa toda
 					<c:forEach  var="ranke" items="${ranking}">
-						${ranke.nome}
+						<br>	${ranke.nome} 
 					</c:forEach>
 				</div>
 			</div>

@@ -1,25 +1,19 @@
 package model;
 
-import java.beans.Transient;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 public class Ranking {
 	
-	static String nome;
-	static String login;
-	static String bairro;
-	static String cidade;
-	static String estado;
-	static Integer tempoTotal;
-	static Integer totalAtividade;
-	static String dataNascimento;	
+	private String nome;
+	private String login;
+	private String bairro;
+	private String cidade;
+	private String estado;
+	private String tempoTotal;
+	private Integer totalAtividade;
+	private String dataNascimento;	
 	
 	public Ranking() {}
 	
-	public Ranking(String nome, String login, String bairro, String cidade, String estado, Integer tempoTotal,
+	public Ranking(String nome, String login, String bairro, String cidade, String estado, String tempoTotal,
 			Integer totalAtividade, String dataNascimento) {
 		super();
 		this.nome = nome;
@@ -61,10 +55,10 @@ public class Ranking {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Integer getTempoTotal() {
+	public String getTempoTotal() {
 		return tempoTotal;
 	}
-	public void setTempoTotal(Integer tempoTotal) {
+	public void setTempoTotal(String tempoTotal) {
 		this.tempoTotal = tempoTotal;
 	}
 	
@@ -72,7 +66,7 @@ public class Ranking {
 		return totalAtividade;
 	}
 	public void setTotalAtividade(Integer totalAtividade) {
-		totalAtividade = totalAtividade;
+		this.totalAtividade = totalAtividade;
 	}
 	public String getDataNascimento() {
 		return dataNascimento;
@@ -80,4 +74,5 @@ public class Ranking {
 	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+
 }

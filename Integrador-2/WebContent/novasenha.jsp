@@ -59,6 +59,13 @@
 											</div>
 										</div>
 									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-3">
+											<span class="input-group"><a href="<%=request.getContextPath()%>/login"><i class="glyphicon glyphicon-arrow-left">  </i> Voltar</a></span>
+											</div>
+										</div>
+									</div>
 								</form>
 							</div>
 						</div>
