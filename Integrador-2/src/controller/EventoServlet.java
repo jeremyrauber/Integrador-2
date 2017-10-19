@@ -29,10 +29,13 @@ import dao.DaoEventoUsuario;
 import dao.DaoRanking;
 import dao.DaoUsuarioAtividade;
 import model.Atividade;
+import model.BarraDTO;
+import model.Dashboard;
 import model.Ranking;
 import model.Evento;
 import model.EventoUsuario;
 import model.Mestre;
+import model.PizzaDTO;
 import model.Usuario;
 import model.UsuarioAtividade;
 
@@ -287,7 +290,10 @@ public class EventoServlet extends HttpServlet {
 	    		
 	    		Integer id = Integer.parseInt(request.getParameter("id"));
 	    		List<Ranking> ranking = daoRanking.findByEvento(id);
-
+	    		Dashboard d = daoRanking.findItensDashboard(id);
+	    		
+	    		request.setAttribute("dashboard", d);
+	    		request.setAttribute("id",id);
 	    		request.setAttribute("ranking", ranking);
 	    		request.getRequestDispatcher("jsp/evento/ranking.jsp").forward(request, response);
 	    		
@@ -323,8 +329,20 @@ public class EventoServlet extends HttpServlet {
 	    			
 	    		}
 	    		out.print(mensagem);
+	    			
+	    	}else if (acao.equals("pizza")) {
+	    		Integer id = Integer.parseInt(request.getParameter("id"));
+	    		List<PizzaDTO> pizza= daoRanking.findItensGraficoPizza(id);
+	    		
+	    		for(PizzaDTO p : pizza)
+	    			out.println(p.getBairro()+"-"+p.getQuantidade());
+	    		
+	    	}else if (acao.equals("barra")) {
+	    		Integer id = Integer.parseInt(request.getParameter("id"));
+	    		List<BarraDTO> barra = daoRanking.findItensGraficoBarra(id);
+	    		for(BarraDTO b : barra)
+	    			out.println(b.getAtividade()+"-"+b.getQuantidade()+"-"+b.getIdade());
 	    	}
-			
     	}
 	}
 }
