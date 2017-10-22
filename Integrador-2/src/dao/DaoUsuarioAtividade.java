@@ -17,7 +17,7 @@ public class DaoUsuarioAtividade extends DaoEntity<UsuarioAtividade, Integer> {
 		try{
 			Query q = em.createNativeQuery("SELECT * FROM usuario_has_atividade as a1 INNER JOIN evento_has_usuario AS a2 "
 					+ "ON (a1.id_usuario=a2.id_usuario and a1.id_evento=a2.id_evento) WHERE a1.id_evento="+id+" AND caminho_imagem IS NOT NULL AND caminho_imagem <> '' "
-					+ "AND status=0 AND a2.banido_evento=0 LIMIT 1;",UsuarioAtividade.class);
+					+ "AND status=0 AND a2.banido_evento=0 ORDER BY data_fim_atividade LIMIT 1",UsuarioAtividade.class);
 			return  (UsuarioAtividade) q.getSingleResult();
 		}catch (Exception e) {
 			return null;

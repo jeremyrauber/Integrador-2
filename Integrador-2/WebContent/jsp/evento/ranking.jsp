@@ -157,6 +157,17 @@
 <div class="container-fluid">
   
   <div class="row">
+  	<div class="col-md-2"> 
+		<button type="button" class="btn btn-default btn-lg">
+			<a href="<%=request.getContextPath()%>/evento?acao=visualizar&id=${id}" class="btn btn-primary" role="button">
+				<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Voltar
+			</a>
+		</button>
+	</div>
+  </div>
+  <br/>
+  <br/>
+  <div class="row">
     <div class="col-sm-4">
     
       <div class="aw-box">
@@ -188,7 +199,7 @@
           <i class="glyphicon glyphicon-time  gi-3x"></i>
         </div>
         <div class="aw-box__value">${dashboard.tempoTotal}</div>
-        <div class="aw-box__title">Horas acumuladas de atividaes</div>
+        <div class="aw-box__title">Horas acumuladas de atividades</div>
       </div>
     
     </div>
