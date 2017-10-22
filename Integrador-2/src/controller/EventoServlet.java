@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
+import com.google.gson.Gson;
+
 import dao.DaoAtividade;
 import dao.DaoEvento;
 import dao.DaoEventoUsuario;
@@ -87,7 +89,7 @@ public class EventoServlet extends HttpServlet {
 					System.out.println(e.getUsuario().getNome()+">>>>>>>>>>>>>>>>>>>>>>>>");
 				}
 	    		
-	    		List<Ranking> ranking = daoRanking.findByEvento(id);
+	    		List<Ranking> ranking = daoRanking.findUsuarioByEvento(id);
 	    		request.setAttribute("ranking", ranking);
 	    		request.setAttribute("evento", evento);    
 	    		request.getRequestDispatcher("jsp/evento/manterEvento.jsp").forward(request, response);
@@ -333,15 +335,17 @@ public class EventoServlet extends HttpServlet {
 	    	}else if (acao.equals("pizza")) {
 	    		Integer id = Integer.parseInt(request.getParameter("id"));
 	    		List<PizzaDTO> pizza= daoRanking.findItensGraficoPizza(id);
+	    		    	
+	    		Gson gson = new Gson();
 	    		
-	    		for(PizzaDTO p : pizza)
-	    			out.println(p.getBairro()+"-"+p.getQuantidade());
+	    		out.println(gson.toJson( pizza));
 	    		
 	    	}else if (acao.equals("barra")) {
 	    		Integer id = Integer.parseInt(request.getParameter("id"));
 	    		List<BarraDTO> barra = daoRanking.findItensGraficoBarra(id);
-	    		for(BarraDTO b : barra)
-	    			out.println(b.getAtividade()+"-"+b.getQuantidade()+"-"+b.getIdade());
+	    		
+	    		Gson gson = new Gson();
+	    		out.println(gson.toJson( barra));
 	    	}
     	}
 	}

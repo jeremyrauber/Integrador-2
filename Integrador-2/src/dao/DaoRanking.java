@@ -21,13 +21,30 @@ public class DaoRanking extends DaoEntity<Usuario, Integer> {
 		super(Usuario.class);
 	}
 	
+	public List<Ranking>  findUsuarioByEvento(Integer id_evento){
+		Query q = em
+			    .createNativeQuery("select nome,login FROM evento_has_usuario INNER JOIN usuario ON (id=id_usuario) WHERE id_evento="+id_evento);
+		
+		List<Object[]> listResults = q.getResultList();
+		List<Ranking> ranking = new ArrayList<>();
+		Integer i =0;
+		for (Object[] record : listResults) {
+			Ranking r = new Ranking();
+		    r.setLogin((String) listResults.get(i)[1]);
+		    r.setNome( (String) listResults.get(i)[0]);
+		    ranking.add(r);
+		    i++;
+		}
+		return ranking;	
+	}
+	
 	public List<Ranking> findByEvento(Integer id_evento){
 
 		Query q = em
 			    .createNativeQuery( "SELECT login,bairro, cidade, estado,data_nasc as dataNascimento, "
 			    		+ "SUM(TIMESTAMPDIFF(second,(SELECT data_inicio FROM evento WHERE id="+id_evento+"),data_fim_atividade)) AS tempoTotal, "
 			    		+ "count(id_atividade) AS totalAtividade, nome FROM usuario INNER JOIN usuario_has_atividade ON id_usuario=id "
-			    		+ "WHERE id_evento="+id_evento+" and status=1 group by id_usuario order by totalAtividade DESC, "
+			    		+ "WHERE id_evento="+id_evento+" and status=1 GROUP BY id_usuario order by totalAtividade DESC, "
 			    		+ "tempoTotal ASC");
 		List<Object[]> listResults = q.getResultList();
 		List<Ranking> ranking = new ArrayList<>();
@@ -59,38 +76,42 @@ public class DaoRanking extends DaoEntity<Usuario, Integer> {
 	
 	public Dashboard findItensDashboard(Integer id_evento){
 		
-		Query q = em
-			    .createNativeQuery("SELECT * FROM (select sum(status) as fotos, sum(status)/count(distinct id_usuario) AS media, "
-			    		+ "SUM(TIMESTAMPDIFF(second,(SELECT data_inicio FROM evento WHERE id=1),data_fim_atividade)) AS tempoTotal FROM usuario_has_atividade "
-			    		+ "WHERE id_evento=1 AND status=1) p1 "
-			    		+ "JOIN "
-			    		+ "(SELECT count(evento_has_usuario.id_usuario) as participantes, sum(banido_evento) AS banidos, "
-			    		+ "count(distinct (select bairro from usuario where id=evento_has_usuario.id_usuario)) AS bairro from evento_has_usuario where id_evento=1) p2 ON 1=1");		 
-		
-		List<Object[]> listResults = q.getResultList();
-		List<Dashboard> dashboard = new ArrayList<>();
-		Integer i = 0;
-		Dashboard d = new Dashboard();
-		for (Object[] record : listResults) {
+		try {
+			Query q = em
+				    .createNativeQuery("SELECT * FROM (select sum(status) as fotos, sum(status)/count(distinct id_usuario) AS media, "
+				    		+ "SUM(TIMESTAMPDIFF(second,(SELECT data_inicio FROM evento WHERE id=1),data_fim_atividade)) AS tempoTotal FROM usuario_has_atividade "
+				    		+ "WHERE id_evento=1 AND status=1) p1 "
+				    		+ "JOIN "
+				    		+ "(SELECT count(evento_has_usuario.id_usuario) as participantes, sum(banido_evento) AS banidos, "
+				    		+ "count(distinct (select bairro from usuario where id=evento_has_usuario.id_usuario)) AS bairro from evento_has_usuario where id_evento=1) p2 ON 1=1");		 
 			
-			d.setNumeroFotos(( (BigDecimal) listResults.get(i)[0]).intValue());
-			d.setMediaFotos( ((BigDecimal)  listResults.get(i)[1]).doubleValue() );
-			Integer totativ = ((BigDecimal) listResults.get(i)[2]).intValue();
-			   
-			   Integer hours = totativ / 3600;
-			   Integer minutes = (totativ % 3600) / 60;
-			   Integer seconds = totativ % 60;
-
-			   String timeString = String.format("%02dh %02dmin %02ds", hours, minutes, seconds);
-			
-			d.setTempoTotal(timeString);
-			d.setParticipantes( ((BigInteger)  listResults.get(i)[3]).intValue() );
-			d.setBanidos(( (BigDecimal) listResults.get(i)[4]).intValue());
-			d.setBairro(( (BigInteger) listResults.get(i)[5]).intValue());
-			dashboard.add(d);
-			i++;
+			List<Object[]> listResults = q.getResultList();
+			List<Dashboard> dashboard = new ArrayList<>();
+			Integer i = 0;
+			Dashboard d = new Dashboard();
+			for (Object[] record : listResults) {
+				
+				d.setNumeroFotos(( (BigDecimal) listResults.get(i)[0]).intValue());
+				d.setMediaFotos( ((BigDecimal)  listResults.get(i)[1]).doubleValue() );
+				Integer totativ = ((BigDecimal) listResults.get(i)[2]).intValue();
+				   
+				   Integer hours = totativ / 3600;
+				   Integer minutes = (totativ % 3600) / 60;
+				   Integer seconds = totativ % 60;
+	
+				   String timeString = String.format("%02dh %02dmin %02ds", hours, minutes, seconds);
+				
+				d.setTempoTotal(timeString);
+				d.setParticipantes( ((BigInteger)  listResults.get(i)[3]).intValue() );
+				d.setBanidos(( (BigDecimal) listResults.get(i)[4]).intValue());
+				d.setBairro(( (BigInteger) listResults.get(i)[5]).intValue());
+				dashboard.add(d);
+				i++;
+			}
+			return d;	
+		}catch(Exception e) {
+			return null;
 		}
-		return d;	
 	}
 	
 	public List<PizzaDTO> findItensGraficoPizza(Integer id_evento){
@@ -113,17 +134,16 @@ public class DaoRanking extends DaoEntity<Usuario, Integer> {
 	public List<BarraDTO> findItensGraficoBarra(Integer id_evento){
 	
 		Query q = em.createNativeQuery(
-					"SELECT id_atividade AS atividade,sum(status) AS quantidade ,(SELECT TIMESTAMPDIFF(YEAR, data_nasc, CURDATE()) FROM usuario "
-					+ "WHERE id=id_usuario) AS idade FROM usuario_has_atividade WHERE id_evento="+id_evento+" GROUP BY idade,id_atividade ORDER BY id_atividade");
+					"SELECT sum(status) AS quantidade ,(SELECT TIMESTAMPDIFF(YEAR, data_nasc, CURDATE()) FROM usuario WHERE id=id_usuario) AS idade "
+					+ "FROM usuario_has_atividade WHERE id_evento="+id_evento+" GROUP BY idade ORDER BY idade;");
 		
 		List<Object[]> listResults = q.getResultList();
 		List<BarraDTO> itens = new ArrayList<>();
 		Integer i =0;
 		for (Object[] record : listResults) {
 			BarraDTO b = new BarraDTO();
-			b.setAtividade(  ((Integer) listResults.get(i)[0]).intValue());
-			b.setQuantidade(( (BigDecimal) listResults.get(i)[1]).intValue() );
-			b.setIdade( ( (BigInteger ) listResults.get(i)[2]).intValue() );
+			b.setQuantidade(( (BigDecimal) listResults.get(i)[0]).intValue() );
+			b.setIdade( ( (BigInteger ) listResults.get(i)[1]).intValue() );
 			
 			itens.add(b);
 			i++;

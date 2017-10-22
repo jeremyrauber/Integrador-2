@@ -2,8 +2,8 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
-<html>
   	<head>
 		<%@include file="/jsp/inc/topo.jsp" %>
 			<link href="<%=request.getContextPath()%>/css/login/login.css" rel="stylesheet">
@@ -33,13 +33,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script type="text/javascript">
   var id =${id};
+  var pizza;
+  var barra;
   
   $.ajax({
 		method: "GET",
 		url: "<%=request.getContextPath()%>/evento?acao=pizza&id="+id,
 		data: { acao: "pesquisar", fquery: $("#fquery").val()},
 		success: function(data){
-			alert(data);
+			pizza = jQuery.parseJSON(data);
 		},
 		error:function(){
 			alert("nao foi possivel realizar a chamada ajax");
@@ -51,13 +53,15 @@
 		url: "<%=request.getContextPath()%>/evento?acao=barra&id="+id,
 		data: { acao: "pesquisar", fquery: $("#fquery").val()},
 		success: function(data){
-			alert(data);
+			
+			barra = jQuery.parseJSON(data);
+			console.log(barra);
 		},
 		error:function(){
 			alert("nao foi possivel realizar a chamada ajax");
 		}
 	})
-  
+
   
   
   google.charts.load('current', {packages: ['corechart', 'bar']});
@@ -66,23 +70,22 @@
   function drawAxisTickColors() {
         var data = new google.visualization.DataTable();
         data.addColumn('number', 'Atividades');
-        data.addColumn('number', 'Atv. 1');
-        data.addColumn('number', 'Atv. 2');
-        data.addColumn('number', 'Atv. 3');
-        data.addColumn('number', 'Atv. 4');
-        data.addColumn('number', 'Atv. 5');
-        data.addColumn('number', 'Atv. 6');
-        
+        data.addColumn('number', 'Quantidade de Atividades Realizadas');
 
-        data.addRows([
-          [{v: 8, f: '8 anos'},  1,  2, 0, 1, 1, 1],
-          [{v: 9, f: '9 anos'},  1,  2, 1, 1, 1, 1],
-          [{v: 10, f: '10 anos'},  2,  2, 2, 1, 1, 1],
-          [{v: 11, f: '11 anos'},  1,  1, 0, 1, 1, 1],
-          [{v: 12, f: '12 anos'},  1,  2, 0, 1, 1, 1],
-          [{v: 13, f: '13 anos'},  1,  2, 1, 1, 1, 1],
-          [{v: 14, f: '14 anos'},  2,  2, 0, 1, 1, 1]
-        ]);
+        
+        var output = barra.map(function(item) { 
+      
+        	return [item.idade,item.quantidade]; 
+        	
+        });
+        
+        console.log(output);
+        
+  //  	var data = google.visualization.arrayToDataTable(output);
+
+        data.addRows(
+        	output
+);
 
         var options = {
           focusTarget: 'category',
@@ -131,12 +134,12 @@
   google.charts.setOnLoadCallback(drawChart);
 
   function drawChart() {
+	
+	var output = pizza.map(function(item) { return [item.bairro, item.quantidade]; });
 
-    var data = google.visualization.arrayToDataTable([
-      ['Bairro', 'Nº de Fotos'],
-      ['Vila C',     5],
-      ['Vila A',    0]
-    ]);
+	output.unshift(["Bairro", "Nº de Fotos"]);
+
+	var data = google.visualization.arrayToDataTable(output);
 
     var options = {
       title: 'Envios de foto por bairro'
@@ -150,11 +153,7 @@
  </head>
   	<body>
 		<%@include file="/jsp/inc/menu.jsp" %>
-    	<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-?>
-
+				
 <div class="container-fluid">
   
   <div class="row">
@@ -238,15 +237,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
 
   <div class="row">
-    <div class="col-sm-6 col-sm-offset-4">
+  	<div class="col-sm-6">
       <div class="aw-graph-box">
         <div class="aw-graph-box__header">
           <h2 class="aw-graph-box__title">Bairros x nº Fotos <small>fotos avaliadas corretas</small></h2>
         </div>
         <div class="aw-graph-box__content">
           <div class="aw-graph-box__no-data">
-              <i class="fa  fa-line-chart  fa-2x"></i>
-              <span>Não há dados</span>
+              <i class="fa  fa-line-chart  fa-2x"></i> 
           </div>
 
           <div>
@@ -254,8 +252,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
         </div>
       </div>
+   	</div>
+    <div class="col-md-6">
+		<fieldset>
+		<legend>Ranking usuários</legend>
+			<table class="table table-bordered">
+ 						<thead>
+ 							 <tr>
+ 							 	<th>#</th>
+ 							 	<th>Login</th>
+ 							 	<th>Nome</th>
+ 							 	<th>Bairro</th>
+ 							 	<th>Cidade</th>
+ 							 	<th>UF</th>
+ 							 	<th>Tempo Gasto</th>
+ 							 	<th>Atividades Completas</th>
+ 							  </tr>
+ 						</thead>
+ 						<tbody>
+ 							<c:forEach  var="ranking" items="${ranking}" varStatus="loop">
+  						 	<tr>
+  						 		<th scope="row">${loop.count}</th>
+  						 		<td class="text-center">${ranking.login}</td>
+  						 		<td class="text-center">${ranking.nome}</td>
+  						 	 	<td class="text-center">${ranking.bairro}</td>
+  						 	 	<td class="text-center">${ranking.cidade}</td>
+  						 	 	<td class="text-center">${ranking.estado}</td>
+  						 	 	<td class="text-center">${ranking.tempoTotal}</td>
+  						 	 	<td class="text-center">${ranking.totalAtividade}</td>
+  						 	 </tr>
+ 						 	 </c:forEach>
+					</tbody>
+			</table>
+		</fieldset>
+	</div>	
     </div>
-    
+ <div class="row">  
     <div class="col-sm-12">
       <div class="aw-graph-box">
         <div class="aw-graph-box__header">

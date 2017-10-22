@@ -95,18 +95,13 @@
 				</div>
 				<div class="col-md-6">
 					<fieldset>
-					<legend>Ranking usuários <a href="<%=request.getContextPath()%>/evento?acao=ranking&id=${evento.id}" class="direita btn btn-info" role="button">Listar</a></legend>
+					<legend>Usuários participantes do evento <a href="<%=request.getContextPath()%>/evento?acao=ranking&id=${evento.id}" class="direita btn btn-info" role="button">Listar</a></legend>
 						<table class="table table-bordered">
 		  						<thead>
 		  							 <tr>
 		  							 	<th>#</th>
 		  							 	<th>Login</th>
 		  							 	<th>Nome</th>
-		  							 	<th>Bairro</th>
-		  							 	<th>Cidade</th>
-		  							 	<th>UF</th>
-		  							 	<th>Tempo Gasto</th>
-		  							 	<th>Atividades Completas</th>
 		  							  </tr>
 		  						</thead>
 		  						<tbody>
@@ -115,11 +110,6 @@
 			  						 		<th scope="row">${loop.count}</th>
 			  						 		<td>${ranking.login}</td>
 			  						 		<td>${ranking.nome}</td>
-			  						 	 	<td>${ranking.bairro}</td>
-			  						 	 	<td>${ranking.cidade}</td>
-			  						 	 	<td>${ranking.estado}</td>
-			  						 	 	<td>${ranking.tempoTotal}</td>
-			  						 	 	<td>${ranking.totalAtividade}</td>
 			  						 	 </tr>
 		  						 	 </c:forEach>
 								</tbody>
