@@ -262,6 +262,8 @@ public class EventoServlet extends HttpServlet {
 				mensagem = "Evento atualizadocom sucesso!";
 				request.setAttribute("mensagem", mensagem);
 				request.setAttribute("evento", eve);
+				List<Ranking> ranking = daoRanking.findUsuarioByEvento(id);
+	    		request.setAttribute("ranking", ranking);
 				request.setAttribute("mestre", mestre);
 				request.getRequestDispatcher("jsp/evento/manterEvento.jsp?acao=visualizar&id="+id).forward(request, response);
 	    		

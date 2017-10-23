@@ -89,7 +89,7 @@ public class DaoRanking extends DaoEntity<Usuario, Integer> {
 				    		+ "(select sum(status))/((select count(id_atividade) FROM evento_has_atividade where id_evento="+id_evento+")* " 
 				    		+ "(SELECT count(id_usuario) FROM evento_has_usuario where id_evento="+id_evento+")) as media, "
 				    		+ "SUM(TIMESTAMPDIFF(second,(SELECT data_inicio FROM evento WHERE id="+id_evento+"),data_fim_atividade)) AS tempoTotal FROM usuario_has_atividade "
-				    		+ "WHERE id_evento=1 AND status=1) p1 "
+				    		+ "WHERE id_evento="+id_evento+" AND status=1) p1 "
 				    		+ "JOIN "
 				    		+ "(SELECT count(evento_has_usuario.id_usuario) as participantes, sum(banido_evento) AS banidos, "
 				    		+ "count(distinct (select bairro from usuario where id=evento_has_usuario.id_usuario)) AS bairro from evento_has_usuario where id_evento="+id_evento+") p2 ON 1=1");		 
