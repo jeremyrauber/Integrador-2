@@ -291,7 +291,7 @@ public class EventoServlet extends HttpServlet {
 	    		
 	    		
 	    		Integer id = Integer.parseInt(request.getParameter("id"));
-	    		List<Ranking> ranking = daoRanking.findByEvento(id);
+	    		List<Ranking> ranking = daoRanking.findRankingByEvento(id);
 	    		Dashboard d = daoRanking.findItensDashboard(id);
 	    		
 	    		request.setAttribute("dashboard", d);

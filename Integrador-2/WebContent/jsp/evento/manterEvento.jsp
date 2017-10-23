@@ -33,6 +33,15 @@
 		<%@include file="/jsp/inc/menu.jsp" %>
     	<div id="wrap">
     		<div class="container">
+    		  <div class="row">
+			  	<div class="col-md-2"> 
+					<button type="button" class="btn btn-default btn-lg">
+						<a href="<%=request.getContextPath()%>/login?acao=inicial" class="btn btn-primary" role="button">
+							<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Voltar
+						</a>
+					</button>
+				</div>
+			  </div>
     			<div class="row">
     			
     			

@@ -10,6 +10,7 @@ public class Ranking {
 	private String tempoTotal;
 	private Integer totalAtividade;
 	private String dataNascimento;	
+	private Integer banido;
 	
 	public Ranking() {}
 	
@@ -74,5 +75,14 @@ public class Ranking {
 	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+
+	public Integer getBanido() {
+		return banido;
+	}
+
+	public void setBanido(Integer banido) {
+		this.banido = banido;
+	}
+ 
 
 }

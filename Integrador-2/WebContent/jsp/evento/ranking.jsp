@@ -238,8 +238,9 @@
         <div class="aw-box__icon">
           <i class="glyphicon glyphicon-ok-circle  gi-3x"></i>
         </div>
-        <div class="aw-box__value">${dashboard.mediaFotos}</div>
-        <div class="aw-box__title">Média de atividades completas</div>
+        <div class="aw-box__value"><fmt:formatNumber type = "percent" 
+         maxIntegerDigits="3" minFractionDigits = "2" value = "${dashboard.mediaFotos}" /></div>
+        <div class="aw-box__title">Porcentagem do evento finalizado</div>
       </div>
     
     </div>
@@ -278,6 +279,7 @@
  							 	<th>UF</th>
  							 	<th>Tempo Gasto</th>
  							 	<th>Atividades Completas</th>
+ 							 	<th>Banido</th>
  							  </tr>
  						</thead>
  						<tbody>
@@ -291,6 +293,7 @@
   						 	 	<td class="text-center">${ranking.estado}</td>
   						 	 	<td class="text-center">${ranking.tempoTotal}</td>
   						 	 	<td class="text-center">${ranking.totalAtividade}</td>
+  						 	 	<td class="text-center"> ${ranking.banido eq  1  ? 'Sim' : 'Nao'}</td>
   						 	 </tr>
  						 	 </c:forEach>
 					</tbody>
