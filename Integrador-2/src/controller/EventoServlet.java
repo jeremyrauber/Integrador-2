@@ -316,6 +316,7 @@ public class EventoServlet extends HttpServlet {
 	    			novousuario.setStatus(true);
 	    			daoUsuarioAtividade.update(novousuario);
 	    			novousuario = null;
+	    			mensagem = "Avaliado com sucesso!";
 	    			
 	    		}else if(tipo.equals("errado")) {
 	    			UsuarioAtividade novousuario= daoUsuarioAtividade.findByEventoAtividadeUsuarioId(id_evento, id_atividade, id_usuario);
@@ -323,6 +324,7 @@ public class EventoServlet extends HttpServlet {
 	    			novousuario.setCaminhoImagem("");
 	    			daoUsuarioAtividade.update(novousuario);
 	    			novousuario = null;
+	    			mensagem = "Avaliado com sucesso!";
 
 	    			
 	    		}else if(tipo.equals("banir")) {

@@ -129,7 +129,7 @@
 				data: { acao: "julgar", tipo: "correto",ids : $('#ids').val()},
 				success: function(data){
 					document.location.reload(); 
-					alert("deu bom "+data);
+					alert(data);
 				},
 				error:function(){
 					alert("Erro no servidor, tente novamente mais tarde.");
@@ -145,7 +145,7 @@
 			data: { acao: "julgar", tipo: "banir",ids : $('#ids').val()},
 			success: function(data){
 				document.location.reload(); 
-				alert("deu bom "+data);
+				alert(data);
 			},
 			error:function(){
 				alert("Erro no servidor, tente novamente mais tarde.");
@@ -160,7 +160,7 @@
 			data: { acao: "julgar", tipo: "errado",ids : $('#ids').val()},
 			success: function(data){
 				document.location.reload(); 
-				alert("deu bom "+data);
+				alert(data);
 			},
 			error:function(){
 				alert("Erro no servidor, tente novamente mais tarde.");
