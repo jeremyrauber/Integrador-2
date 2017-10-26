@@ -40,15 +40,14 @@ public class DaoRanking extends DaoEntity<Usuario, Integer> {
 	
 	public List<Ranking> findRankingByEvento(Integer id_evento){
 
-		Query q = em
-			    .createNativeQuery( "SELECT login,bairro, cidade, estado,data_nasc as dataNascimento, "
-			    		+ "SUM(TIMESTAMPDIFF(second,(SELECT data_inicio FROM evento WHERE id="+id_evento+"),data_fim_atividade)) AS tempoTotal, "
-			    		+ "count(id_atividade) AS totalAtividade, "
-			    		+ "nome, "
-			    		+ "(SELECT banido_evento from evento_has_usuario WHERE id_evento=1 AND evento_has_usuario.id_usuario=usuario_has_atividade.id_usuario ) "
-			    		+ "FROM usuario INNER JOIN usuario_has_atividade ON id_usuario=id "
-			    		+ "WHERE id_evento="+id_evento+" and status=1 GROUP BY id_usuario order by totalAtividade DESC, "
-			    		+ "tempoTotal ASC");
+		Query q = em.createNativeQuery( "SELECT login,bairro, cidade, estado,data_nasc as dataNascimento, "
+					    		+ "SUM(TIMESTAMPDIFF(second,(SELECT data_inicio FROM evento WHERE id="+id_evento+"),data_fim_atividade)) AS tempoTotal, "
+					    		+ "count(id_atividade) AS totalAtividade, "
+					    		+ "nome, "
+					    		+ "(SELECT banido_evento from evento_has_usuario WHERE id_evento=1 AND evento_has_usuario.id_usuario=usuario_has_atividade.id_usuario ) "
+					    		+ "FROM usuario INNER JOIN usuario_has_atividade ON id_usuario=id "
+					    		+ "WHERE id_evento="+id_evento+" and status=1 GROUP BY id_usuario order by totalAtividade DESC, "
+					    		+ "tempoTotal ASC");
 		
 		//SELECT login,bairro, cidade, estado,data_nasc as dataNascimento, SUM(TIMESTAMPDIFF(second,(SELECT data_inicio FROM evento WHERE id=1 ),data_fim_atividade)) AS tempoTotal, count(id_atividade) AS totalAtividade, nome, (SELECT banido_evento from evento_has_usuario WHERE id_evento=1 AND evento_has_usuario.id_usuario=usuario_has_atividade.id_usuario ) as banido FROM usuario INNER JOIN usuario_has_atividade ON id_usuario=id WHERE id_evento=1 and status=1 GROUP BY id_usuario order by totalAtividade DESC, tempoTotal ASC;
 		
@@ -74,7 +73,11 @@ public class DaoRanking extends DaoEntity<Usuario, Integer> {
 		    r.setTempoTotal(timeString);
 		    r.setTotalAtividade( totativ );
 		    r.setNome( (String) listResults.get(i)[7]);
-		    r.setBanido( Integer.valueOf((Integer) listResults.get(i)[8] ) );
+		    Integer banido=0;
+		    if ( listResults.get(i)[8]!=null)
+		    		banido=Integer.valueOf((Integer) listResults.get(i)[8]);
+		    
+		    r.setBanido( banido );
 		    ranking.add(r);
 		    i++;
 		}
