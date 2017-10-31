@@ -77,13 +77,14 @@ public class MestreServlet extends HttpServlet {
 			mestre.setBairro(bairro);
 			mestre.setCidade(cidade);
 			mestre.setEstado(estado);
-    		
+			
+			request.getSession().setAttribute("mestre", mestre);
 			daoMestre.update(mestre);
     		
     		System.out.println("Alterações salvas com sucesso!");
     		mensagem = "Alterações salvas com sucesso!";
         	request.setAttribute("mensagem", mensagem);
-    		request.getRequestDispatcher("jsp/mestre/manterMestre.jsp").forward(request, response);
+    		request.getRequestDispatcher("index.jsp").forward(request, response);
     		
     	}else if(acao.equals("alterarSenha")){
 			Mestre mestre = (Mestre) session.getAttribute("mestre");

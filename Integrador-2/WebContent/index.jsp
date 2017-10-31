@@ -45,7 +45,14 @@
     				</div>
     			</div>
     			<div class="row"><br/>
-    			${mensagem}
+    			<c:if test="${ not empty mensagem}">
+    				<div class="alert alert-info col-md-6 col-md-offset-4 has-feedback" role="alert">
+	  					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  						<span aria-hidden="true">&times;</span>
+	  					</button>
+				  		<strong>Informativo!</strong> ${mensagem}
+					</div>
+				</c:if>
     			</div>
     			<div class="row"><br/></div>	
     			<div class="col-md-12">

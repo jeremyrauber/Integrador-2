@@ -48,7 +48,7 @@
     			<div class="col-md-12">
 					<form action="<%=request.getContextPath()%>/upload" method="post" enctype="multipart/form-data">
 			        	<div class="form-group">
-				        	<label for="file">Escola uma imagem do arquivo</label>
+				        	<label for="file">Escolha uma imagem do arquivo</label>
 				        	<br>
 				        	<input type="file" class="form-control" name="file" id="file"/> 
 				        	<br>

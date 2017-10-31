@@ -186,15 +186,6 @@ public class EventoServlet extends HttpServlet {
 					atividades.add(a);
 				}
 				
-				for(Atividade a: daoAtividade.findAll()) {
-					atividades.add(a);
-					System.out.println(a.getDescricao());
-				}
-				
-				for(Atividade a: atividades) {
-					System.out.println(a.getDescricao());
-				}
-				
 				request.setAttribute("atividades", atividades);    		
 	    		request.setAttribute("evento", evento);    
 	    		request.getRequestDispatcher("jsp/evento/cadastrarEvento.jsp").forward(request, response);
@@ -209,6 +200,22 @@ public class EventoServlet extends HttpServlet {
 	    		String keyword = request.getParameter("keyword");
 	    		String atividades[] = request.getParameterValues("atividades[]");
 	    		
+	    		Evento eve =  daoEvento.findById(id);
+	    		
+	    		String timeStamp = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+	    		String timeStamp2 = new SimpleDateFormat("yyyyMMdd").format(eve.getDataInicio());
+	    		Integer hoje  = Integer.parseInt(timeStamp);
+	    		Integer dataOriginal = Integer.parseInt(timeStamp2);
+	    		Integer dataf = Integer.parseInt(dataFim.replaceAll("-", ""));
+	    		
+	    		String erro = "";
+	    		if(nome.equals("") || nome.length()<5 ){
+	    			erro = " Nome não pode ser vazio ou menor que 5 caracteres!";
+	    		}
+	    		if(dataf - dataOriginal< 0) {
+	    			erro = erro + " Data de fim não pode ser inferior a hoje!";
+	    		}
+	    		
 	    		Set<Atividade> lista = new HashSet<>();
 				
 				if(atividades != null) {
@@ -219,7 +226,7 @@ public class EventoServlet extends HttpServlet {
 					}
 				}
 				
-				Evento eve =  daoEvento.findById(id);
+				
 				
 				eve.setAtividades(lista);
 				eve.setNome(nome);
@@ -234,8 +241,6 @@ public class EventoServlet extends HttpServlet {
 	    		eve.setEventoUsuarios(foo);
 				
 				try {
-					date = format.parse(dataInicio);
-					eve.setDataInicio(date);
 					date = format.parse(dataFim);
 					eve.setDataFim(date);
 					
@@ -249,23 +254,39 @@ public class EventoServlet extends HttpServlet {
 				
 				eve.setMestre(mestre);
 				
-				daoEvento.update(eve);
-				
-				eve =  daoEvento.findById(id);
-				eu = daoEventoUsuario.findByEventoId(id);
-				for(EventoUsuario e : eu) {
-					System.out.println(e.getUsuario().getNome()+">>>>>>>>>>>>>>>>>>>>>>>>");
+				if(erro.equals("")) {
+					daoEvento.update(eve);
+			
+					eve =  daoEvento.findById(id);
+					eu = daoEventoUsuario.findByEventoId(id);
+					
+					mestre = (Mestre) session.getAttribute("mestre");
+					
+					mensagem = "Evento atualizadocom sucesso!";
+					request.setAttribute("mensagem", mensagem);
+					request.setAttribute("evento", eve);
+					List<Ranking> ranking = daoRanking.findUsuarioByEvento(id);
+		    		request.setAttribute("ranking", ranking);
+					request.setAttribute("mestre", mestre);
+					request.getRequestDispatcher("jsp/evento/manterEvento.jsp?acao=visualizar&id="+id).forward(request, response);
+
+				}else {
+		    		Evento evento = daoEvento.findById(id);
+	
+		    		Set<Atividade> atividades2 = new TreeSet<Atividade>();
+		    		
+					for(Atividade a: evento.getAtividades()) {
+						a.setSelecionado(true);
+						atividades2.add(a);
+					}
+					request.setAttribute("erro", erro);
+					request.setAttribute("atividades", atividades2);    		
+		    		request.setAttribute("evento", evento);    
+		    		request.getRequestDispatcher("jsp/evento/cadastrarEvento.jsp").forward(request, response);
 				}
 				
-				mestre = (Mestre) session.getAttribute("mestre");
 				
-				mensagem = "Evento atualizadocom sucesso!";
-				request.setAttribute("mensagem", mensagem);
-				request.setAttribute("evento", eve);
-				List<Ranking> ranking = daoRanking.findUsuarioByEvento(id);
-	    		request.setAttribute("ranking", ranking);
-				request.setAttribute("mestre", mestre);
-				request.getRequestDispatcher("jsp/evento/manterEvento.jsp?acao=visualizar&id="+id).forward(request, response);
+				
 	    		
 	    	}else if (acao.equals("avaliar")) {
 	    		
