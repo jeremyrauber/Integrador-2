@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `projeto`.`usuario` (
   `email` VARCHAR(45) NOT NULL,
   `ativo` TINYINT(1) NULL DEFAULT 0,
   `estado` VARCHAR(45) NOT NULL,
-  `banido` INT NULL DEFAULT 0,
+  `banido` INT NOT NULL DEFAULT 0,
   `data_cadastro`  DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `login_UNIQUE` (`login` ASC))
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `projeto`.`bairro` (
 INSERT INTO mestre (`id`, `nome`, `data_nasc`, `login`, `senha`, `endereco`, `email`, `ativo`, `cep`, `bairro`, `cidade`, `estado`) VALUES (1, 'Jeremy', '1990-01-21', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'rua puma, n 224', 'jeremy_rauber@live.com',1, '85860-240', 'Vila A','Foz do Iguaçu', 'PR');
 INSERT INTO evento (data_fim, data_inicio, descricao, id_mestre, nome, palavra_chave, id) VALUES ('2017-11-16', '2017-10-21', ' Cacar mosquitos valentoes no bairro', 1, 'Aedes na mira', 'adeus egypt', 1);
 INSERT INTO evento (data_fim, data_inicio, descricao, id_mestre, nome, palavra_chave, id) VALUES ('2017-12-16', '2017-10-22', ' Cacar mosquitos valentoes no bairro pt2', 1, 'Aedes na mira pt2', 'adeusaegypt', 2);
-INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`, `cidade`,`cep`,`email`,`ativo`,`estado`,`banido`,`data_cadastro`) VALUES (1, 'Jose da Silva', 'jose',  'eb62f6b9306db575c2d596b1279627a4', 'rua treze n 225','2005-10-12','Vila C','Foz do Iguacu', '85551-040', 'joses@email.com',1,'PR',0,'2017-09-14');
+INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`, `cidade`,`cep`,`email`,`ativo`,`estado`,`banido`,`data_cadastro`) VALUES (1, 'Jose', 'jose',  'eb62f6b9306db575c2d596b1279627a4', 'rua treze n 225','2005-10-12','Vila C','Foz do Iguacu', '85551-040', 'joses@email.com',1,'PR',0,'2017-09-14');
 INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`, `cidade`,`cep`,`email`,`ativo`,`estado`,`banido`,`data_cadastro`) VALUES (2, 'Valdir', 'val',  'eb62f6b9306db575c2d596b1279627a4', 'av Brodoski n 105','2004-01-12','Vila A','Foz do Iguacu', '85550-040', 'valdirrama@email.com',1,'PR',0,'2017-09-21');
 INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`, `cidade`,`cep`,`email`,`ativo`,`estado`,`banido`,`data_cadastro`) VALUES (3, 'Maria', 'mar',  'eb62f6b9306db575c2d596b1279627a4', 'av Silvio Americo Sasdelini n 1225','2005-10-12','Tres Bandeiras','Foz do Iguacu', '85551-140', 'mariazinha@email.com',1,'PR',0,'2017-09-22');
 INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`, `cidade`,`cep`,`email`,`ativo`,`estado`,`banido`,`data_cadastro`) VALUES (4, 'Joaquim', 'quim',  'eb62f6b9306db575c2d596b1279627a4', 'Av Brasil n 1205','2005-01-12','Centro','Foz do Iguacu', '85550-540', 'joaquino@email.com',1,'PR',0,'2017-04-11');
@@ -157,6 +157,8 @@ INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,1,
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,2,0);
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,3,0);
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,4,0);
+INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,5,0);
+INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (1,6,0);
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (2,1,0);
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (2,2,0);
 INSERT INTO evento_has_usuario (id_evento,id_usuario,banido_evento) VALUES (2,3,0);

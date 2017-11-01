@@ -25,15 +25,20 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import dao.DaoAtividade;
+import dao.DaoEvento;
 import dao.DaoEventoAtividade;
 import dao.DaoEventoUsuario;
 import dao.DaoMestre;
+import dao.DaoUsuario;
+import dao.DaoUsuarioAtividade;
 import model.Evento;
 import model.EventoAtividade;
 import model.EventoUsuario;
 import model.EventoUsuarioId;
 import model.Mestre;
 import model.Usuario;
+import model.UsuarioAtividade;
+import model.UsuarioAtividadeId;
 
 
 @Path("/servicos")
@@ -110,6 +115,7 @@ public class Servicos {
 	            @FormDataParam("evento") String evento) {  
 	    	
 	    		DaoEventoAtividade daoEventoAtividade = new DaoEventoAtividade();
+	    		DaoUsuarioAtividade daoUsuarioAtividade = new DaoUsuarioAtividade();
 	    		
 	    		List<EventoAtividade> atividades = daoEventoAtividade.findByEventoID(Integer.parseInt(evento));
 	    		Integer validadorAtiv=0;
@@ -128,12 +134,13 @@ public class Servicos {
 	    				validadorUsu=1;
 	    				
 	    		}
+
 	    		if(validadorAtiv==0 || validadorUsu==0)
 	    		{
 	    			 String output = "Usuario, evento ou atividade incorretos, verifique e tente novamente!! ";   
 	 	            return Response.status(200).entity(output).build();
-	    		}else 
-	    		{
+	    		}
+	    		else{
 		    		String nomeArquivo ="usuario"+usuario+"_atividade"+atividade+"_evento"+evento;
 		            String fileLocation = "C:\\Users\\usr\\Git\\Integrador-2\\WebContent\\images\\"+nomeArquivo+".jpg";  
 		            
@@ -149,6 +156,30 @@ public class Servicos {
 		                out.close();
 		              
 		            } catch (IOException e) {e.printStackTrace();}
+		            
+		            DaoAtividade daoAtividade = new DaoAtividade();
+		            DaoEvento daoEvento = new DaoEvento();
+		            DaoUsuario daoUsuario = new DaoUsuario();
+		            
+		            UsuarioAtividade obj = new UsuarioAtividade();
+		            UsuarioAtividadeId idua = new UsuarioAtividadeId();
+		            
+		            idua.setIdAtividade(Integer.parseInt(atividade));
+		            idua.setIdEvento(Integer.parseInt(evento));
+		            idua.setIdUsuario(Integer.parseInt(usuario));
+		            
+		            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+					Date date = new Date();
+		            obj.setId(idua);
+		            obj.setAtividade(daoAtividade.findById(Integer.parseInt(atividade)));
+		            obj.setEvento(daoEvento.findById(Integer.parseInt(evento)));
+		            obj.setUsuario(daoUsuario.findById(Integer.parseInt(usuario)));
+		            obj.setDataFimAtividade(date);
+		            obj.setStatus(false);
+		            obj.setCaminhoImagem("images/"+nomeArquivo+".jpg");
+		            
+		            daoUsuarioAtividade.save(obj);
+		            
 		            String output = "Imagem carregada com sucesso para : " + fileLocation;  
 		            return Response.status(200).entity(output).build();
 	    		}

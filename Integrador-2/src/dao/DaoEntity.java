@@ -20,6 +20,7 @@ public class DaoEntity<T,ID> {
 		}
 		clazz = _clazz;
 	}
+	
 	public void save(T obj) {
 		em.clear();
 		em.getTransaction().begin();

@@ -333,18 +333,16 @@ public class EventoServlet extends HttpServlet {
 	    		Integer id_usuario= Integer.parseInt(parts[2]);
 	    		 
 	    		if(tipo.equals("correto")) {
-	    			UsuarioAtividade novousuario = daoUsuarioAtividade.findByEventoAtividadeUsuarioId(id_evento, id_atividade, id_usuario);
-	    			novousuario.setStatus(true);
-	    			daoUsuarioAtividade.update(novousuario);
-	    			novousuario = null;
+	    			UsuarioAtividade novoUsuarioAtiv = daoUsuarioAtividade.findByEventoAtividadeUsuarioId(id_evento, id_atividade, id_usuario);
+	    			novoUsuarioAtiv.setStatus(true);
+	    			daoUsuarioAtividade.update(novoUsuarioAtiv);
+	    			novoUsuarioAtiv = null;
 	    			mensagem = "Avaliado com sucesso!";
 	    			
 	    		}else if(tipo.equals("errado")) {
-	    			UsuarioAtividade novousuario= daoUsuarioAtividade.findByEventoAtividadeUsuarioId(id_evento, id_atividade, id_usuario);
-	    			novousuario.setStatus(false);
-	    			novousuario.setCaminhoImagem("");
-	    			daoUsuarioAtividade.update(novousuario);
-	    			novousuario = null;
+	    			UsuarioAtividade novoUsuarioAtiv = daoUsuarioAtividade.findByEventoAtividadeUsuarioId(id_evento, id_atividade, id_usuario);
+	    			daoUsuarioAtividade.remove(novoUsuarioAtiv);
+	    			novoUsuarioAtiv = null;
 	    			mensagem = "Avaliado com sucesso!";
 
 	    			
