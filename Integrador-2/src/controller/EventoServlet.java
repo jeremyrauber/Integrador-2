@@ -118,6 +118,9 @@ public class EventoServlet extends HttpServlet {
 	    		if(dataf - hoje<0) {
 	    			erro = erro + " Data de fim não pode ser inferior a hoje!";
 	    		}
+	    		if(datai - dataf>0) {
+	    			erro = erro + " Data de fim não pode ser inferior a data de início!";
+	    		}
 	    		
 	    		Evento e = new Evento();
 				
@@ -226,15 +229,12 @@ public class EventoServlet extends HttpServlet {
 					}
 				}
 				
-				
-				
 				eve.setAtividades(lista);
 				eve.setNome(nome);
 				
 				DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 				Date date;
-
-	    		
+    		
 	    		List<EventoUsuario> eu = daoEventoUsuario.findByEventoId(eve.getId());
 	    		Set<EventoUsuario> foo = new HashSet<EventoUsuario>(eu);
 

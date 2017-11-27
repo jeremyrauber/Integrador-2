@@ -65,7 +65,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="nome">Nome Completo</label>  
 							  <div class="col-md-6">
-							  	<input id="nome" name="nome" type="text" class="form-control input-md" value="${mestre.nome}">
+							  	<input id="nome" name="nome" type="text" class="form-control input-md" value="${mestre.nome}" readonly>
 							  </div>
 							</div>
 							
@@ -97,7 +97,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="bairro">Bairro</label>
 							  <div class="col-md-6">
-							    <input id="bairro" name="bairro" type="text" class="form-control input-md" required="" value="${mestre.bairro}">
+							    <input id="bairro" name="bairro" type="text" class="form-control input-md" required="" value="${mestre.bairro}" readonly>
 							  </div>
 							</div>
 							
@@ -105,7 +105,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="cidade">Cidade</label>
 							  <div class="col-md-6">
-							    <input id="cidade" name="cidade" type="text" class="form-control input-md" required="" value="${mestre.cidade}">
+							    <input id="cidade" name="cidade" type="text" class="form-control input-md" required="" value="${mestre.cidade}" readonly>
 							  </div>
 							</div>
 							
@@ -113,7 +113,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="estado">Estado</label>
 							  <div class="col-md-6">
-							    <input id="estado" name="estado" type="text" class="form-control input-md" required="" value="${mestre.estado}">
+							    <input id="estado" name="estado" type="text" class="form-control input-md" required="" value="${mestre.estado}" readonly>
 							  </div>
 							</div>
 							

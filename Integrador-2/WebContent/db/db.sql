@@ -136,9 +136,9 @@ INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`
 INSERT INTO usuario (`id`,`nome`,`login`,`senha`,`endereco`,`data_nasc`,`bairro`, `cidade`,`cep`,`email`,`ativo`,`estado`,`banido`,`data_cadastro`) VALUES (6, 'Caroline', 'caroleta',  'eb62f6b9306db575c2d596b1279627a4', 'Rua das Carolas 201','2006-06-15','Jardim das Flores','Foz do Iguacu', '85750-045', 'caarol@email.com',1,'PR',0,'2017-10-03');
 INSERT INTO atividade(id,descricao,nivel) VALUES (1,"Recolher pneus do quintal",3);
 INSERT INTO atividade(id,descricao,nivel) VALUES (2,"Limpar vasos de plantas",1);
-INSERT INTO atividade(id,descricao,nivel) VALUES (3,"Limpar uma piscina",3);
+INSERT INTO atividade(id,descricao,nivel) VALUES (3,"Esvaziar o resetarorio de agua da geladeira",3);
 INSERT INTO atividade(id,descricao,nivel) VALUES (4,"Remover lixo do quintal",2);
-INSERT INTO atividade(id,descricao,nivel) VALUES (5,"Adicionar areia aos vasos de plantas",1);
+INSERT INTO atividade(id,descricao,nivel) VALUES (5,"Limpar uma caixa da agua de 500 litros",1);
 INSERT INTO atividade(id,descricao,nivel) VALUES (6,"Remover todos os pontos água parada do quintal",2);
 INSERT INTO evento_has_atividade(id_evento,id_atividade) VALUES (1,1);
 INSERT INTO usuario_has_atividade(`id_usuario`,`id_atividade`,`id_evento`,`status`,`caminho_imagem`,`data_fim_atividade`) VALUES (1,1,1,0,'images/usuario1_atividade1_evento1.JPG','2017-10-21 10:00:15');

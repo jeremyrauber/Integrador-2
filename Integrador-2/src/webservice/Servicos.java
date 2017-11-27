@@ -142,9 +142,10 @@ public class Servicos {
 	    		}
 	    		else{
 		    		String nomeArquivo ="usuario"+usuario+"_atividade"+atividade+"_evento"+evento;
-		            String fileLocation = "C:\\Users\\usr\\Git\\Integrador-2\\WebContent\\images\\"+nomeArquivo+".jpg";  
+		            //String fileLocation = "C:\\Users\\usr\\Git\\Integrador-2\\WebContent\\images\\"+nomeArquivo+".jpg";
+		    		String fileLocation = "C:\\Users\\Crash\\eclipse-workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Integrador-2\\images\\"+nomeArquivo+".jpg";
 		            
-		            try {  
+		       try {  
 		                FileOutputStream out = new FileOutputStream(new File(fileLocation));  
 		                int read = 0;  
 		                byte[] bytes = new byte[1024];  
@@ -155,7 +156,7 @@ public class Servicos {
 		                out.flush();  
 		                out.close();
 		              
-		            } catch (IOException e) {e.printStackTrace();}
+		          
 		            
 		            DaoAtividade daoAtividade = new DaoAtividade();
 		            DaoEvento daoEvento = new DaoEvento();
@@ -178,10 +179,20 @@ public class Servicos {
 		            obj.setStatus(false);
 		            obj.setCaminhoImagem("images/"+nomeArquivo+".jpg");
 		            
+		         
 		            daoUsuarioAtividade.save(obj);
+		        
 		            
 		            String output = "Imagem carregada com sucesso para : " + fileLocation;  
 		            return Response.status(200).entity(output).build();
+		            
+		            } catch (Exception e) {
+
+		            String output = "Erro no servidor, tente novamente em outro momento";  
+		            return Response.status(200).entity(output).build();
+		            }
+		            
+		            
 	    		}
         }  
 }  

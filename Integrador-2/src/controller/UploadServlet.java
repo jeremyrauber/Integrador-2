@@ -59,9 +59,9 @@ public class UploadServlet extends HttpServlet {
                 	 Mestre mestre = (Mestre) session.getAttribute("mestre");
                 	 String momeArquivo =mestre.getLogin()+ fitem.getName().substring(fitem.getName().length() - 4);
                 	 	
-                  	 File uploadedFile = new File("C:\\Users\\usr\\Git\\Integrador-2\\WebContent\\images\\usuarios\\"+momeArquivo);
-                  	 //File uploadedFile = new File("c:\\Users\\Crash\\git\\Integrador-2\\Integrador-2\\WebContent\\images\\usuarios\\"+momeArquivo);
-                	// File uploadedFile = new File(getServletContext().getRealPath("images/usuarios/")+momeArquivo);
+                  	// File uploadedFile = new File("C:\\Users\\usr\\Git\\Integrador-2\\WebContent\\images\\usuarios\\"+momeArquivo);
+                  	// File uploadedFile = new File("C:\\Users\\Crash\\Git\\Integrador-2\\Integrador-2\\WebContent\\images\\usuarios\\"+momeArquivo);
+                	File uploadedFile = new File(getServletContext().getRealPath("images/usuarios/")+momeArquivo);
                 	 
                 	 System.out.println(getServletContext().getRealPath("images/usuarios/"));
                   	 fitem.write(uploadedFile);
