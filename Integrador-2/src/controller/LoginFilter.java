@@ -34,8 +34,8 @@ public class LoginFilter implements Filter {
 	public void destroy() {
 		
     }
-	// Método que captura a requisição e onde
-	// Eh realizada a decisão para onde ir a seguir.
+	// MÃ©todo que captura a requisiÃ§Ã£o e onde
+	// Eh realizada a decisÃ£o para onde ir a seguir.
 	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {  
@@ -60,7 +60,7 @@ public class LoginFilter implements Filter {
 
         if (loggedIn || loginRequest) {
         	
-        	// existe usuário logado, ele permite a requisição:
+        	// existe usuÃ¡rio logado, ele permite a requisiÃ§Ã£o:
         	
         	Mestre mestreSession = (Mestre) session.getAttribute("mestre");
         	Mestre mestre = mestreSession;
@@ -74,7 +74,7 @@ public class LoginFilter implements Filter {
             chain.doFilter(request, response);
             
         }else {
-	    	// caso não exista usuário autenticado na sessão
+	    	// caso nÃ£o exista usuÃ¡rio autenticado na sessÃ£o
         	
 	    	String uri = ((HttpServletRequest)request).getRequestURI();
 			if ( uri.indexOf("/css") > 0 || uri.indexOf(rootPath+"/css") > 0){
@@ -90,6 +90,8 @@ public class LoginFilter implements Filter {
 			}else if ( uri.indexOf("/rest") > 0 || uri.indexOf(rootPath+"/rest") > 0){
 				chain.doFilter(request, response);
 			}else if ( uri.indexOf("/novasenha") > 0 || uri.indexOf(rootPath+"/novasenha") > 0){
+				chain.doFilter(request, response);
+			}else if ( uri.indexOf("/images") > 0 || uri.indexOf(rootPath+"/images") > 0){
 				chain.doFilter(request, response);
 			}else {
 				response.sendRedirect(loginServlet);
