@@ -62,14 +62,7 @@
 							<div class="panel-body inf-content">
 								<div class="row">
 									<div class="col-md-4"> 
-										<img alt="" style="width:300px;" title="" class="img-circle img-thumbnail isTooltip" src="${not empty mestre.caminhoImagem ? mestre.caminhoImagem : 'images/usuarios/padrao.png'}" data-original-title="Usuario">									
-										<ul title="Ratings" class="list-inline ratings text-center">
-											<li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-											<li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-											<li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li>
-											<a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-											<li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-										</ul>
+										<img alt="" style="width:350px;" title="" class="img-circle img-thumbnail isTooltip" src="${not empty mestre.caminhoImagem ? mestre.caminhoImagem : 'images/usuarios/padrao.png'}" data-original-title="Usuario">									
 									</div>
 									<div class="col-md-6"> <strong>Informações:</strong><br>
 										<div class="table-responsive">

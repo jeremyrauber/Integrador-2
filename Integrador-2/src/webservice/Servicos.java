@@ -70,32 +70,38 @@ public class Servicos {
 	//http://localhost:8080/Integrador-2/rest/servicos/entrar_evento?id_evento=1&id_usuario=5
 	@Path("/entrar_evento")
 	@GET
-	public String entrar(@QueryParam("id_usuario") Integer id_usuario,@QueryParam("id_evento") Integer id_evento) {
+	public String entrar(@QueryParam("id_usuario") Integer id_usuario,@QueryParam("id_evento") Integer id_evento,@QueryParam("password") String password) {
 		
 		try {		
-			DaoEventoUsuario daoEventoUsuario = new DaoEventoUsuario();
-			EventoUsuario eu = new EventoUsuario();
-			EventoUsuarioId euid = new EventoUsuarioId();		
-			Usuario u1 = new Usuario();
-			Evento e1 = new Evento();
-			euid.setIdEvento(id_evento);
-			euid.setIdUsuario(id_usuario);
-		
-			u1.setId(id_usuario);
-			e1.setId(id_evento);
-			eu.setUsuario(u1);
-			eu.setEvento(e1);
-			eu.setId(euid);
-			eu.setBanidoEvento(false);
 			
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			Date date = new Date();
+			DaoEvento daoE = new DaoEvento();
+			Evento evento = daoE.findById(id_evento);
+			if(evento.getPalavraChave().equals(password)) {
+				DaoEventoUsuario daoEventoUsuario = new DaoEventoUsuario();
+				EventoUsuario eu = new EventoUsuario();
+				EventoUsuarioId euid = new EventoUsuarioId();		
+				Usuario u1 = new Usuario();
+				Evento e1 = new Evento();
+				euid.setIdEvento(id_evento);
+				euid.setIdUsuario(id_usuario);
 			
-			eu.setDataVinculo(date);
-			
-			daoEventoUsuario.save(eu);
-			
-			return "Entrou no evento com sucesso";
+				u1.setId(id_usuario);
+				e1.setId(id_evento);
+				eu.setUsuario(u1);
+				eu.setEvento(e1);
+				eu.setId(euid);
+				eu.setBanidoEvento(false);
+				
+				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Date date = new Date();
+				
+				eu.setDataVinculo(date);
+				
+				daoEventoUsuario.save(eu);
+				
+				return "Entrou no evento com sucesso";
+			}else
+				return "Palavra-Passe incorreta. Tente novamente";
 		}catch(Exception e){
 			
 			return "Houve algum problema em nossos servidores. Entre em contato com nossos administradores.";
